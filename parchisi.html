@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="parchisi.css">
+    <link rel="icon" href="icon.png"> 
     <title>Parchisi</title>
 </head>
 <body>
-    <div class="Main-Container">
+    <div id="Main-Container" class="Main-Container">
 
         <div id="blue-box">
             <div id="dark-blue-box">
@@ -47,19 +48,19 @@
         <div id="d47" class="first second-column grays">
             <img class="star" src="star.png">
         </div>
-        <div id="green1" class="second second-column greens"></div>
-        <div id="green2" class="third second-column greens"></div>
-        <div id="green3" class="fourth second-column greens"></div>
-        <div id="green4" class="fifth second-column greens"></div>
-        <div id="green5" class="sixth second-column greens"></div>
-        <div id="green6" class="seventh second-column greens"></div>
-        <div id="green7" class="eighth second-column greens"></div>
+        <div id="blue1" class="second second-column blues"></div>
+        <div id="blue2" class="third second-column blues"></div>
+        <div id="blue3" class="fourth second-column blues"></div>
+        <div id="blue4" class="fifth second-column blues"></div>
+        <div id="blue5" class="sixth second-column blues"></div>
+        <div id="blue6" class="seventh second-column blues"></div>
+        <div id="blue7" class="eighth second-column blues"></div>
 
         <div id="d48" class="wides first first-column">48</div>
         <div id="d49" class="wides second first-column">49</div>
         <div id="d50" class="wides third first-column">50</div>
         <div id="d51" class="wides fourth first-column">51</div>
-        <div id="d52" class="wides fifth first-column greens"></div>
+        <div id="d52" class="wides fifth first-column blues"></div>
         <div id="d53" class="wides sixth first-column">53</div>
         <div id="d54" class="wides seventh first-column">54</div>
         <div id="d55" class="borderless-wide eighth first-column">55</div>
@@ -78,7 +79,7 @@
         <div id="d21" class="borderless-wide ninth third-column">21</div>
         <div id="d20" class="wides tenth third-column">20</div>
         <div id="d19" class="wides eleventh third-column">19</div>
-        <div id="d18" class="wides twelfth third-column blues"></div>
+        <div id="d18" class="wides twelfth third-column greens"></div>
         <div id="d17" class="wides thirteenth third-column">17</div>
         <div id="d16" class="wides fourteenth third-column">16</div>
         <div id="d15" class="wides fifteenth third-column">15</div>
@@ -95,13 +96,13 @@
         <div id="d11" class="wides fifteenth first-column">11</div>
         <div id="d12" class="wides sixteenth first-column">12</div>
 
-        <div id="blue7" class="ninth second-column blues"></div>
-        <div id="blue6" class="tenth second-column blues"></div>
-        <div id="blue5" class="eleventh second-column blues"></div>
-        <div id="blue4" class="twelfth second-column blues"></div>
-        <div id="blue3" class="thirteenth second-column blues"></div>
-        <div id="blue2" class="fourteenth second-column blues"></div>
-        <div id="blue1" class="fifteenth second-column blues"></div>
+        <div id="green7" class="ninth second-column greens"></div>
+        <div id="green6" class="tenth second-column greens"></div>
+        <div id="green5" class="eleventh second-column greens"></div>
+        <div id="green4" class="twelfth second-column greens"></div>
+        <div id="green3" class="thirteenth second-column greens"></div>
+        <div id="green2" class="fourteenth second-column greens"></div>
+        <div id="green1" class="fifteenth second-column greens"></div>
         <div id="d13" class="sixteenth second-column grays">
             <img class="star" src="star.png">
         </div>
@@ -174,6 +175,116 @@
         <div class="top-left-line"></div>
         <div class="bottom-left-line"></div>
         <div class="bottom-right-line"></div>
+
+        <!--blue pieces-->
+        <div id="blue-one-container" class="piece-container">
+            <img src="blue.png" class="piece">
+        </div>
+        
+        <div id="blue-two-container" class="piece-container">
+            <img src="blue.png" class="piece">
+        </div>
+
+        <div id="blue-three-container" class="piece-container">
+            <img src="blue.png" class="piece">
+        </div>
+
+        <div id="blue-four-container" class="piece-container">
+            <img src="blue.png" class="piece">
+        </div>
+
+        <!--red pieces-->
+        <div id="red-one-container" class="piece-container">
+            <img src="red.png" class="piece">
+        </div>
+        
+        <div id="red-two-container" class="piece-container">
+            <img src="red.png" class="piece">
+        </div>
+
+        <div id="red-three-container" class="piece-container">
+            <img src="red.png" class="piece">
+        </div>
+
+        <div id="red-four-container" class="piece-container">
+            <img src="red.png" class="piece">
+        </div>
+        
+        <!--yellow pieces-->
+        <div id="yellow-one-container" class="piece-container">
+            <img src="yellow.png" class="piece">
+        </div>
+        
+        <div id="yellow-two-container" class="piece-container">
+            <img src="yellow.png" class="piece">
+        </div>
+
+        <div id="yellow-three-container" class="piece-container">
+            <img src="yellow.png" class="piece">
+        </div>
+
+        <div id="yellow-four-container" class="piece-container">
+            <img src="yellow.png" class="piece">
+        </div>
+        
+        <!--green pieces-->
+        <div id="green-one-container" class="piece-container">
+            <img src="green.png" class="piece">
+        </div>
+        
+        <div id="green-two-container" class="piece-container">
+            <img src="green.png" class="piece">
+        </div>
+
+        <div id="green-three-container" class="piece-container">
+            <img src="green.png" class="piece">
+        </div>
+
+        <div id="green-four-container" class="piece-container">
+            <img src="green.png" class="piece">
+        </div>
     </div>
+    
+    <!--blue roller-->
+    <div id="blue-roll" class="roller-container">
+        <div id="blue-roller-one" class="roller-one">
+            <img id="blue-roller-one-image" class="roller-image" src="dice-crown.png">
+        </div>
+        <div id="blue-roller-two" class="roller-two">
+            <img id="blue-roller-two-image" class="roller-image" src="dice-crown.png">
+        </div>
+    </div>
+
+    <!--red roller-->
+    <div id="red-roll" class="roller-container">
+        <div id="red-roller-one" class="roller-one">
+            <img id="red-roller-one-image" class="roller-image" src="dice-crown.png">
+        </div>
+        <div id="red-roller-two" class="roller-two">
+            <img id="red-roller-two-image" class="roller-image" src="dice-crown.png">
+        </div>
+    </div>
+
+    <!--yellow roller-->
+    <div id="yellow-roll" class="roller-container">
+        <div id="yellow-roller-one" class="roller-one">
+            <img id="yellow-roller-one-image" class="roller-image" src="dice-crown.png">
+        </div>
+        <div id="yellow-roller-two" class="roller-two">
+            <img id="yellow-roller-two-image" class="roller-image" src="dice-crown.png">
+        </div>
+    </div>
+
+    <!--green roller-->
+    <div id="green-roll" class="roller-container">
+        <div id="green-roller-one" class="roller-one">
+            <img id="green-roller-one-image" class="roller-image" src="dice-crown.png">
+        </div>
+        <div id="green-roller-two" class="roller-two">
+            <img id="green-roller-two-image" class="roller-image" src="dice-crown.png">
+        </div>
+    </div>
+
+    <script src="parchisi.js"></script>
 </body>
 </html>

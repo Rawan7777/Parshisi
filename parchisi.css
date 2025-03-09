@@ -1,6 +1,7 @@
 body{
-    height: 100vh;
-    width: 100vw;
+    height: 686px;
+    width: 1504px;
+    margin: 0px;
     position: relative;
     background-color: rgb(5, 0, 23);
 }
@@ -34,6 +35,8 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    /* top: 114px;
+    left: 567px; */
 }
 
 #blue-box{
@@ -564,4 +567,82 @@ body{
 .star{
     height: 18px;
     width: 20px;
+}
+.piece-container{
+    height: 28px;
+    width: 28px;
+    position: absolute;
+    z-index: 6;
+
+}
+.piece{
+    height: 100%;
+    width: 100%;
+    z-index: 6;
+}
+.roller-container{
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    position: absolute;
+
+}
+#blue-roll{
+    background-color: var(--light-blue);
+    top: 70px;
+    left: 370px;
+}
+#blue-roll:hover{
+    background-color: var(--dark-blue);
+}
+
+#red-roll{
+    background-color: var(--light-red);
+    top: 70px;
+    right: 370px;
+}
+#red-roll:hover{
+    background-color: var(--black-red);
+}
+
+#yellow-roll{
+    background-color: var(--dark-yellow);
+    bottom: 70px;
+    left: 370px;
+}
+#yellow-roll:hover{
+    background-color: var(--black-yellow);
+}
+
+#green-roll{
+    background-color: var(--light-green);
+    bottom: 70px;
+    right: 370px;
+}
+#green-roll:hover{
+    background-color: var(--black-green);
+}
+
+
+.roller-one{
+    height: 90%;
+    width: 45%;
+    background-color: white;
+    border-radius: 5%;
+    position: absolute;
+    top: 5%;
+    left: 3%;
+}
+.roller-two{
+    height: 90%;
+    width: 45%;
+    background-color: white;
+    border-radius: 5%;
+    position: absolute;
+    top: 5%;
+    right: 3%;
+}
+.roller-image{
+    height: 100%;
+    width: 100%;
 }
