@@ -1,3 +1,7 @@
+*{
+    user-select: none;
+}
+
 body{
     height: 686px;
     width: 1504px;
@@ -29,14 +33,11 @@ body{
 .Main-Container{
     height: 546px;
     width: 546px;
-    background-color: rgb(251, 0, 255);
     border-radius: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* top: 114px;
-    left: 567px; */
 }
 
 #blue-box{
@@ -269,10 +270,10 @@ body{
     width: 0px;
     height: 0px;
     background-color: #1b90ff;
-    border-top: 73px solid var(--light-green);
+    border-top: 73px solid var(--light-blue);
     border-left: 73px solid var(--light-yellow);
     border-right: 73px solid var(--light-red);
-    border-bottom: 73px solid var(--light-blue);
+    border-bottom: 73px solid var(--light-green);
     position: absolute;
     bottom: 50%;
     right: 50%;
@@ -444,10 +445,6 @@ body{
     color: gray;
 }
 
-.greens{
-    background-color: var(--light-green); 
-}
-
 .blues{
     background-color: var(--light-blue);
 }
@@ -458,6 +455,10 @@ body{
 
 .yellows{
     background-color: var(--light-yellow);
+}
+
+.greens{
+    background-color: var(--light-green); 
 }
 
 .grays{
@@ -568,30 +569,35 @@ body{
     height: 18px;
     width: 20px;
 }
-.piece-container{
+
+.pawn-container{
     height: 28px;
     width: 28px;
     position: absolute;
     z-index: 6;
-
+    pointer-events: none; 
 }
-.piece{
+
+.pawn{
     height: 100%;
     width: 100%;
     z-index: 6;
 }
+
 .roller-container{
     height: 50px;
     width: 100px;
-    border-radius: 5px;
+    border-radius: 11px;
     position: absolute;
 
 }
+
 #blue-roll{
     background-color: var(--light-blue);
     top: 70px;
     left: 370px;
 }
+
 #blue-roll:hover{
     background-color: var(--dark-blue);
 }
@@ -600,7 +606,9 @@ body{
     background-color: var(--light-red);
     top: 70px;
     right: 370px;
+    visibility: hidden;
 }
+
 #red-roll:hover{
     background-color: var(--black-red);
 }
@@ -609,7 +617,9 @@ body{
     background-color: var(--dark-yellow);
     bottom: 70px;
     left: 370px;
+    visibility: hidden;
 }
+
 #yellow-roll:hover{
     background-color: var(--black-yellow);
 }
@@ -618,31 +628,39 @@ body{
     background-color: var(--light-green);
     bottom: 70px;
     right: 370px;
+    visibility: hidden;
 }
+
 #green-roll:hover{
     background-color: var(--black-green);
 }
 
-
 .roller-one{
     height: 90%;
     width: 45%;
-    background-color: white;
     border-radius: 5%;
     position: absolute;
     top: 5%;
     left: 3%;
+    pointer-events: none;
 }
+
 .roller-two{
     height: 90%;
     width: 45%;
-    background-color: white;
     border-radius: 5%;
     position: absolute;
     top: 5%;
     right: 3%;
+    pointer-events: none;
 }
+
 .roller-image{
     height: 100%;
     width: 100%;
+}
+
+#blue-one-container{
+    position: absolute;
+    transition: left 0.4s ease, top 0.4s ease;
 }
