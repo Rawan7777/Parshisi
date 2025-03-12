@@ -19,11 +19,12 @@ let blue_two_container = document.getElementById("blue-two-container")
 let blue_three_container = document.getElementById("blue-three-container")
 let blue_four_container = document.getElementById("blue-four-container")
 
-// Main pawns Container coordinantes
-let pawn_container = blue_one_container.getBoundingClientRect()
+// Sample pawn Container coordinantes
+let pawn_container = document.getElementById("blue-one-container")
+let pawn_container_cords = pawn_container.getBoundingClientRect()
 
 // calculate the homes coordinantes
-let close_cords = oval1_cords.x - Main_Container_cords.x + ((oval1_cords.width - pawn_container.width)/2);
+let close_cords = oval1_cords.x - Main_Container_cords.x + ((oval1_cords.width - pawn_container_cords.width)/2);
 let far_cords = oval4_cords.x - Main_Container_cords.x + ((oval4_cords.width - blue_four_container.getBoundingClientRect().width)/2);
 
 // blue homes coordinantes
@@ -102,14 +103,20 @@ green_four_container.style.bottom =  far_cords + "px";
 let divs = {}
 let cords = {}
 let spots = {}
+let wide_center = {}
+let who_isin_spot = {}
 
 for (let i = 1; i <= 68; i++) {
 
     divs[`d${i}`] = document.getElementById(`d${i}`);
     cords[`d${i}_cords`] = divs[`d${i}`].getBoundingClientRect();
 
-    spots[`d${i}_spot_x`] = cords[`d${i}_cords`].x - Main_Container_cords.x + ((cords[`d${i}_cords`].width - pawn_container.width) / 2);
-    spots[`d${i}_spot_y`] = cords[`d${i}_cords`].y - Main_Container_cords.y + ((cords[`d${i}_cords`].height - pawn_container.height) / 2);
+    spots[`d${i}_spot_x`] = cords[`d${i}_cords`].x - Main_Container_cords.x + ((cords[`d${i}_cords`].width - pawn_container_cords.width) / 2);
+    spots[`d${i}_spot_y`] = cords[`d${i}_cords`].y - Main_Container_cords.y + ((cords[`d${i}_cords`].height - pawn_container_cords.height) / 2);
+
+    wide_center[`d${i}_center_x`] = cords[`d${i}_cords`].x + ((cords[`d${i}_cords`].width - pawn_container_cords.width)/2)
+
+    who_isin_spot[`who_isin_spot${i}`] = [];
 }
 
 //---------------------------------------------------roll dice buttons-------------------------------------------------------
@@ -121,11 +128,45 @@ document.getElementById("green-roll").addEventListener('click', function() {roll
 
 //---------------------------------------------------roll dice function------------------------------------------------------
 
+let who_is_home = {
+    blue_one: blue_one_container,
+    blue_two: blue_two_container,
+    blue_three: blue_three_container,
+    blue_four: blue_four_container
+}
+let blue_containers = {
+    blue_one: blue_one_container,
+    blue_two: blue_two_container,
+    blue_three: blue_three_container,
+    blue_four: blue_four_container
+}
+
+let who_is_home_indexes = ["blue_one", "blue_two", "blue_three", "blue_four"]
+
+let count = 0;
+var clicked1 = false;
+var clicked2 = false;
+
 function roll_dice(roller_one_image, roller_two_image){
 
+    let dice_1;
+    let dice_2;
+
+    function dicy(){
+        if(count == 0){
+            dice_1 = 5;
+            dice_2 = 5;
+            count++;
+        }else if(count == 1){
+            dice_1 = 5;
+            dice_2 = 4;
+        }
+    }
+    dicy();
+
     // set the dices
-    let dice_1 = Math.floor(Math.random() * 6) + 1;
-    let dice_2 = Math.floor(Math.random() * 6) + 1;
+    // let dice_1 = Math.floor(Math.random() * 6) + 1;
+    // let dice_2 = Math.floor(Math.random() * 6) + 1;
 
     // display the dices
     let roller_1_image = document.getElementById(roller_one_image)  
@@ -173,19 +214,135 @@ function roll_dice(roller_one_image, roller_two_image){
             break;
     }
 
-    // enter the pawns to the path
-    if(dice_1 == 5 || dice_2 == 5 || dice_1 + dice_2 == 5){
 
-        if( oval1_cords.x < blue_one_container.getBoundingClientRect().x < oval1_cords.x + oval1_cords.width){
+    // enter the pawns to the path
+    if(dice_1 == 5 && dice_2 == 5){
+
+        if(!( 
+        ( ((cords.d52_cords.x - 5) < blue_one_container.getBoundingClientRect().x && blue_one_container.getBoundingClientRect().x < cords.d52_cords.x + d52.getBoundingClientRect().width) &&
+          ((cords.d52_cords.y - 5) < blue_one_container.getBoundingClientRect().y && blue_one_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height) ) 
+          ||
+        ( ((cords.d52_cords.x - 5) < blue_two_container.getBoundingClientRect().x && blue_two_container.getBoundingClientRect().x < cords.d52_cords.x + d52.getBoundingClientRect().width) && 
+          ((cords.d52_cords.y - 5) < blue_two_container.getBoundingClientRect().y && blue_two_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height) ) 
+          ||
+        ( ((cords.d52_cords.x - 5) < blue_three_container.getBoundingClientRect().x && blue_three_container.getBoundingClientRect().x < cords.d52_cords.x + d52.getBoundingClientRect().width) &&
+          ((cords.d52_cords.y - 5) < blue_three_container.getBoundingClientRect().y && blue_three_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height) ) 
+          ||
+        ( ((cords.d52_cords.x - 5) < blue_four_container.getBoundingClientRect().x && blue_four_container.getBoundingClientRect().x < cords.d52_cords.x + d52.getBoundingClientRect().width) &&
+          ((cords.d52_cords.y - 5) < blue_four_container.getBoundingClientRect().y && blue_four_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height) )
+
+            ))
+        {
+
+            if(Object.keys(who_is_home).length > 1)
+            {
+                index0 = who_is_home_indexes[0]
+                index1 = who_is_home_indexes[1]
+
+                who_is_home[`${index0}`].style.left = spots.d52_spot_x - 15 + "px";
+                who_is_home[`${index0}`].style.top = spots.d52_spot_y + "px";
+                delete who_is_home[`${index0}`]
+                who_is_home_indexes = who_is_home_indexes.filter(container => container != who_is_home_indexes[0])
+                who_isin_spot.who_isin_spot52.push(blue_containers[`${index0}`])
+
+                who_is_home[`${index1}`].style.left = spots.d52_spot_x + 15 + "px";
+                who_is_home[`${index1}`].style.top = spots.d52_spot_y + "px";
+                delete who_is_home[`${index1}`]
+                who_is_home_indexes = who_is_home_indexes.filter(container => container != who_is_home_indexes[0])
+                who_isin_spot.who_isin_spot52.push(blue_containers[`${index1}`])
+            }
+        }else if(who_isin_spot.who_isin_spot52.length == 2){
+            
+            let float = document.getElementById("numbers-container")
+            let number_one = document.getElementById("number-one")
+            let number_two = document.getElementById("number-two")
+            
+            float.style.left = cords.d52_cords.x + 3 + "px";
+            float.style.top = spots.d52_spot_y + 35 + "px";
+            float.style.visibility = "visible";
+            number_one.textContent = dice_1;
+            number_two.textContent = dice_2;
+            number_one.addEventListener('click', () => {movements(dice_1, blue_containers[`${index0}`], 52); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5})
+            number_two.addEventListener('click', () => {movements(dice_2)})
+
+            
+        }
+    }
+
+    else if(dice_1 == 5 || dice_2 == 5 || dice_1 + dice_2 == 5){
+
+        if(who_is_home_indexes.includes("blue_one") && who_isin_spot.who_isin_spot52.length <= 1){
+
 
             blue_one_container.style.left = spots.d52_spot_x + "px";
             blue_one_container.style.top = spots.d52_spot_y + "px";
+            who_isin_spot.who_isin_spot52.push(who_is_home_indexes[0]);
+            who_is_home_indexes = who_is_home_indexes.filter(container => container != "blue_one");
 
-            if(dice_1 == 5){
-                setTimeout(() => { after_home(dice_2) }, 100)
-            }else if(dice_2 == 5){
-                setTimeout(() => { after_home(dice_1) }, 100)
+            if(who_isin_spot.who_isin_spot52.length == 1){
+                if(dice_1 == 5){
+                    setTimeout(() => { after_home(dice_2) }, 100)
+                }else if(dice_2 == 5){
+                    setTimeout(() => { after_home(dice_1) }, 100)
+                }
             }
+
+        }else if(who_is_home_indexes.includes("blue_two") && who_isin_spot.who_isin_spot52.length <= 1){
+
+            blue_two_container.style.left = spots.d52_spot_x + "px";
+            blue_two_container.style.top = spots.d52_spot_y + "px";
+            who_isin_spot.who_isin_spot52.push("blue_two");
+            who_is_home_indexes = who_is_home_indexes.filter(container => container != "blue_two");
+
+            if(who_isin_spot.who_isin_spot52.length == 1){
+                if(dice_1 == 5){
+                    setTimeout(() => { after_home(dice_2) }, 100)
+                }else if(dice_2 == 5){
+                    setTimeout(() => { after_home(dice_1) }, 100)
+                }
+            }
+        }else if(who_is_home_indexes.includes("blue_three") && who_isin_spot.who_isin_spot52.length <= 1){
+
+            blue_three_container.style.left = spots.d52_spot_x + "px";
+            blue_three_container.style.top = spots.d52_spot_y + "px";
+            who_isin_spot.who_isin_spot52.push("blue_three");
+            who_is_home_indexes = who_is_home_indexes.filter(container => container != "blue_three");
+
+            if(who_isin_spot.who_isin_spot52.length == 1){
+                if(dice_1 == 5){
+                    setTimeout(() => { after_home(dice_2) }, 100)
+                }else if(dice_2 == 5){
+                    setTimeout(() => { after_home(dice_1) }, 100)
+                }
+            }
+        }else if(who_is_home_indexes.includes("blue_four") && who_isin_spot.who_isin_spot52.length <= 1){
+
+            blue_four_container.style.left = spots.d52_spot_x + "px";
+            blue_four_container.style.top = spots.d52_spot_y + "px";
+            who_isin_spot.who_isin_spot52.push("blue_four");
+            who_is_home_indexes = who_is_home_indexes.filter(container => container != "blue_four");
+
+            if(who_isin_spot.who_isin_spot52.length == 1){
+                if(dice_1 == 5){
+                    setTimeout(() => { after_home(dice_2) }, 100)
+                }else if(dice_2 == 5){
+                    setTimeout(() => { after_home(dice_1) }, 100)
+                }
+            }
+        }else if(who_isin_spot.who_isin_spot52.length == 2){
+            
+            let float = document.getElementById("numbers-container")
+            let number_one = document.getElementById("number-one")
+            let number_two = document.getElementById("number-two")
+            
+            float.style.left = who_isin_spot.who_isin_spot52[0].getBoundingClientRect().x + "px";
+            float.style.top = who_isin_spot.who_isin_spot52[0].getBoundingClientRect().y - 35 + "px";
+            float.style.visibility = "visible";
+            number_one.textContent = dice_1;
+            number_two.textContent = dice_2;
+            number_one.addEventListener('click', () => {clicked1 = true;movements(dice_1, blue_containers[`${index0}`], 52); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5})
+            number_two.addEventListener('click', () => {clicked2 = true;movements(dice_2, blue_containers[`${index1}`], 52); number_two.style.pointerEvents = "none"; number_two.style.opacity = 0.5})
+
         }
     }
 }
@@ -194,47 +351,68 @@ function roll_dice(roller_one_image, roller_two_image){
 
 function after_home(dice){
 
-    // set the height and the width
-    spot_height_66 = divs.d1.getBoundingClientRect().height
-    spot_width_26 = divs.d1.getBoundingClientRect().width
-    offsite = 1.5 // a little offsite
+    if(cords.d52_cords.y - 5 < blue_one_container.getBoundingClientRect().y &&
+        blue_one_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height &&
+         who_is_home.length > 3 )
+    {
 
-    if((cords.d52_cords.y - 5) < blue_one_container.getBoundingClientRect().y < cords.d52_cords.y + d52.getBoundingClientRect().height &&
-     oval2_cords.x < blue_two_container.getBoundingClientRect().x < oval2_cords.x + oval2_cords.width &&
-      oval2_cords.y < blue_two_container.getBoundingClientRect().y < oval2_cords.y + oval2_cords.height &&
-       oval3_cords.x < blue_three_container.getBoundingClientRect().x < oval3_cords.x + oval3_cords.width &&
-        oval3_cords.y < blue_three_container.getBoundingClientRect().y < oval3_cords.y + oval3_cords.height &&
-         oval4_cords.x < blue_four_container.getBoundingClientRect().x < oval4_cords.x + oval4_cords.width &&
-          oval4_cords.y < blue_four_container.getBoundingClientRect().y < oval4_cords.y + oval4_cords.height){
-
-        if(dice <= 3){
-
-            for(let i = 1; i <= dice; i++){
-                setTimeout(() => {
-                    blue_one_container.style.top = spots.d52_spot_y + (i * spot_width_26) - offsite + "px";
-                }, i * 250);
-            }
-
-        }else if(dice > 3){
-
-            for(let i = 1; i <= 3; i++){
-                setTimeout(() => {
-                    blue_one_container.style.top = spots.d52_spot_y + (i * spot_width_26) - offsite + "px";
-                }, i * 250);
-            }
-            
-            new_dice = dice - 4
-
+        for(let i = 1; i <= dice; i++){
             setTimeout(() => {
-                blue_one_container.style.top = spots.d56_spot_y + "px";
-                blue_one_container.style.left = spots.d56_spot_x + "px";
-            }, 3 * 250 + 250);
 
-            for(let i = 1; i <= new_dice; i++){
-                setTimeout(() => {
-                    blue_one_container.style.left = spots.d56_spot_x - (i * spot_width_26) + offsite + "px";
-                },3 * 250 + i * 250);
-            }
+                blue_one_container.style.top = spots[`d${52 + i}_spot_y`] + "px";
+                blue_one_container.style.left = spots[`d${52 + i}_spot_x`] + "px";
+                
+            }, i * 250);
         }
+
+        who_isin_spot[`who_isin_spot${52 + dice}`].push(blue_containers[`${index0}`])
+        who_isin_spot.who_isin_spot52 = who_isin_spot.who_isin_spot52.filter(container => container != blue_containers[`${index0}`])
+
+        center_check(spots.d52_spot_x, who_isin_spot.who_isin_spot52, 52)
+    }
+}
+
+//------------------------------------------movements function----to move the pawns----------------------------------------
+
+function movements(dice, container, div_number){
+
+    for(let i = 1; i <= dice; i++){
+        setTimeout(() => {
+
+            container.style.top = spots[`d${52 + i}_spot_y`] + "px";
+            container.style.left = spots[`d${52 + i}_spot_x`] + "px";
+            
+        }, i * 250);
+    }
+
+    who_isin_spot[`who_isin_spot${52 + dice}`].push(blue_containers[`${index0}`])
+    who_isin_spot.who_isin_spot52 = who_isin_spot.who_isin_spot52.filter(container => container != blue_containers[`${index0}`])
+
+    center_check(spots.d52_spot_x, who_isin_spot.who_isin_spot52, 52)
+
+}
+
+//--------------------------------Parallel check function----if two pawns are in the same spot------------------------------
+
+function parallel_check(left_container, right_container){
+    
+    if(left_container.getBoundingClientRect().x == right_container.getBoundingClientRect().x && right_container.getBoundingClientRect().y == left_container.getBoundingClientRect().y)
+        {
+            left_container.style.left = (left_container.getBoundingClientRect().left - 15) - (Main_Container_cords.x) + "px";
+            right_container.style.left = (right_container.getBoundingClientRect().left + 15) - (Main_Container_cords.x) + "px";
+            
+        }
+    }
+    
+//---------------------------center check function----if a pawn is alone in the spot, but not centerd-----------------------
+
+function center_check(spot_x, who_isin_spot, number){
+
+    if(who_isin_spot.length == 1 && 
+        wide_center[`d${number}_center_x`] != blue_two_container.getBoundingClientRect().x)
+    {
+         setTimeout(() => {
+             blue_two_container.style.left = spot_x + "px";
+         }, 350);
     }
 }
