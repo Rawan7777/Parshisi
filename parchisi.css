@@ -712,3 +712,22 @@ body{
 .number-two:hover{
     background-color: #429611;
 }
+
+.circle{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: rgba(64, 17, 151, 0.3);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: white;
+    text-shadow: 0px 0px 2px rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    visibility: hidden;
+    transition: left 0.4s ease, right 0.4s ease, bottom 0.4s ease, top 0.4s ease;
+}
