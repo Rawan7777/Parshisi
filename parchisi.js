@@ -152,14 +152,17 @@ let who_is_home = {
     blue_two:       blue_two_container,
     blue_three:     blue_three_container,
     blue_four:      blue_four_container
+
 };
 
 // a reference and an unchangeable copy of the previous object
 let blue_containers = {
+
     blue_one:       blue_one_container,
     blue_two:       blue_two_container,
     blue_three:     blue_three_container,
     blue_four:      blue_four_container
+
 };
 
 // array to store the nicknames of the which one of the containers is out of home
@@ -168,17 +171,17 @@ let who_is_outof_home_indexes = [];
 // array to store the nicknames of the which one of the containers is home
 let who_is_home_indexes = ["blue_one", "blue_two", "blue_three", "blue_four"];
 
-let clicked1 = false; // indicates if the first dice number is played (true) or not (false)
-let clicked2 = false; // indicates if the second dice number is played (true) or not (false)
-let count = 0;
+let is_dice_1_clicked = false; // indicates if the first dice number is played (true) or not (false)
+let is_dice_2_clicked = false; // indicates if the second dice number is played (true) or not (false)
 let time = 0; // to keep track and the correct wait time for the other setTimeout functions to complete 
+let count = 0; // to count how many times the dice roll ed (used for debugging)
 
 //---------------------------------------------------roll dice function------------------------------------------------------
 function roll_dice(roller_one_image, roller_two_image){
 
-    // set the clicked1 and clicked2 to false every time roll dice function is called 
-    clicked1 = false;
-    clicked2 = false;
+    // set the is_dice_1_clicked and is_dice_2_clicked to false every time roll dice function is called 
+    is_dice_1_clicked = false;
+    is_dice_2_clicked = false;
 
     // a function fo set the dices value as desired for debugging
     let dice_1;
@@ -187,7 +190,7 @@ function roll_dice(roller_one_image, roller_two_image){
     function dicy(){
         if(count == 0){
             dice_1 = 5;
-            dice_2 = 3;
+            dice_2 = 5;
             count++;
         }else if(count == 1){
             dice_1 = 5;
@@ -309,16 +312,15 @@ function roll_dice(roller_one_image, roller_two_image){
             if(dice_1 == 5){ dice_1 = 0; } // set dice_1 to zero because it is already played
             else if(dice_2 == 5){ dice_2 = 0; } // set dice_2 to zero because it is already played
 
-            time = 250; // set the waiting time
+            time = 400; // set the waiting time
+            number_sail(dice_1, dice_2); // to add the remaining dice number above the pawns
 
             roller_deactivater(); // to deactivate the dice roller till the next round
-            number_sail(dice_1, dice_2); // to add the remaining dice number above the pawns
 
         // check if the spot 52 is full with two pawns, to show a floating numbers box above it
         }else if(who_isin_spot.who_isin_spot52.length == 2){
 
             numbers_float(dice_1, dice_2, who_isin_spot.who_isin_spot52 , 52);
-            
         }
     }
 
@@ -342,28 +344,36 @@ function roll_dice(roller_one_image, roller_two_image){
                 if(dice_1 == 5){
 
                     setTimeout(() => { after_home(dice_2, blue_containers["blue_one"]) }, 200);
-                    dice = dice_2
-                    clicked2 = true;
+                    dice = dice_2;
+                    is_dice_2_clicked = true;
 
                 }else if(dice_2 == 5){
 
                     setTimeout(() => { after_home(dice_1, blue_containers["blue_one"]) }, 200);
-                    dice = dice_1
-                    clicked1 = true;
+                    dice = dice_1;
+                    is_dice_1_clicked = true;
+
+                }else if(dice_1 + dice_2 == 5){
+
+                    dice = 0;
+                    is_dice_1_clicked = true;
+                    is_dice_2_clicked = true;
                 }
             }
 
-            if(dice_1 == 5){ dice_1 = 0; clicked1 = true} // set dice_1 to zero because it is already played
-            else if(dice_2 == 5){ dice_2 = 0; clicked2 = true} // set dice_2 to zero because it is already played
+            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; ; dice = dice_1} // set dice_1 to zero because it is already played
+            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; ; dice = dice_2} // set dice_2 to zero because it is already played
 
-            parallel_check(52)
+            parallel_check(52); // to check if two pawn are over each other
 
             if(!(who_is_home_indexes.length >= 3)){
-                time = 0;
-                number_sail(dice_1, dice_2)
+
+                time = 400;
+                number_sail(dice_1, dice_2);
             }
 
             setTimeout(() => {
+
                 roller_deactivater(); // to deactivate the dice roller till the next round
             }, dice * 250 + 400);
             
@@ -385,28 +395,37 @@ function roll_dice(roller_one_image, roller_two_image){
                 if(dice_1 == 5){
 
                     setTimeout(() => { after_home(dice_2, blue_containers["blue_two"]) }, 100);
-                    dice = dice_2
-                    clicked2 = true;
+                    dice = dice_2;
+                    is_dice_2_clicked = true;
 
                 }else if(dice_2 == 5){
 
                     setTimeout(() => { after_home(dice_1, blue_containers["blue_two"]) }, 100);
-                    dice = dice_1
-                    clicked1 = true;
+                    dice = dice_1;
+                    is_dice_1_clicked = true;
+
+                }else if(dice_1 + dice_2 == 5){
+
+                    dice = 0;
+                    is_dice_1_clicked = true;
+                    is_dice_2_clicked = true;
                 }
             }
             
-            if(dice_1 == 5){ dice_1 = 0; clicked1 = true} // set dice_1 to zero because it is already played
-            else if(dice_2 == 5){ dice_2 = 0; clicked2 = true} // set dice_2 to zero because it is already played
-
-            parallel_check(52);
+            
+            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; dice = dice_1} // set dice_1 to zero because it is already played
+            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; dice = dice_2} // set dice_2 to zero because it is already played
+            
+            parallel_check(52); // to check if two pawn are over each other
 
             if(!(who_is_home_indexes.length >= 3)){
-                time = 0;
-                number_sail(dice_1, dice_2)
+
+                time = 400;
+                number_sail(dice_1, dice_2);
             }
 
             setTimeout(() => {
+
                 roller_deactivater(); // to deactivate the dice roller till the next round
             }, dice * 250 + 400);
 
@@ -423,30 +442,40 @@ function roll_dice(roller_one_image, roller_two_image){
             who_is_home_indexes = who_is_home_indexes.filter(container => container != "blue_three");
 
             if(who_is_home_indexes.length == 3){
+
                 if(dice_1 == 5){
 
                     setTimeout(() => { after_home(dice_2, blue_containers["blue_three"]) }, 100);
-                    dice = dice_2
-                    clicked2 = true;
+                    dice = dice_2;
+                    is_dice_2_clicked = true;
 
                 }else if(dice_2 == 5){
 
                     setTimeout(() => { after_home(dice_1, blue_containers["blue_three"]) }, 100);
-                    dice = dice_1
-                    clicked1 = true;
+                    dice = dice_1;
+                    is_dice_1_clicked = true;
+
+                }else if(dice_1 + dice_2 == 5){
+
+                    dice = 0;
+                    is_dice_1_clicked = true;
+                    is_dice_2_clicked = true;
                 }
             }
 
-            if(dice_1 == 5){ dice_1 = 0; clicked1 = true} // set dice_1 to zero because it is already played
-            else if(dice_2 == 5){ dice_2 = 0; clicked2 = true} // set dice_2 to zero because it is already played
+            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; dice = dice_1} // set dice_1 to zero because it is already played
+            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; dice = dice_2} // set dice_2 to zero because it is already played
 
-            parallel_check(52);
+            parallel_check(52); // to check if two pawn are over each other
+
             if(!(who_is_home_indexes.length >= 3)){
-                time = 0;
-                number_sail(dice_1, dice_2)
+
+                time = 400;
+                number_sail(dice_1, dice_2);
             }
 
             setTimeout(() => {
+
                 roller_deactivater(); // to deactivate the dice roller till the next round
             }, dice * 250 + 400);
 
@@ -467,37 +496,50 @@ function roll_dice(roller_one_image, roller_two_image){
                 if(dice_1 == 5){
 
                     setTimeout(() => { after_home(dice_2, blue_containers["blue_four"]) }, 100);
-                    dice = dice_2
-                    clicked2 = true;
+                    dice = dice_2;
+                    is_dice_2_clicked = true;
 
                 }else if(dice_2 == 5){
 
                     setTimeout(() => { after_home(dice_1, blue_containers["blue_four"]) }, 100);
-                    dice = dice_1
-                    clicked1 = true;
+                    dice = dice_1;
+                    is_dice_1_clicked = true;
+
+                }else if(dice_1 + dice_2 == 5){
+
+                    dice = 0;
+                    is_dice_1_clicked = true;
+                    is_dice_2_clicked = true;
                 }
             }
 
-            if(dice_1 == 5){ dice_1 = 0; clicked1 = true} // set dice_1 to zero because it is already played
-            else if(dice_2 == 5){ dice_2 = 0; clicked2 = true} // set dice_2 to zero because it is already played
-            
-            parallel_check(52);
+            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; dice = dice_1} // set dice_1 to zero because it is already played
+            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; dice = dice_2} // set dice_2 to zero because it is already played
 
             if(!(who_is_home_indexes.length >= 3)){
-                time = 0;
-                number_sail(dice_1, dice_2)
+
+                time = 400;
+                number_sail(dice_1, dice_2);
             }
 
+            parallel_check(52); // to check if two pawn are over each other
+            
             setTimeout(() => {
+
                 roller_deactivater(); // to deactivate the dice roller till the next round
             }, dice * 250 + 400);
 
         // check if the spot 52 is not completely full, to show a floating numbers box above it
-        }else if(who_isin_spot.who_isin_spot52.length == 2){
+        }else if(who_isin_spot.who_isin_spot52.length == 2 && who_is_home_indexes.length <= 2){
             
-            numbers_float(dice_1, dice_2, who_isin_spot.who_isin_spot52, 52);
-        }
+            time = 0
+            number_sail(dice_1, dice_2);
 
+        }else if(who_is_home_indexes == 0){
+
+            time = 0;
+            number_sail(dice_1, dice_2);
+        }
     }
 };
 
@@ -505,15 +547,15 @@ function roll_dice(roller_one_image, roller_two_image){
 
 function after_home(dice, container){
 
-    if(who_is_home_indexes.length <= 3)
-    {
+    if(who_is_home_indexes.length <= 3){
+
         for(let i = 1; i <= dice; i++){
+
             time =  i * 250;
             setTimeout(() => {
 
                 container.style.top = spots[`d${52 + i}_spot_y`] + "px";
                 container.style.left = spots[`d${52 + i}_spot_x`] + "px";
-                
             }, i * 250);
         }
 
@@ -549,6 +591,7 @@ function movements(dice, container, spot_number, dice_1, dice_2){
                 time =  (i * 250) +  ((j - 1) * 250);
     
                 setTimeout(() => {
+
                     container.style.top = spots[`d${j}_spot_y`] + "px";
                     container.style.left = spots[`d${j}_spot_x`] + "px";
                     
@@ -559,30 +602,37 @@ function movements(dice, container, spot_number, dice_1, dice_2){
     }
 
     if(spot_number + dice <= 68){
+
         who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+
     }else{
+
         who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
     }
+
     who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
 
     center_check(spots[`d${spot_number}_spot_x`], who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
+
     setTimeout(() => {
-        parallel_check(spot_number + dice)
+
+        parallel_check(spot_number + dice);
     }, dice * 250);
 
     let float = document.getElementById("numbers-container");
 
-    if(clicked1 == true && clicked2 != true){
+    if(is_dice_1_clicked == true && is_dice_2_clicked != true){
 
         float.style.visibility = "hidden";
         dice_1 = 0;
+        time = (dice + 1) * 250;
         number_sail(dice_1, dice_2);
         
-        
-    }else if(clicked2 == true && clicked1 != true){
+    }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
 
         float.style.visibility = "hidden";
         dice_2 = 0;
+        time = (dice + 1) * 250;
         number_sail(dice_1, dice_2);
 
     }
@@ -595,24 +645,30 @@ function movements(dice, container, spot_number, dice_1, dice_2){
     number_two.style.pointerEvents = "visible"; 
     number_two.style.opacity = 1;
 
-    if(clicked1 == true && clicked2 == true){
-        number_sail_destroyer()
+    if(is_dice_1_clicked == true && is_dice_2_clicked == true){
+
+        number_sail_destroyer();
     }  
 };
 
-//--------------------------------Parallel check function----if two pawns are in the same spot------------------------------
+//----------------Parallel check function----prevent two pawns to overlap on each other if they are in the same spot-----------
 
 function parallel_check(spot_number){
 
     if(who_isin_spot[`who_isin_spot${spot_number}`].length == 2){
 
         if((cords.d48_cords.y < cords[`d${spot_number}_cords`].y && cords[`d${spot_number}_cords`].y < cords.d55_cords.y) ||
-        (cords.d5_cords.y - 5 < cords[`d${spot_number}_cords`].y && cords[`d${spot_number}_cords`].y < cords.d12_cords.y + cords.d12_cords.height ||
-            spot_number == 55
-        )){
+            (cords.d5_cords.y - 5 < cords[`d${spot_number}_cords`].y && cords[`d${spot_number}_cords`].y < cords.d12_cords.y + cords.d12_cords.height ||
+             spot_number == 55))
+        {
 
             who_isin_spot[`who_isin_spot${spot_number}`][0].style.left = spots[`d${spot_number}_spot_x`] + 15 + "px";
             who_isin_spot[`who_isin_spot${spot_number}`][1].style.left = spots[`d${spot_number}_spot_x`] - 15 + "px";
+
+        }else{
+
+            who_isin_spot[`who_isin_spot${spot_number}`][0].style.top = spots[`d${spot_number}_spot_y`] + 15 + "px";
+            who_isin_spot[`who_isin_spot${spot_number}`][1].style.top = spots[`d${spot_number}_spot_y`] - 15 + "px";
         }
     }
 };
@@ -624,14 +680,16 @@ function center_check(spot_x_y, who_isin_spot, number){
     if(who_isin_spot.length == 1){
 
         if((cords.d48_cords.top < who_isin_spot[0].getBoundingClientRect().y && who_isin_spot[0].getBoundingClientRect().y < cords.d55_cords.top + 5) ||
-            (cords.d5_cords.top - 5 < who_isin_spot[0].getBoundingClientRect().top && who_isin_spot[0].getBoundingClientRect().top < cords.d12_cords.top + cords.d12_cords.height)){
+            (cords.d5_cords.top - 5 < who_isin_spot[0].getBoundingClientRect().top && who_isin_spot[0].getBoundingClientRect().top < cords.d12_cords.top + cords.d12_cords.height))
+        {
 
             if(wide_center[`d${number}_center_x`] != who_isin_spot[0].getBoundingClientRect().x){
     
                  setTimeout(() => { who_isin_spot[0].style.left = spot_x_y + "px" }, 0);
             }
-        }else{
 
+        }else{
+            
             if(long_center[`d${number}_center_y`] != who_isin_spot[0].getBoundingClientRect().y){
     
                 setTimeout(() => { who_isin_spot[0].style.top = spot_x_y + "px" }, 0);
@@ -640,72 +698,79 @@ function center_check(spot_x_y, who_isin_spot, number){
     }
 };
 
-function numbers_float(dice_1, dice_2, spot, spot_number){
+//-------------------------number float function-----to show a floating container of the two dices----------------------------
+
+function numbers_float(dice_1, dice_2, name_index, spot_number){
 
     let float = document.getElementById("numbers-container");
     let number_one = document.getElementById("number-one");
     let number_two = document.getElementById("number-two");
     
-    float.style.left = cords.d52_cords.x + 3 + "px";
-    float.style.top = cords.d52_cords.y - 35 + "px";
+    float.style.left = name_index.getBoundingClientRect().x - 17 + "px";
+    float.style.top = name_index.getBoundingClientRect().y - 35 + "px";
+    
     float.style.visibility = "visible";
     number_one.textContent = dice_1;
     number_two.textContent = dice_2;
-    roller_deactivater();
-    number_one.addEventListener('click', () => {clicked1 = true; number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; movements(dice_1, spot[0], spot_number, dice_1, dice_2); roller_deactivater()});
-    number_two.addEventListener('click', () => {clicked2 = true; number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; movements(dice_2, spot[0], spot_number, dice_1, dice_2); roller_deactivater()});
+
+    number_one.addEventListener('click', () => {is_dice_1_clicked = true; movements(dice_1, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
+    number_two.addEventListener('click', () => {is_dice_2_clicked = true; movements(dice_2, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
 };
 
 //--------------------------number sail function---------to display the remaining dice number on each pawn-----------------
 
 function number_sail(dice_1, dice_2){
-    if((clicked1 == false && clicked2 != false) || 
-    (clicked1 != false && clicked2 == false) || 
-    (clicked1 == false && clicked2 == false))
+
+    if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
+        (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
+         (is_dice_1_clicked == false && is_dice_2_clicked == false))
     { 
+
+        for(let i = 1 ; i <= who_is_outof_home_indexes.length; i++){
+            
+        shows[`circle${i}`] = document.createElement("div");
+        shows[`circle${i}`].id = `c${i}`;
+        shows[`circle${i}`].classList.add("circle");
+        document.body.appendChild(shows[`circle${i}`]);
+        
         setTimeout(() => {
             
-            for(let i = 1 ; i <= who_is_outof_home_indexes.length; i++){
-                
-            shows[`circle${i}`] = document.createElement("div");
-            shows[`circle${i}`].id = `c${i}`;
-            shows[`circle${i}`].classList.add("circle");
-            document.body.appendChild(shows[`circle${i}`]);
+            shows[`circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
+            shows[`circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+            shows[`circle${i}`].style.visibility = "visible";
+
+            let spot_number;
+
+            for (let j = 1; j <= 68; j++) {
+
+                div_in_spot = who_isin_spot[`who_isin_spot${j}`];
+
+                if(div_in_spot[0] == blue_containers[who_is_outof_home_indexes[i - 1]] || div_in_spot[1] == blue_containers[who_is_outof_home_indexes[i - 1]]){
+
+                    spot_number = j;
+                    break;
+                }  
+            }
             
-                setTimeout(() => {
-                    
-                    shows[`circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
-                    shows[`circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
-                    shows[`circle${i}`].style.visibility = "visible";
+            if(dice_1 == 0){
 
-                    let spot_number;
+                is_dice_1_clicked = true;
+                shows[`circle${i}`].textContent = `${dice_2}`;
+                shows[`circle${i}`].addEventListener('click', function(){is_dice_2_clicked = true; movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
+            
+            }else if(dice_2 == 0){
 
-                    for (let j = 1; j <= 68; j++) {
+                is_dice_2_clicked = true;
+                shows[`circle${i}`].textContent = `${dice_1}`;
+                shows[`circle${i}`].addEventListener('click', function(){is_dice_1_clicked = true; movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
+            
+            }else if(dice_1 != 0 && dice_2 !== 0){
 
-                        div_in_spot = who_isin_spot[`who_isin_spot${j}`];
-
-                        if(div_in_spot[0] == blue_containers[who_is_outof_home_indexes[i - 1]] || div_in_spot[1] == blue_containers[who_is_outof_home_indexes[i - 1]]){
-
-                            spot_number = j;
-                            break;
-                        }  
-                    }
-                    
-                    if(dice_1 == 0){
-                        clicked1 = true;
-                        shows[`circle${i}`].textContent = `${dice_2}`;
-                        shows[`circle${i}`].addEventListener('click', function(){clicked2 = true; movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
-                    }else if(dice_2 == 0){
-                        clicked2 = true;
-                        shows[`circle${i}`].textContent = `${dice_1}`;
-                        shows[`circle${i}`].addEventListener('click', function(){clicked1 = true; movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
-                    }else if(dice_1 != 0 && dice_2 !== 0){
-                        shows[`circle${i}`].textContent = `${dice_1} , ${dice_2}`;
-                        shows[`circle${i}`].addEventListener('click', function(){ movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2)});
-                    }
-                }, 400);
+                shows[`circle${i}`].textContent = `${dice_1} , ${dice_2}`;
+                shows[`circle${i}`].addEventListener('mouseover', function(){ numbers_float(dice_1, dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number); });
             }
         }, time);
+        }
     }
 };
 
@@ -715,7 +780,7 @@ function roller_deactivater(){
     
     blue_roll = document.getElementById("blue-roll");
     
-    if(!(clicked1 == true && clicked2 == true)){ // c1=0, c2=1 // c1=1, c2=0 // c1=0, c2=0 
+    if(!(is_dice_1_clicked == true && is_dice_2_clicked == true)){ // c1=0, c2=1 // c1=1, c2=0 // c1=0, c2=0 
 
         blue_roll.style.pointerEvents = "none"; 
         blue_roll.style.opacity = 0.5;
@@ -724,8 +789,8 @@ function roller_deactivater(){
         
         blue_roll.style.pointerEvents = "visible"; 
         blue_roll.style.opacity = 1;
-        clicked1 = false;
-        clicked2 = false;
+        is_dice_1_clicked = false;
+        is_dice_2_clicked = false;
     }
 };
 
