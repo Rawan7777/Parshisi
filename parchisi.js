@@ -700,7 +700,9 @@ function center_check(spot_x_y, who_isin_spot, number){
 
 //-------------------------number float function-----to show a floating container of the two dices----------------------------
 
-function numbers_float(dice_1, dice_2, name_index, spot_number){
+function numbers_float(dice_1, dice_2, array, spot_number){
+
+    name_index = array[0]
 
     let float = document.getElementById("numbers-container");
     let number_one = document.getElementById("number-one");
@@ -718,6 +720,8 @@ function numbers_float(dice_1, dice_2, name_index, spot_number){
 };
 
 //--------------------------number sail function---------to display the remaining dice number on each pawn-----------------
+
+let hovered = []
 
 function number_sail(dice_1, dice_2){
 
@@ -767,7 +771,17 @@ function number_sail(dice_1, dice_2){
             }else if(dice_1 != 0 && dice_2 !== 0){
 
                 shows[`circle${i}`].textContent = `${dice_1} , ${dice_2}`;
-                shows[`circle${i}`].addEventListener('mouseover', function(){ numbers_float(dice_1, dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number); });
+                shows[`circle${i}`].addEventListener('mouseover', function(){
+                    
+                    if(hovered[0]){
+
+                        hovered.shift();
+                    }
+
+                    hovered.push(blue_containers[who_is_outof_home_indexes[i - 1]]);
+
+                    numbers_float(dice_1, dice_2, hovered, spot_number);
+                });
             }
         }, time);
         }
