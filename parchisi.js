@@ -128,9 +128,6 @@ let shows = {}; // stores the divs that show the dice numbers to play
 // set the keys of the numbers to play containers
 for (let i = 0; i <= 4; i++) {
 
-    shows[`parentDiv${i}`];
-    shows[`childDiv1_${i}`];
-    shows[`childDiv2_${i}`];
     shows[`circle${i}`];
     
 };
@@ -293,6 +290,10 @@ function roll_dice(roller_one_image, roller_two_image){
                 delete who_is_home[who_is_home_indexes[0]];
                 who_is_home_indexes = who_is_home_indexes.filter(container => container != who_is_home_indexes[0]);
 
+                is_dice_1_clicked = true;
+                is_dice_2_clicked = true;
+                roller_deactivater();
+
             }
 
         // check if the spot 52 is occupied with only one pawn, to enter only one pawn to spot 52
@@ -361,8 +362,8 @@ function roll_dice(roller_one_image, roller_two_image){
                 }
             }
 
-            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; ; dice = dice_1} // set dice_1 to zero because it is already played
-            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; ; dice = dice_2} // set dice_2 to zero because it is already played
+            if(dice_1 == 5){ dice_1 = 0; is_dice_1_clicked = true; dice = dice_1} // set dice_1 to zero because it is already played
+            else if(dice_2 == 5){ dice_2 = 0; is_dice_2_clicked = true; dice = dice_2} // set dice_2 to zero because it is already played
 
             parallel_check(52); // to check if two pawn are over each other
 
@@ -532,11 +533,19 @@ function roll_dice(roller_one_image, roller_two_image){
         // check if the spot 52 is not completely full, to show a floating numbers box above it
         }else if(who_isin_spot.who_isin_spot52.length == 2 && who_is_home_indexes.length <= 2){
             
+            roller_deactivater(); // to deactivate the dice roller till the next round
             time = 0
             number_sail(dice_1, dice_2);
 
         }else if(who_is_home_indexes == 0){
 
+            time = 0;
+            number_sail(dice_1, dice_2);
+        }
+    }else {
+
+        if(who_is_outof_home_indexes > 0){
+            
             time = 0;
             number_sail(dice_1, dice_2);
         }
@@ -563,7 +572,6 @@ function after_home(dice, container){
         who_isin_spot.who_isin_spot52 = who_isin_spot.who_isin_spot52.filter(containers => containers != container);
 
     }
-
 };
 
 //------------------------------------------movements function----to move the pawns----------------------------------------
@@ -603,16 +611,23 @@ function movements(dice, container, spot_number, dice_1, dice_2){
 
     if(spot_number + dice <= 68){
 
-        who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container))){
+
+            who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+        }
 
     }else{
 
-        who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
+        if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container))){
+
+            who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
+        }
+
     }
 
     who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
 
-    center_check(spots[`d${spot_number}_spot_x`], who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
+    center_check(who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
 
     setTimeout(() => {
 
@@ -629,7 +644,7 @@ function movements(dice, container, spot_number, dice_1, dice_2){
         number_sail(dice_1, dice_2);
         
     }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
-
+        
         float.style.visibility = "hidden";
         dice_2 = 0;
         time = (dice + 1) * 250;
@@ -637,18 +652,11 @@ function movements(dice, container, spot_number, dice_1, dice_2){
 
     }
 
-    let number_one = document.getElementById("number-one");
-    let number_two = document.getElementById("number-two");
-
-    number_one.style.pointerEvents = "visible"; 
-    number_one.style.opacity = 1;
-    number_two.style.pointerEvents = "visible"; 
-    number_two.style.opacity = 1;
-
     if(is_dice_1_clicked == true && is_dice_2_clicked == true){
 
         number_sail_destroyer();
-    }  
+    } 
+
 };
 
 //----------------Parallel check function----prevent two pawns to overlap on each other if they are in the same spot-----------
@@ -657,9 +665,7 @@ function parallel_check(spot_number){
 
     if(who_isin_spot[`who_isin_spot${spot_number}`].length == 2){
 
-        if((cords.d48_cords.y < cords[`d${spot_number}_cords`].y && cords[`d${spot_number}_cords`].y < cords.d55_cords.y) ||
-            (cords.d5_cords.y - 5 < cords[`d${spot_number}_cords`].y && cords[`d${spot_number}_cords`].y < cords.d12_cords.y + cords.d12_cords.height ||
-             spot_number == 55))
+        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21))
         {
 
             who_isin_spot[`who_isin_spot${spot_number}`][0].style.left = spots[`d${spot_number}_spot_x`] + 15 + "px";
@@ -675,25 +681,26 @@ function parallel_check(spot_number){
     
 //---------------------------center check function----if a pawn is alone in the spot, but not centerd-----------------------
 
-function center_check(spot_x_y, who_isin_spot, number){
+function center_check(who_isin_spot, spot_number){
 
+    
     if(who_isin_spot.length == 1){
-
-        if((cords.d48_cords.top < who_isin_spot[0].getBoundingClientRect().y && who_isin_spot[0].getBoundingClientRect().y < cords.d55_cords.top + 5) ||
-            (cords.d5_cords.top - 5 < who_isin_spot[0].getBoundingClientRect().top && who_isin_spot[0].getBoundingClientRect().top < cords.d12_cords.top + cords.d12_cords.height))
+        
+        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21))
         {
 
-            if(wide_center[`d${number}_center_x`] != who_isin_spot[0].getBoundingClientRect().x){
+            if(wide_center[`d${spot_number}_center_x`] != who_isin_spot[0].getBoundingClientRect().x){
     
-                 setTimeout(() => { who_isin_spot[0].style.left = spot_x_y + "px" }, 0);
+                who_isin_spot[0].style.left = spots[`d${spot_number}_spot_x`] + "px";
             }
 
         }else{
-            
-            if(long_center[`d${number}_center_y`] != who_isin_spot[0].getBoundingClientRect().y){
+
+            if(long_center[`d${spot_number}_center_y`] != who_isin_spot[0].getBoundingClientRect().y){
     
-                setTimeout(() => { who_isin_spot[0].style.top = spot_x_y + "px" }, 0);
-           }
+                who_isin_spot[0].style.left = spots[`d${spot_number}_spot_x`] + "px";
+                who_isin_spot[0].style.top = spots[`d${spot_number}_spot_y`] + "px";
+            }
         }
     }
 };
@@ -717,6 +724,7 @@ function numbers_float(dice_1, dice_2, array, spot_number){
 
     number_one.addEventListener('click', () => {is_dice_1_clicked = true; movements(dice_1, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
     number_two.addEventListener('click', () => {is_dice_2_clicked = true; movements(dice_2, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
+
 };
 
 //--------------------------number sail function---------to display the remaining dice number on each pawn-----------------
@@ -725,9 +733,10 @@ let hovered = []
 
 function number_sail(dice_1, dice_2){
 
+    
     if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
-        (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
-         (is_dice_1_clicked == false && is_dice_2_clicked == false))
+    (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
+    (is_dice_1_clicked == false && is_dice_2_clicked == false))
     { 
 
         for(let i = 1 ; i <= who_is_outof_home_indexes.length; i++){
@@ -755,24 +764,35 @@ function number_sail(dice_1, dice_2){
                     break;
                 }  
             }
-            
+
             if(dice_1 == 0){
 
-                is_dice_1_clicked = true;
                 shows[`circle${i}`].textContent = `${dice_2}`;
-                shows[`circle${i}`].addEventListener('click', function(){is_dice_2_clicked = true; movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
-            
+                shows[`circle${i}`].addEventListener('click', function(){
+                    
+                    is_dice_2_clicked = true;
+                    movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                    roller_deactivater();
+                    number_sail_destroyer()
+                });
+                
             }else if(dice_2 == 0){
 
-                is_dice_2_clicked = true;
                 shows[`circle${i}`].textContent = `${dice_1}`;
-                shows[`circle${i}`].addEventListener('click', function(){is_dice_1_clicked = true; movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2); roller_deactivater(); number_sail_destroyer()});
+                shows[`circle${i}`].addEventListener('click', function(){
+
+                    is_dice_1_clicked = true;
+                    movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                    roller_deactivater();
+                    number_sail_destroyer()
+                    
+                });
             
             }else if(dice_1 != 0 && dice_2 !== 0){
 
                 shows[`circle${i}`].textContent = `${dice_1} , ${dice_2}`;
                 shows[`circle${i}`].addEventListener('mouseover', function(){
-                    
+
                     if(hovered[0]){
 
                         hovered.shift();
@@ -791,7 +811,7 @@ function number_sail(dice_1, dice_2){
 //-------------------roller deactivater function---------to prevent the player from cliking the dice roller-----------------
 
 function roller_deactivater(){
-    
+
     blue_roll = document.getElementById("blue-roll");
     
     if(!(is_dice_1_clicked == true && is_dice_2_clicked == true)){ // c1=0, c2=1 // c1=1, c2=0 // c1=0, c2=0 
