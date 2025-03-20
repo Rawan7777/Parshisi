@@ -129,6 +129,8 @@ let shows = {}; // stores the divs that show the dice numbers to play
 for (let i = 0; i <= 4; i++) {
 
     shows[`circle${i}`];
+    shows[`left_half_circle${i}`];
+    shows[`right_half_circle${i}`];
     
 };
 
@@ -321,7 +323,7 @@ function roll_dice(roller_one_image, roller_two_image){
         // check if the spot 52 is full with two pawns, to show a floating numbers box above it
         }else if(who_isin_spot.who_isin_spot52.length == 2){
 
-            numbers_float(dice_1, dice_2, who_isin_spot.who_isin_spot52 , 52);
+            number_sail(dice_1, dice_2);
         }
     }
 
@@ -545,7 +547,7 @@ function roll_dice(roller_one_image, roller_two_image){
     }else {
 
         if(who_is_outof_home_indexes > 0){
-            
+
             time = 0;
             number_sail(dice_1, dice_2);
         }
@@ -603,7 +605,7 @@ function movements(dice, container, spot_number, dice_1, dice_2){
                     container.style.top = spots[`d${j}_spot_y`] + "px";
                     container.style.left = spots[`d${j}_spot_x`] + "px";
                     
-                },(i * 250) +  ((j - 1) * 250));
+                },((i - 1) * 250) +  ((j - 1) * 250));
             }
             break;
         }
@@ -634,18 +636,15 @@ function movements(dice, container, spot_number, dice_1, dice_2){
         parallel_check(spot_number + dice);
     }, dice * 250);
 
-    let float = document.getElementById("numbers-container");
 
     if(is_dice_1_clicked == true && is_dice_2_clicked != true){
 
-        float.style.visibility = "hidden";
         dice_1 = 0;
         time = (dice + 1) * 250;
         number_sail(dice_1, dice_2);
         
     }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
         
-        float.style.visibility = "hidden";
         dice_2 = 0;
         time = (dice + 1) * 250;
         number_sail(dice_1, dice_2);
@@ -705,34 +704,13 @@ function center_check(who_isin_spot, spot_number){
     }
 };
 
-//-------------------------number float function-----to show a floating container of the two dices----------------------------
-
-function numbers_float(dice_1, dice_2, array, spot_number){
-
-    name_index = array[0]
-
-    let float = document.getElementById("numbers-container");
-    let number_one = document.getElementById("number-one");
-    let number_two = document.getElementById("number-two");
-    
-    float.style.left = name_index.getBoundingClientRect().x - 17 + "px";
-    float.style.top = name_index.getBoundingClientRect().y - 35 + "px";
-    
-    float.style.visibility = "visible";
-    number_one.textContent = dice_1;
-    number_two.textContent = dice_2;
-
-    number_one.addEventListener('click', () => {is_dice_1_clicked = true; movements(dice_1, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
-    number_two.addEventListener('click', () => {is_dice_2_clicked = true; movements(dice_2, name_index, spot_number, dice_1, dice_2); number_one.style.pointerEvents = "none"; number_one.style.opacity = 0.5; roller_deactivater(); number_sail_destroyer()});
-
-};
-
 //--------------------------number sail function---------to display the remaining dice number on each pawn-----------------
 
 let hovered = []
 
 function number_sail(dice_1, dice_2){
 
+    
     
     if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
     (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
@@ -745,12 +723,11 @@ function number_sail(dice_1, dice_2){
         shows[`circle${i}`].id = `c${i}`;
         shows[`circle${i}`].classList.add("circle");
         document.body.appendChild(shows[`circle${i}`]);
-        
+                
         setTimeout(() => {
             
             shows[`circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
             shows[`circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
-            shows[`circle${i}`].style.visibility = "visible";
 
             let spot_number;
 
@@ -767,6 +744,7 @@ function number_sail(dice_1, dice_2){
 
             if(dice_1 == 0){
 
+                shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_2}`;
                 shows[`circle${i}`].addEventListener('click', function(){
                     
@@ -778,6 +756,7 @@ function number_sail(dice_1, dice_2){
                 
             }else if(dice_2 == 0){
 
+                shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_1}`;
                 shows[`circle${i}`].addEventListener('click', function(){
 
@@ -790,17 +769,40 @@ function number_sail(dice_1, dice_2){
             
             }else if(dice_1 != 0 && dice_2 !== 0){
 
-                shows[`circle${i}`].textContent = `${dice_1} , ${dice_2}`;
-                shows[`circle${i}`].addEventListener('mouseover', function(){
+                shows[`left_half_circle${i}`] = document.createElement("div"); // create the left_half_circle
+                shows[`left_half_circle${i}`].id = `left-half-circle${i}`;
+                shows[`left_half_circle${i}`].classList.add("left-half-circle");
+                document.body.appendChild(shows[`left_half_circle${i}`]);
+                shows[`left_half_circle${i}`].style.visibility = "visible";
+                shows[`left_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
+                shows[`left_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
 
-                    if(hovered[0]){
+                shows[`left_half_circle${i}`].textContent = `${dice_1}`;
+                shows[`left_half_circle${i}`].addEventListener('click', function(){
 
-                        hovered.shift();
-                    }
+                    is_dice_1_clicked = true;
+                    movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                    roller_deactivater();
+                    number_sail_destroyer()
 
-                    hovered.push(blue_containers[who_is_outof_home_indexes[i - 1]]);
+                });
 
-                    numbers_float(dice_1, dice_2, hovered, spot_number);
+                shows[`right_half_circle${i}`] = document.createElement("div"); // create the right_half_circle
+                shows[`right_half_circle${i}`].id = `right-half-circle${i}`;
+                shows[`right_half_circle${i}`].classList.add("right-half-circle");
+                document.body.appendChild(shows[`right_half_circle${i}`]);
+                shows[`right_half_circle${i}`].style.visibility = "visible";
+                shows[`right_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
+                shows[`right_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+
+                shows[`right_half_circle${i}`].textContent = `${dice_2}`;
+                shows[`right_half_circle${i}`].addEventListener('click', function(){
+
+                    is_dice_2_clicked = true;
+                    movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                    roller_deactivater();
+                    number_sail_destroyer()
+
                 });
             }
         }, time);
@@ -834,8 +836,12 @@ function number_sail_destroyer() {
 
     for (let i = 1; i <= 4; i++) {
 
-        let element = document.getElementById(`c${i}`);
+        let circle = document.getElementById(`c${i}`);
+        let left_half_circle = document.getElementById(`left-half-circle${i}`);
+        let right_half_circle = document.getElementById(`right-half-circle${i}`);
 
-        if (element) { element.remove(); }
+        if (circle) { circle.remove(); }
+        if (left_half_circle) { left_half_circle.remove(); }
+        if (right_half_circle) { right_half_circle.remove(); }
     }
 };
