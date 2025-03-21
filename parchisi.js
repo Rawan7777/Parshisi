@@ -111,6 +111,7 @@ let who_isin_spot = {}; // stores which pawn at which spot
 for (let i = 1; i <= 68; i++) { 
 
     divs[`d${i}`] = document.getElementById(`d${i}`);
+
     cords[`d${i}_cords`] = divs[`d${i}`].getBoundingClientRect();
 
     spots[`d${i}_spot_x`] = cords[`d${i}_cords`].x - Main_Container_cords.x + ((cords[`d${i}_cords`].width - pawn_container_cords.width) / 2);
@@ -122,6 +123,42 @@ for (let i = 1; i <= 68; i++) {
     who_isin_spot[`who_isin_spot${i}`] = [];
 
 };
+
+let blues = {};
+let reds = {};
+let yellows = {};
+let greens = {};
+
+for(let i = 1; i <= 7; i++){
+
+    blues[`blue${i}`] = document.getElementById(`blue${i}`);
+    reds[`red${i}`] = document.getElementById(`red${i}`);
+    yellows[`yellow${i}`] = document.getElementById(`yellow${i}`);
+    greens[`green${i}`] = document.getElementById(`green${i}`);
+
+    cords[`blue${i}_cords`] = blues[`blue${i}`].getBoundingClientRect();
+    cords[`red${i}_cords`] = reds[`red${i}`].getBoundingClientRect();
+    cords[`yellow${i}_cords`] = yellows[`yellow${i}`].getBoundingClientRect();
+    cords[`green${i}_cords`] = greens[`green${i}`].getBoundingClientRect();
+
+    spots[`blue${i}_spot_x`] = cords[`blue${i}_cords`].x - Main_Container_cords.x + ((cords[`blue${i}_cords`].width - pawn_container_cords.width) / 2);
+    spots[`blue${i}_spot_y`] = cords[`blue${i}_cords`].y - Main_Container_cords.y + ((cords[`blue${i}_cords`].height - pawn_container_cords.height) / 2);
+    
+    spots[`red${i}_spot_x`] = cords[`red${i}_cords`].x - Main_Container_cords.x + ((cords[`red${i}_cords`].width - pawn_container_cords.width) / 2);
+    spots[`red${i}_spot_y`] = cords[`red${i}_cords`].y - Main_Container_cords.y + ((cords[`red${i}_cords`].height - pawn_container_cords.height) / 2);
+    
+    spots[`yellow${i}_spot_x`] = cords[`yellow${i}_cords`].x - Main_Container_cords.x + ((cords[`yellow${i}_cords`].width - pawn_container_cords.width) / 2);
+    spots[`yellow${i}_spot_y`] = cords[`yellow${i}_cords`].y - Main_Container_cords.y + ((cords[`yellow${i}_cords`].height - pawn_container_cords.height) / 2);
+    
+    spots[`green${i}_spot_x`] = cords[`green${i}_cords`].x - Main_Container_cords.x + ((cords[`green${i}_cords`].width - pawn_container_cords.width) / 2);
+    spots[`green${i}_spot_y`] = cords[`green${i}_cords`].y - Main_Container_cords.y + ((cords[`green${i}_cords`].height - pawn_container_cords.height) / 2);
+
+    who_isin_spot[`who_isin_spot_blue${i}`] = [];
+    who_isin_spot[`who_isin_spot_red${i}`] = [];
+    who_isin_spot[`who_isin_spot_yellow${i}`] = [];
+    who_isin_spot[`who_isin_spot_green${i}`] = [];
+}
+
 
 let shows = {}; // stores the divs that show the dice numbers to play
 
@@ -193,7 +230,7 @@ function roll_dice(roller_one_image, roller_two_image){
             count++;
         }else if(count == 1){
             dice_1 = 5;
-            dice_2 = 3;
+            dice_2 = 63;
             count++;
         }else if(count == 2){
             dice_1 = 5;
@@ -580,18 +617,62 @@ function after_home(dice, container){
 
 function movements(dice, container, spot_number, dice_1, dice_2){
 
+    let is_colored = false;
+
     for(let i = 1; i <= dice; i++){
 
         if(spot_number + i <= 68){
 
-            time =  i * 250;
-    
-            setTimeout(() => {
-    
-                container.style.top = spots[`d${spot_number + i}_spot_y`] + "px";
-                container.style.left = spots[`d${spot_number + i}_spot_x`] + "px";
+            if((container.id == "blue-one-container" || "blue-two-container" || "blue-three-container" || "blue-four-container")
+                && (spot_number + i - 1 == 47))
+            {
+                console.log("e")
+
+                // setTimeout(() => {
+            
+                //     console.log(spot_number + i)
+                //     container.style.top = spots[`d${spot_number + i}_spot_y`] + "px";
+                //     container.style.left = spots[`d${spot_number + i}_spot_x`] + "px";
+                    
+                // }, (i - 1) * 250);
+
+
+                colored_dice = dice - i + 1;
                 
-            }, (i - 1) * 250);
+                console.log(colored_dice)
+
+                for(let j = 1; j <= colored_dice; j++){
+
+                    setTimeout(() => {
+
+                        container.style.top = spots[`blue${j}_spot_y`] + "px";
+                        container.style.left = spots[`blue${j}_spot_x`] + "px";
+                    
+                    },(i * 250) +  ((j - 1) * 250));
+                }
+
+                if(!(who_isin_spot[`who_isin_spot_blue${colored_dice}`].includes(container))){
+
+                    who_isin_spot[`who_isin_spot_blue${colored_dice}`].push(container);
+                }
+
+                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+
+                is_colored = true;
+
+                break;
+
+            }else{
+
+                // time =  i * 250;
+        
+                setTimeout(() => {
+        
+                    container.style.top = spots[`d${spot_number + i}_spot_y`] + "px";
+                    container.style.left = spots[`d${spot_number + i}_spot_x`] + "px";
+                    
+                }, (i - 1) * 250);
+            }
 
         }else{
 
@@ -613,14 +694,14 @@ function movements(dice, container, spot_number, dice_1, dice_2){
 
     if(spot_number + dice <= 68){
 
-        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container))){
+        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && is_colored == false){
 
             who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
         }
 
     }else{
 
-        if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container))){
+        if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container)) && is_colored == false){
 
             who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
         }
@@ -631,10 +712,16 @@ function movements(dice, container, spot_number, dice_1, dice_2){
 
     center_check(who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
 
-    setTimeout(() => {
+    // setTimeout(() => {
 
-        parallel_check(spot_number + dice);
-    }, dice * 250);
+    //     if(spot_number + dice <= 68){
+
+    //         parallel_check(spot_number + dice);
+    //     }else{
+            
+    //         parallel_check((spot_number + dice) - 68);
+    //     }
+    // }, dice * 250);
 
 
     if(is_dice_1_clicked == true && is_dice_2_clicked != true){
