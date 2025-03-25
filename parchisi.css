@@ -661,58 +661,6 @@ body{
     width: 100%;
 }
 
-.numbers-container{
-    height: 30px;
-    width: 60px;
-    background-color: white;
-    border-radius: 3px;
-    position: relative;
-    visibility: hidden;
-    transition: left 0.4s ease, right 0.4s ease, bottom 0.4s ease, top 0.4s ease;
-}
-
-.number-one{
-    height: 90%;
-    width: 45%;
-    background-color: #217fd9;
-    border-radius: 5%;
-    position: absolute;
-    top: 5%;
-    left: 3%;
-    font-family: sans-serif;
-    font-weight: 551;
-    font-size: 18px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.number-one:hover{
-    background-color: #119630;
-}
-
-.number-two{
-    height: 90%;
-    width: 45%;
-    background-color: #217fd9;
-    border-radius: 5%;
-    position: absolute;
-    top: 5%;
-    right: 3%;
-    font-family: sans-serif;
-    font-weight: 551;
-    font-size: 18px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.number-two:hover{
-    background-color: #429611;
-}
-
 .circle{
     height: 40px;
     width: 40px;

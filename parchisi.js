@@ -132,6 +132,7 @@ for (let i = 0; i <= 4; i++) {
     shows[`circle${i}`];
     shows[`left_half_circle${i}`];
     shows[`right_half_circle${i}`];
+    shows[`full_circle${i}`]
     
 };
 
@@ -183,7 +184,7 @@ function roll_dice(roller_one_image, roller_two_image){
     is_dice_1_clicked = false;
     is_dice_2_clicked = false;
 
-    // a function fo set the dices value as desired for debugging
+    // a function fo set the dices value as desired for debugging (Temporary)
     let dice_1;
     let dice_2;
 
@@ -192,13 +193,22 @@ function roll_dice(roller_one_image, roller_two_image){
             dice_1 = 5;
             dice_2 = 5;
             count++;
-        }else if(count == 1){
+        }else if(count < 9){
             dice_1 = 5;
-            dice_2 = 63;
-            count++;
-        }else if(count == 2){
+            dice_2 = 6;
+            count++
+        }else if(count == 9){
             dice_1 = 5;
-            dice_2 = 2;
+            dice_2 = 1;
+            count++
+        }else if(count == 10){
+            dice_1 = 5;
+            dice_2 = 6;
+            count++
+        }else{
+            dice_1 = 5;
+            dice_2 = 1;
+            count++
         }
     };
 
@@ -579,118 +589,174 @@ function after_home(dice, container){
 
 //------------------------------------------movements function----to move the pawns----------------------------------------
 
+let counter;
+let blue_finishers = []; // to store the pawns that finished
+
 function movements(dice, container, spot_number, dice_1, dice_2){
 
-    let is_colored = false;
+    counter = 0; // reset the counter
 
     for(let i = 1; i <= dice; i++){
 
+        // if the next final spot-number will not be greater than 68
         if(spot_number + i <= 68){
 
-            if((container.id == "blue-one-container" || "blue-two-container" || "blue-three-container" || "blue-four-container")
-                && (spot_number + i - 1 == 47))
+            // if the the pawn is blue and in the spot-number 47, so the next spot should be the winning path (blue path)
+            if((spot_number + i - 1 == 47) &&
+               (container.id == "blue-one-container" || "blue-two-container" ||
+                              "blue-three-container" || "blue-four-container"))
             {
 
                 colored_dice = dice - i + 1;
                 
                 for(let j = 69; j < colored_dice + 69; j++){
 
+                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                    
                     setTimeout(() => {
 
                         container.style.top = spots[`d${j}_spot_y`] + "px";
                         container.style.left = spots[`d${j}_spot_x`] + "px";
-                    
-                    },(i * 250) +  ((j - 69) * 250));
+                        counter++;
+
+                        if(!(who_isin_spot[`who_isin_spot${colored_dice + 68}`].includes(container)) && counter == dice){
+
+                            who_isin_spot[`who_isin_spot${colored_dice + 68}`].push(container);
+                            parallel_check(colored_dice + 68);
+                        }
+
+                    },(i * 250) + ((j - 69) * 250) - 250);
                 }
-
-                if(!(who_isin_spot[`who_isin_spot${colored_dice + 68}`].includes(container))){
-
-                    who_isin_spot[`who_isin_spot${colored_dice + 68}`].push(container);
-                }
-
-                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
-
-                is_colored = true;
 
                 break;
 
+            // else if the next spot shouldn't be the winning path (normal move)
             }else{
+
+                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
 
                 setTimeout(() => {
         
                     container.style.top = spots[`d${spot_number + i}_spot_y`] + "px";
                     container.style.left = spots[`d${spot_number + i}_spot_x`] + "px";
+                    counter++;
+
+                    if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice){
+
+                        who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+                        parallel_check(spot_number + dice);
+                    }
                     
                 }, (i - 1) * 250);
             }
 
+        // if the current spot-number is greater than 68, indicating that it is already in the winning path
         }else if(spot_number > 68){
 
             for(let j = 1; j <= dice; j++){
 
-                if(!(spot_number + j > 75)){
+                // the next final spot-number shouldn't be the finish triangle
+                if(!(spot_number + j >= 76)){
+
+                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
 
                     setTimeout(() => {
             
                         container.style.top = spots[`d${spot_number + j}_spot_y`] + "px";
                         container.style.left = spots[`d${spot_number + j}_spot_x`] + "px";
+                        counter++;
                         
+                        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice && !(spot_number + dice > 75)){
+    
+                            who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+                            parallel_check(spot_number + dice);
+                        }
+
                     }, (j - 1) * 250);
 
-                }else{
 
-                    break;
+                // the next final spot-number will be the finish triangle
+                }else if(spot_number + dice == 76){
+
+                    let first_spot_x = 201 + 2; // triangle_x + little bit of marging
+                    let first_spot_y = 201 + 73 - 13; // triangle_y + half triangle height - half pawn height
+
+                    let second_spot_x = first_spot_x + 26 + 2; // first_spot_x + pawn width + marging
+                    let second_spot_y = first_spot_y; 
+
+                    let third_spot_x = first_spot_x;
+                    let third_spot_y = first_spot_y - 26 - 2; // first_spot_y - pawn height - marging
+
+                    let fourth_spot_x = first_spot_x; 
+                    let fourth_spot_y = first_spot_y + 26 + 2; // first_spot_y + pawn height + marging
+
+                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                    
+                    setTimeout(() => {
+                        
+                        if(!(blue_finishers.includes(container))){
+    
+                            blue_finishers.push(container);
+                        }
+
+                        if(blue_finishers.length == 1){
+
+                            container.style.left = first_spot_y + "px";
+                            container.style.top = first_spot_x + "px";
+                            counter++;
+
+                        }else if(blue_finishers.length == 2){
+
+                            container.style.left = second_spot_y + "px";
+                            container.style.top = second_spot_x + "px";
+                            counter++;
+
+                        }else if(blue_finishers.length == 3){
+
+                            container.style.left = third_spot_y + "px";
+                            container.style.top = third_spot_x + "px";
+                            counter++;
+
+                        }else if(blue_finishers.length == 4){
+
+                            container.style.left = fourth_spot_y + "px";
+                            container.style.top = fourth_spot_x + "px";
+                            counter++;
+                        }
+
+                    }, (j - 1) * 250);
                 }
             }
 
+        // if the next spot-number will be greater than 68, to start counting back from 1
         }else if(spot_number + i > 68){
 
             new_dice = dice - i + 1;
 
             for(let j = 1; j <= new_dice; j++){
 
+                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                
                 setTimeout(() => {
 
                     container.style.top = spots[`d${j}_spot_y`] + "px";
                     container.style.left = spots[`d${j}_spot_x`] + "px";
+                    counter++;
                     
+                    if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container)) && counter == dice){
+        
+                        who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
+                        parallel_check((spot_number + dice) - 68);
+                    }
+
                 },((i - 1) * 250) +  ((j - 1) * 250));
             }
+
             break;
         }
     }
 
-    if((spot_number + dice <= 68) || (spot_number > 68)){
-
-        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && is_colored == false){
-
-            who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
-        }
-
-    }else if(spot_number + dice > 68){
-
-        if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container)) && is_colored == false){
-
-            who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].push(container);
-        }
-
-    }
-
-    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
-
     center_check(who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
-
-    // setTimeout(() => {
-
-    //     if(spot_number + dice <= 68){
-
-    //         parallel_check(spot_number + dice);
-    //     }else{
-            
-    //         parallel_check((spot_number + dice) - 68);
-    //     }
-    // }, dice * 250);
-
 
     if(is_dice_1_clicked == true && is_dice_2_clicked != true){
 
@@ -719,7 +785,8 @@ function parallel_check(spot_number){
 
     if(who_isin_spot[`who_isin_spot${spot_number}`].length == 2){
 
-        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21))
+        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21) ||
+           (69 <= spot_number && spot_number <= 75) || (90 <= spot_number && spot_number <= 96))
         {
 
             who_isin_spot[`who_isin_spot${spot_number}`][0].style.left = spots[`d${spot_number}_spot_x`] + 15 + "px";
@@ -740,7 +807,8 @@ function center_check(who_isin_spot, spot_number){
     
     if(who_isin_spot.length == 1){
         
-        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21))
+        if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21) ||
+        (69 <= spot_number && spot_number <= 75) || (90 <= spot_number && spot_number <= 96))
         {
 
             if(wide_center[`d${spot_number}_center_x`] != who_isin_spot[0].getBoundingClientRect().x){
@@ -765,8 +833,6 @@ let hovered = []
 
 function number_sail(dice_1, dice_2){
 
-    
-    
     if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
     (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
     (is_dice_1_clicked == false && is_dice_2_clicked == false))
@@ -797,7 +863,7 @@ function number_sail(dice_1, dice_2){
                 }  
             }
 
-            if(dice_1 == 0){
+            if(dice_1 == 0 && (spot_number + dice_2 < 76)){
 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_2}`;
@@ -809,7 +875,7 @@ function number_sail(dice_1, dice_2){
                     number_sail_destroyer()
                 });
                 
-            }else if(dice_2 == 0){
+            }else if(dice_2 == 0 && (spot_number + dice_1 < 76)){
 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_1}`;
@@ -824,41 +890,94 @@ function number_sail(dice_1, dice_2){
             
             }else if(dice_1 != 0 && dice_2 !== 0){
 
-                shows[`left_half_circle${i}`] = document.createElement("div"); // create the left_half_circle
-                shows[`left_half_circle${i}`].id = `left-half-circle${i}`;
-                shows[`left_half_circle${i}`].classList.add("left-half-circle");
-                document.body.appendChild(shows[`left_half_circle${i}`]);
-                shows[`left_half_circle${i}`].style.visibility = "visible";
-                shows[`left_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
-                shows[`left_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+                function left_half(){
 
-                shows[`left_half_circle${i}`].textContent = `${dice_1}`;
-                shows[`left_half_circle${i}`].addEventListener('click', function(){
+                    shows[`left_half_circle${i}`] = document.createElement("div"); // create the left_half_circle
+                    shows[`left_half_circle${i}`].id = `left-half-circle${i}`;
+                    shows[`left_half_circle${i}`].classList.add("left-half-circle");
+                    document.body.appendChild(shows[`left_half_circle${i}`]);
+                    shows[`left_half_circle${i}`].style.visibility = "visible";
+                    shows[`left_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
+                    shows[`left_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+    
+                    shows[`left_half_circle${i}`].textContent = `${dice_1}`;
+                    shows[`left_half_circle${i}`].addEventListener('click', function(){
+    
+                        is_dice_1_clicked = true;
+                        movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                        roller_deactivater();
+                        number_sail_destroyer()
+    
+                    });
+                }
 
-                    is_dice_1_clicked = true;
-                    movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
-                    roller_deactivater();
-                    number_sail_destroyer()
+                function right_half(){
 
-                });
+                    shows[`right_half_circle${i}`] = document.createElement("div"); // create the right_half_circle
+                    shows[`right_half_circle${i}`].id = `right-half-circle${i}`;
+                    shows[`right_half_circle${i}`].classList.add("right-half-circle");
+                    document.body.appendChild(shows[`right_half_circle${i}`]);
+                    shows[`right_half_circle${i}`].style.visibility = "visible";
+                    shows[`right_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
+                    shows[`right_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+    
+                    shows[`right_half_circle${i}`].textContent = `${dice_2}`;
+                    shows[`right_half_circle${i}`].addEventListener('click', function(){
+    
+                        is_dice_2_clicked = true;
+                        movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                        roller_deactivater();
+                        number_sail_destroyer()
+    
+                    });
+                }
 
-                shows[`right_half_circle${i}`] = document.createElement("div"); // create the right_half_circle
-                shows[`right_half_circle${i}`].id = `right-half-circle${i}`;
-                shows[`right_half_circle${i}`].classList.add("right-half-circle");
-                document.body.appendChild(shows[`right_half_circle${i}`]);
-                shows[`right_half_circle${i}`].style.visibility = "visible";
-                shows[`right_half_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
-                shows[`right_half_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+                function full_circle(){
 
-                shows[`right_half_circle${i}`].textContent = `${dice_2}`;
-                shows[`right_half_circle${i}`].addEventListener('click', function(){
+                    shows[`full_circle${i}`] = document.createElement("div"); // create the full_circle
+                    shows[`full_circle${i}`].id = `full-circle${i}`;
+                    shows[`full_circle${i}`].classList.add("circle");
+                    document.body.appendChild(shows[`full_circle${i}`]);
+                    shows[`full_circle${i}`].style.visibility = "visible";
+                    shows[`full_circle${i}`].style.left = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().x - 6 + "px";
+                    shows[`full_circle${i}`].style.top = blue_containers[who_is_outof_home_indexes[i - 1]].getBoundingClientRect().y - 6 + "px";
+    
+                }
 
-                    is_dice_2_clicked = true;
-                    movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
-                    roller_deactivater();
-                    number_sail_destroyer()
+                if((spot_number + dice_1 <= 76) && (spot_number + dice_2 <= 76)){
 
-                });
+                    left_half();
+                    right_half();
+
+                }else if(spot_number + dice_1 <= 76){
+
+                    full_circle();
+
+                    shows[`full_circle${i}`].textContent = `${dice_1}`;
+                    shows[`full_circle${i}`].addEventListener('click', function(){
+    
+                        is_dice_1_clicked = true;
+                        movements(dice_1, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                        roller_deactivater();
+                        number_sail_destroyer()
+    
+                    });
+
+                }else if(spot_number + dice_2 <= 76){
+
+                    full_circle();
+
+                    shows[`full_circle${i}`].textContent = `${dice_2}`;
+                    shows[`full_circle${i}`].addEventListener('click', function(){
+    
+                        is_dice_2_clicked = true;
+                        movements(dice_2, blue_containers[who_is_outof_home_indexes[i - 1]], spot_number, dice_1, dice_2);
+                        roller_deactivater();
+                        number_sail_destroyer()
+    
+                    });
+                }
+
             }
         }, time);
         }
@@ -894,9 +1013,11 @@ function number_sail_destroyer() {
         let circle = document.getElementById(`c${i}`);
         let left_half_circle = document.getElementById(`left-half-circle${i}`);
         let right_half_circle = document.getElementById(`right-half-circle${i}`);
+        let full_circle = document.getElementById(`full-circle${i}`);
 
         if (circle) { circle.remove(); }
         if (left_half_circle) { left_half_circle.remove(); }
         if (right_half_circle) { right_half_circle.remove(); }
+        if (full_circle) { full_circle.remove(); }
     }
 };
