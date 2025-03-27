@@ -186,45 +186,25 @@ function roll_dice(roller_one_image, roller_two_image){
     is_dice_1_clicked = false;
     is_dice_2_clicked = false;
 
-    // a function fo set the dices values as desired for debugging (Temporary) it got crazy this time
+    // a function fo set the dices values as desired for debugging (Temporary)
     let dice_1;
     let dice_2;
 
     function dicy(){
-        if(count == 0 || count == 4 || count == 8 || count == 11){
+        if(count == 0 || count == 1){
             dice_1 = 5;
-            dice_2 = 6;
+            dice_2 = 4;
             count++;
-        }else if(count == 1 || count == 5 || count == 9 || count == 12){
+        }else if(count == 2){
+            dice_1 = 1;
+            dice_2 = 4;
+            count++
+        }else if(count == 3){
+            dice_1 = 2;
+            dice_2 = 4;
+            count++
+        }else{
             dice_1 = 6;
-            dice_2 = 6;
-            count++
-        }else if(count == 2 || count == 6 || count == 10 ){
-            dice_1 = 6;
-            dice_2 = 44;
-            count++
-        }else if(count == 3 || count == 7){
-            dice_1 = 1;
-            dice_2 = 2;
-            count++
-        }else if(count == 13){
-            dice_1 = 5;
-            dice_2 = 44;
-            count++
-        }else if(count == 14){
-            dice_1 = 1;
-            dice_2 = 1;
-            count++
-        }else if(count <= 16){
-            dice_1 = 5;
-            dice_2 = 5;
-            count++
-        }else if(count == 17){
-            dice_1 = 3;
-            dice_2 = 3;
-            count++
-        }else if(count == 18){
-            dice_1 = 1;
             dice_2 = 2;
             count++
         }
@@ -761,10 +741,12 @@ function number_sail(dice_1, dice_2){
 
             let spot_number;
 
+            // to extract the number of each spot that contains a pawn
             for(let j = 1; j <= 96; j++) {
 
-                div_in_spot = who_isin_spot[`who_isin_spot${j}`];
+                div_in_spot = who_isin_spot[`who_isin_spot${j}`]; // store the array 'who_isin_spot$$'
 
+                // check if the spot contains one or two pawns
                 if(div_in_spot[0] == blue_containers[who_is_outof_home_nicknames[i - 1]] || div_in_spot[1] == blue_containers[who_is_outof_home_nicknames[i - 1]]){
 
                     spot_number = j;
@@ -772,9 +754,50 @@ function number_sail(dice_1, dice_2){
                 }  
             }
 
-            // if dice_1 is already played and dice_2 + spot_number will not exceed 76
-            if(dice_1 == 0 && (spot_number + dice_2 <= 76)){
+            // Declare booleans to indicate if there is a blockade in the upcoming dice range spots
+            let is_blockade1;
+            let is_blockade2;
 
+            // make copies of the spot_number, to leave the original as it is
+            let spot_number_copy1 = spot_number;
+            let spot_number_copy2 = spot_number;
+
+            // to loop through the dice_1 spots range
+            for(let j = 1; j <= dice_1; j++){
+
+                // check if the spot_number exceeds 68, to start counting over
+                if(spot_number_copy1 + j > 68){
+
+                    spot_number_copy1 = spot_number_copy1 - 68;
+                }
+
+                // check if the spot contains two pawns (blockade)
+                if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2 ){
+
+                    is_blockade1 = true; // indicate that there is a blockade
+                    break;
+                }
+            }
+
+            // to loop through the dice_2 spots range
+            for(let j = 1; j <= dice_2; j++){
+
+                // check if the spot_number exceeds 68, to start counting over
+                if(spot_number_copy2 + j > 68){
+
+                    spot_number_copy2 = spot_number_copy2 - 68;
+                }
+
+                // check if the spot contains two pawns (blockade)
+                if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2 ){
+
+                    is_blockade2 = true; // indicate that there is a blockade
+                    break;
+                }
+            }
+
+            // if dice_1 is already played and, dice_2 + spot_number will not exceed 76, and there is no blockade
+            if(dice_1 == 0 && (spot_number + dice_2 <= 76) && is_blockade2 != true){
                 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_2}`;
@@ -786,8 +809,8 @@ function number_sail(dice_1, dice_2){
                     number_sail_destroyer();
                 });
                 
-            // if dice_2 is already played and dice_1 + spot_number will not exceed 76
-            }else if(dice_2 == 0 && (spot_number + dice_1 <= 76)){
+            // if dice_2 is already played, and dice_1 + spot_number will not exceed 76, and there is no blockade
+            }else if(dice_2 == 0 && (spot_number + dice_1 <= 76) && is_blockade1 != true){
 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_1}`;
@@ -860,14 +883,14 @@ function number_sail(dice_1, dice_2){
     
                 }
 
-                // if both of the dices + spot_number will not exceed 76
-                if((spot_number + dice_1 <= 76) && (spot_number + dice_2 <= 76)){
+                // if both of the dices + spot_number will not exceed 76, and there is no blockade
+                if((spot_number + dice_1 <= 76) && (spot_number + dice_2 <= 76) && is_blockade1 != true && is_blockade2 != true){
 
                     left_half();
                     right_half();
 
-                // if just the dice_1 + spot_number will not exceed 76
-                }else if(spot_number + dice_1 <= 76){
+                // if just the dice_1 + spot_number will not exceed 76, and there is no blockade
+                }else if(spot_number + dice_1 <= 76 && is_blockade1 != true){
 
                     full_circle();
 
@@ -881,8 +904,8 @@ function number_sail(dice_1, dice_2){
     
                     });
 
-                // if just the dice_2 + spot_number will not exceed 76
-                }else if(spot_number + dice_2 <= 76){
+                // if just the dice_2 + spot_number will not exceed 76, and there is no blockade
+                }else if(spot_number + dice_2 <= 76 && is_blockade2 != true){
 
                     full_circle();
 
