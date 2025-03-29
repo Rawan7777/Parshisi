@@ -607,7 +607,6 @@ body{
     background-color: var(--light-red);
     top: 70px;
     right: 370px;
-    visibility: hidden;
 }
 
 #red-roll:hover{
@@ -618,7 +617,6 @@ body{
     background-color: var(--dark-yellow);
     bottom: 70px;
     left: 370px;
-    visibility: hidden;
 }
 
 #yellow-roll:hover{
@@ -629,7 +627,6 @@ body{
     background-color: var(--light-green);
     bottom: 70px;
     right: 370px;
-    visibility: hidden;
 }
 
 #green-roll:hover{

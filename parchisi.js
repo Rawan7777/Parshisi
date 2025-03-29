@@ -2,16 +2,29 @@
 let Main_Container = document.getElementById("Main-Container");
 let Main_Container_cords = Main_Container.getBoundingClientRect();
 
-// ovals coordinantes
-let oval1 = document.getElementById("blue-oval1");
-let oval2 = document.getElementById("blue-oval2");
-let oval3 = document.getElementById("blue-oval3");
-let oval4 = document.getElementById("blue-oval4");
+// blue ovals coordinantes
+let blue_oval1_cords = document.getElementById("blue-oval1").getBoundingClientRect();
+let blue_oval2_cords = document.getElementById("blue-oval2").getBoundingClientRect();
+let blue_oval3_cords = document.getElementById("blue-oval3").getBoundingClientRect();
+let blue_oval4_cords = document.getElementById("blue-oval4").getBoundingClientRect();
 
-let oval1_cords = oval1.getBoundingClientRect();
-let oval2_cords = oval2.getBoundingClientRect();
-let oval3_cords = oval3.getBoundingClientRect();
-let oval4_cords = oval4.getBoundingClientRect();
+// red ovals coordinantes
+let red_oval1_cords = document.getElementById("red-oval1").getBoundingClientRect();
+let red_oval2_cords = document.getElementById("red-oval2").getBoundingClientRect();
+let red_oval3_cords = document.getElementById("red-oval3").getBoundingClientRect();
+let red_oval4_cords = document.getElementById("red-oval4").getBoundingClientRect();
+
+// green ovals coordinantes
+let green_oval1_cords = document.getElementById("green-oval1").getBoundingClientRect();
+let green_oval2_cords = document.getElementById("green-oval2").getBoundingClientRect();
+let green_oval3_cords = document.getElementById("green-oval3").getBoundingClientRect();
+let green_oval4_cords = document.getElementById("green-oval4").getBoundingClientRect();
+
+// yellow ovals coordinantes
+let yellow_oval1_cords = document.getElementById("yellow-oval1").getBoundingClientRect();
+let yellow_oval2_cords = document.getElementById("yellow-oval2").getBoundingClientRect();
+let yellow_oval3_cords = document.getElementById("yellow-oval3").getBoundingClientRect();
+let yellow_oval4_cords = document.getElementById("yellow-oval4").getBoundingClientRect();
 
 // Pawns Containers Id's
 let blue_one_container = document.getElementById("blue-one-container");
@@ -20,83 +33,78 @@ let blue_three_container = document.getElementById("blue-three-container");
 let blue_four_container = document.getElementById("blue-four-container");
 
 // Sample pawn Container coordinantes
-let pawn_container = document.getElementById("blue-one-container");
-let pawn_container_cords = pawn_container.getBoundingClientRect();
+let pawn_container_cords = document.getElementById("blue-one-container").getBoundingClientRect();
 
-// calculate the homes coordinantes
-let close_cords = oval1_cords.x - Main_Container_cords.x + ((oval1_cords.width - pawn_container_cords.width)/2);
-let far_cords = oval4_cords.x - Main_Container_cords.x + ((oval4_cords.width - blue_four_container.getBoundingClientRect().width)/2);
+// blue home coordinantes
 
-// blue homes coordinantes
+blue_one_container.style.left = blue_oval1_cords.x - Main_Container_cords.x + ((blue_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+blue_one_container.style.top = blue_oval1_cords.y - Main_Container_cords.y + ((blue_oval1_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_one_container.style.left = close_cords + "px";
-blue_one_container.style.top = close_cords + "px";
+blue_two_container.style.left = blue_oval2_cords.x - Main_Container_cords.x + ((blue_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+blue_two_container.style.top = blue_oval2_cords.y - Main_Container_cords.y + ((blue_oval2_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_two_container.style.left = far_cords + "px";
-blue_two_container.style.top = close_cords + "px";
+blue_three_container.style.left = blue_oval3_cords.x - Main_Container_cords.x + ((blue_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+blue_three_container.style.top = blue_oval3_cords.y - Main_Container_cords.y + ((blue_oval3_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_three_container.style.left = close_cords + "px";
-blue_three_container.style.top =  far_cords + "px";
+blue_four_container.style.left = blue_oval4_cords.x - Main_Container_cords.x + ((blue_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+blue_four_container.style.top = blue_oval4_cords.y - Main_Container_cords.y + ((blue_oval4_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_four_container.style.left = far_cords + "px";
-blue_four_container.style.top =  far_cords + "px";
-
-// red homes coordinantes
+// red home coordinantes
 
 let red_one_container = document.getElementById("red-one-container");
 let red_two_container = document.getElementById("red-two-container");
 let red_three_container = document.getElementById("red-three-container");
 let red_four_container = document.getElementById("red-four-container");
 
-red_one_container.style.right = close_cords + "px";
-red_one_container.style.top = close_cords + "px";
+red_one_container.style.left = red_oval1_cords.x - Main_Container_cords.x + ((red_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+red_one_container.style.top = red_oval1_cords.y - Main_Container_cords.y + ((red_oval1_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_two_container.style.right = far_cords + "px";
-red_two_container.style.top = close_cords + "px";
+red_two_container.style.left = red_oval2_cords.x - Main_Container_cords.x + ((red_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+red_two_container.style.top = red_oval2_cords.y - Main_Container_cords.y + ((red_oval2_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_three_container.style.right = close_cords + "px";
-red_three_container.style.top =  far_cords + "px";
+red_three_container.style.left = red_oval3_cords.x - Main_Container_cords.x + ((red_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+red_three_container.style.top = red_oval3_cords.y - Main_Container_cords.y + ((red_oval3_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_four_container.style.right = far_cords + "px";
-red_four_container.style.top =  far_cords + "px";
+red_four_container.style.left = red_oval4_cords.x - Main_Container_cords.x + ((red_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+red_four_container.style.top = red_oval4_cords.y - Main_Container_cords.y + ((red_oval4_cords.width - pawn_container_cords.width)/2) + "px";
 
-//yellow homes coordinantes
+//yellow home coordinantes
 
 let yellow_one_container = document.getElementById("yellow-one-container");
 let yellow_two_container = document.getElementById("yellow-two-container");
 let yellow_three_container = document.getElementById("yellow-three-container");
 let yellow_four_container = document.getElementById("yellow-four-container");
 
-yellow_one_container.style.left = close_cords + "px";
-yellow_one_container.style.bottom = close_cords + "px";
+yellow_one_container.style.left = yellow_oval1_cords.x - Main_Container_cords.x + ((yellow_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_one_container.style.top = yellow_oval1_cords.y - Main_Container_cords.y + ((yellow_oval1_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_two_container.style.left = far_cords + "px";
-yellow_two_container.style.bottom = close_cords + "px";
+yellow_two_container.style.left = yellow_oval2_cords.x - Main_Container_cords.x + ((yellow_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_two_container.style.top = yellow_oval2_cords.y - Main_Container_cords.y + ((yellow_oval2_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_three_container.style.left = close_cords + "px";
-yellow_three_container.style.bottom =  far_cords + "px";
+yellow_three_container.style.left = yellow_oval3_cords.x - Main_Container_cords.x + ((yellow_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_three_container.style.top = yellow_oval3_cords.y - Main_Container_cords.y + ((yellow_oval3_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_four_container.style.left = far_cords + "px";
-yellow_four_container.style.bottom =  far_cords + "px";
+yellow_four_container.style.left = yellow_oval4_cords.x - Main_Container_cords.x + ((yellow_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_four_container.style.top = yellow_oval4_cords.y - Main_Container_cords.y + ((yellow_oval4_cords.width - pawn_container_cords.width)/2) + "px";
 
-// green homes coordinantes
+// green home coordinantes
 
 let green_one_container = document.getElementById("green-one-container");
 let green_two_container = document.getElementById("green-two-container");
 let green_three_container = document.getElementById("green-three-container");
 let green_four_container = document.getElementById("green-four-container");
 
-green_one_container.style.right = close_cords + "px";
-green_one_container.style.bottom = close_cords + "px";
+green_one_container.style.left = green_oval1_cords.x - Main_Container_cords.x + ((green_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+green_one_container.style.top = green_oval1_cords.y - Main_Container_cords.y + ((green_oval1_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_two_container.style.right = far_cords + "px";
-green_two_container.style.bottom = close_cords + "px";
+green_two_container.style.left = green_oval2_cords.x - Main_Container_cords.x + ((green_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+green_two_container.style.top = green_oval2_cords.y - Main_Container_cords.y + ((green_oval2_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_three_container.style.right = close_cords + "px";
-green_three_container.style.bottom =  far_cords + "px";
+green_three_container.style.left = green_oval3_cords.x - Main_Container_cords.x + ((green_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+green_three_container.style.top = green_oval3_cords.y - Main_Container_cords.y + ((green_oval3_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_four_container.style.right = far_cords + "px";
-green_four_container.style.bottom =  far_cords + "px";
+green_four_container.style.left = green_oval4_cords.x - Main_Container_cords.x + ((green_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+green_four_container.style.top = green_oval4_cords.y - Main_Container_cords.y + ((green_oval4_cords.width - pawn_container_cords.width)/2) + "px";
 
 //------------------------declare objects to store and calculate the divs id's, coordinantes and more------------------------
 
@@ -136,17 +144,10 @@ for (let i = 0; i <= 4; i++) {
     
 };
 
-//--------------------------------------------------dice roller buttons------------------------------------------------------
+//------------------------------------------------declare blue objects, arrays-----------------------------------------------
 
-document.getElementById("blue-roll").addEventListener('click', function() {roll_dice("blue-roller-one-image", "blue-roller-two-image")});
-document.getElementById("red-roll").addEventListener('click', function() {roll_dice("red-roller-one-image", "red-roller-two-image")});
-document.getElementById("yellow-roll").addEventListener('click', function() {roll_dice("yellow-roller-one-image", "yellow-roller-two-image")});
-document.getElementById("green-roll").addEventListener('click', function() {roll_dice("green-roller-one-image", "green-roller-two-image")});
-
-//------------------------------------------declare object, arrays, and variables---------------------------------------------
-
-// object of which one of the containers is home
-let who_is_home = {
+// object of which one of the blue pawns are home
+let blue_who_is_home = {
 
 //  ▼nicknames▼     ▼actual id's name▼
     blue_one:       blue_one_container,
@@ -167,11 +168,175 @@ let blue_containers = {
 
 };
 
-// array to store the nicknames of which one of the containers is home
-let who_is_home_nicknames = ["blue_one", "blue_two", "blue_three", "blue_four"];
+// array to store the nicknames of which one of the blue pawns are home
+let blue_who_is_home_nicknames = ["blue_one", "blue_two", "blue_three", "blue_four"];
 
-// array to store the nicknames of which one of the containers is out of home
-let who_is_outof_home_nicknames = [];
+// array to store the nicknames of which one of the blue pawns are out of home
+let blue_who_is_outof_home_nicknames = [];
+
+//------------------------------------------------declare red objects, arrays-----------------------------------------------
+
+// object of which one of the red pawns are home
+let red_who_is_home = {
+
+//  ▼nicknames▼     ▼actual id's name▼
+    red_one:       red_one_container,
+    red_two:       red_two_container,
+    red_three:     red_three_container,
+    red_four:      red_four_container
+
+};
+
+// a reference and an unchangeable copy of the previous object
+let red_containers = {
+    
+//  ▼nicknames▼     ▼actual id's name▼
+    red_one:       red_one_container,
+    red_two:       red_two_container,
+    red_three:     red_three_container,
+    red_four:      red_four_container
+
+};
+
+// array to store the nicknames of which one of the red pawns are home
+let red_who_is_home_nicknames = ["red_one", "red_two", "red_three", "red_four"];
+
+// array to store the nicknames of which one of the red pawns are out of home
+let red_who_is_outof_home_nicknames = [];
+
+//------------------------------------------------declare green objects, arrays-----------------------------------------------
+
+// object of which one of the green pawns are home
+let green_who_is_home = {
+
+//  ▼nicknames▼     ▼actual id's name▼
+    green_one:       green_one_container,
+    green_two:       green_two_container,
+    green_three:     green_three_container,
+    green_four:      green_four_container
+
+};
+
+// a reference and an unchangeable copy of the previous object
+let green_containers = {
+    
+//  ▼nicknames▼     ▼actual id's name▼
+    green_one:       green_one_container,
+    green_two:       green_two_container,
+    green_three:     green_three_container,
+    green_four:      green_four_container
+
+};
+
+// array to store the nicknames of which one of the green pawns are home
+let green_who_is_home_nicknames = ["green_one", "green_two", "green_three", "green_four"];
+
+// array to store the nicknames of which one of the green pawns are out of home
+let green_who_is_outof_home_nicknames = [];
+
+//------------------------------------------------declare yellow objects, arrays-----------------------------------------------
+
+// object of which one of the yellow pawns are home
+let yellow_who_is_home = {
+
+//  ▼nicknames▼     ▼actual id's name▼
+    yellow_one:       yellow_one_container,
+    yellow_two:       yellow_two_container,
+    yellow_three:     yellow_three_container,
+    yellow_four:      yellow_four_container
+
+};
+
+// a reference and an unchangeable copy of the previous object
+let yellow_containers = {
+    
+//  ▼nicknames▼     ▼actual id's name▼
+    yellow_one:       yellow_one_container,
+    yellow_two:       yellow_two_container,
+    yellow_three:     yellow_three_container,
+    yellow_four:      yellow_four_container
+
+};
+
+// array to store the nicknames of which one of the yellow pawns are home
+let yellow_who_is_home_nicknames = ["yellow_one", "yellow_two", "yellow_three", "yellow_four"];
+
+// array to store the nicknames of which one of the yellow pawns are out of home
+let yellow_who_is_outof_home_nicknames = [];
+
+//------------------------------------------set the initial state of the dice rollers-----------------------------------------
+
+blue_roll = document.getElementById("blue-roll");
+red_roll = document.getElementById("red-roll");
+green_roll = document.getElementById("green-roll");
+yellow_roll = document.getElementById("yellow-roll");
+
+red_roll.style.pointerEvents =  "none"; 
+red_roll.style.opacity = 0.5;
+
+green_roll.style.pointerEvents =  "none"; 
+green_roll.style.opacity = 0.5;
+
+//-----------------------------------the round selector function to cycle through the rounds----------------------------------
+
+let round = 1; // to indicate the round (starts with blue)
+
+function round_selector(){
+
+    if(round == 1){
+
+        blue_roll.style.pointerEvents = "visible"; 
+        blue_roll.style.opacity = 1;
+
+        yellow_roll.style.pointerEvents =  "none"; 
+        yellow_roll.style.opacity = 0.5;
+        round++;
+
+    }else if(round == 2){
+
+        red_roll.style.pointerEvents = "visible"; 
+        red_roll.style.opacity = 1;
+
+        blue_roll.style.pointerEvents =  "none"; 
+        blue_roll.style.opacity = 0.5;
+        round++;
+
+    }else if(round == 3){
+
+        green_roll.style.pointerEvents = "visible"; 
+        green_roll.style.opacity = 1;
+
+        red_roll.style.pointerEvents =  "none"; 
+        red_roll.style.opacity = 0.5;
+        round++;
+
+    }else if(round == 4){
+
+        yellow_roll.style.pointerEvents = "visible"; 
+        yellow_roll.style.opacity = 1;
+
+        green_roll.style.pointerEvents =  "none"; 
+        green_roll.style.opacity = 0.5;
+        round++;
+    }
+
+    // start over from 1 when the round finishes
+    if(round == 5){
+
+        round = 1;
+    }
+}
+
+round_selector(); // call the function
+
+//--------------------------------------------------dice roller buttons------------------------------------------------------
+
+document.getElementById("blue-roll").addEventListener('click', function() {roll_dice("blue-roller-one-image", "blue-roller-two-image", blue_containers, blue_who_is_home, blue_who_is_home_nicknames, blue_who_is_outof_home_nicknames, "blue", 52)});
+document.getElementById("red-roll").addEventListener('click', function() {roll_dice("red-roller-one-image", "red-roller-two-image", red_containers, red_who_is_home, red_who_is_home_nicknames, red_who_is_outof_home_nicknames, "red", 35)});
+document.getElementById("green-roll").addEventListener('click', function() {roll_dice("green-roller-one-image", "green-roller-two-image", green_containers, green_who_is_home, green_who_is_home_nicknames, green_who_is_outof_home_nicknames, "green", 18)});
+document.getElementById("yellow-roll").addEventListener('click', function() {roll_dice("yellow-roller-one-image", "yellow-roller-two-image", yellow_containers, yellow_who_is_home, yellow_who_is_home_nicknames, yellow_who_is_outof_home_nicknames, "yellow", 1)});
+
+//---------------------------------------------------declare variables-----------------------------------------------------
 
 let is_dice_1_clicked = false; // indicates if the first dice number is played (true) or not (false)
 let is_dice_2_clicked = false; // indicates if the second dice number is played (true) or not (false)
@@ -180,41 +345,15 @@ let count = 0; // to count how many times the dice rolled (used for debugging)
 
 //---------------------------------------------------roll dice function------------------------------------------------------
 
-function roll_dice(roller_one_image, roller_two_image){
+function roll_dice(roller_one_image, roller_two_image, colored_containers, who_is_home, who_is_home_nicknames, who_is_outof_home_nicknames, color, spot_number){
 
     // set the is_dice_1_clicked and is_dice_2_clicked to false every time the roll dice function is called 
     is_dice_1_clicked = false;
     is_dice_2_clicked = false;
 
-    // a function fo set the dices values as desired for debugging (Temporary)
-    let dice_1;
-    let dice_2;
-
-    function dicy(){
-        if(count == 0 || count == 1){
-            dice_1 = 5;
-            dice_2 = 4;
-            count++;
-        }else if(count == 2){
-            dice_1 = 1;
-            dice_2 = 4;
-            count++
-        }else if(count == 3){
-            dice_1 = 2;
-            dice_2 = 4;
-            count++
-        }else{
-            dice_1 = 6;
-            dice_2 = 2;
-            count++
-        }
-    };
-
-    dicy();
-
     // set the dices
-    // let dice_1 = Math.floor(Math.random() * 6) + 1;
-    // let dice_2 = Math.floor(Math.random() * 6) + 1;
+    let dice_1 = Math.floor(Math.random() * 6) + 1;
+    let dice_2 = Math.floor(Math.random() * 6) + 1;
 
     // display the dice number one (first dice, left dice)
     let roller_1_image = document.getElementById(roller_one_image);
@@ -264,114 +403,170 @@ function roll_dice(roller_one_image, roller_two_image){
             break;
     }
 
+    // assign the home spot coordinates, and the enter spot array based on the color 
+
+    let d$$_spot_x;
+    let d$$_spot_y;
+    let who_isin_spot$$;
+
+    if(color == "blue"){
+
+        d$$_spot_x = spots.d52_spot_x;
+        d$$_spot_y = spots.d52_spot_y;
+        who_isin_spot$$ = who_isin_spot.who_isin_spot52;
+
+    }else if(color == "red"){
+
+        d$$_spot_x = spots.d35_spot_x;
+        d$$_spot_y = spots.d35_spot_y;
+        who_isin_spot$$ = who_isin_spot.who_isin_spot35;
+        
+    }else if(color == "green"){
+
+        d$$_spot_x = spots.d18_spot_x;
+        d$$_spot_y = spots.d18_spot_y;
+        who_isin_spot$$ = who_isin_spot.who_isin_spot18;
+
+    }else if(color == "yellow"){
+
+        d$$_spot_x = spots.d1_spot_x;
+        d$$_spot_y = spots.d1_spot_y;
+        who_isin_spot$$ = who_isin_spot.who_isin_spot1;
+    }
+
     // enter the pawns to the path if both of the dices are equel to 5
     if(dice_1 == 5 && dice_2 == 5){
 
-        // check if the spot 52 is COMPLETELY empty, to enter TWO pawns to it
-        if(who_isin_spot.who_isin_spot52.length == 0){
+        // check if the enter spot (52, 35, 18, or 1) is COMPLETELY empty, to enter TWO pawns to it
+        if(who_isin_spot$$.length == 0){
 
             // check if there is at least 2 pawns in home to enter
-            if(who_is_home_nicknames.length >= 2)
-            {
+            if(who_is_home_nicknames.length >= 2){
 
-                who_is_home[who_is_home_nicknames[0]].style.left = spots.d52_spot_x - 15 + "px";
-                who_is_home[who_is_home_nicknames[0]].style.top = spots.d52_spot_y + "px";
-                who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
-                who_isin_spot.who_isin_spot52.push(blue_containers[who_is_home_nicknames[0]]);
-                delete who_is_home[who_is_home_nicknames[0]];
-                who_is_home_nicknames = who_is_home_nicknames.filter(container => container != who_is_home_nicknames[0]);
+                if(color == "green" || color == "blue"){
+                    
+                    who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x - 15 + "px";
+                    who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
 
-                who_is_home[who_is_home_nicknames[0]].style.left = spots.d52_spot_x + 15 + "px";
-                who_is_home[who_is_home_nicknames[0]].style.top = spots.d52_spot_y + "px";
+                    who_is_home[who_is_home_nicknames[1]].style.left = d$$_spot_x + 15 + "px";
+                    who_is_home[who_is_home_nicknames[1]].style.top = d$$_spot_y + "px";
+
+                }else if(color == "red" || color == "yellow"){
+                    
+                    who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
+                    who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + 15 + "px";
+
+                    who_is_home[who_is_home_nicknames[1]].style.left = d$$_spot_x + "px";
+                    who_is_home[who_is_home_nicknames[1]].style.top = d$$_spot_y - 15 + "px";
+                }
+
                 who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
-                who_isin_spot.who_isin_spot52.push(blue_containers[who_is_home_nicknames[0]]);
+                who_isin_spot$$.push(colored_containers[who_is_home_nicknames[0]]);
                 delete who_is_home[who_is_home_nicknames[0]];
-                who_is_home_nicknames = who_is_home_nicknames.filter(container => container != who_is_home_nicknames[0]);
+                who_is_home_nicknames.splice(0, 1);
+
+                who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
+                who_isin_spot$$.push(colored_containers[who_is_home_nicknames[0]]);
+                delete who_is_home[who_is_home_nicknames[0]];
+                who_is_home_nicknames.splice(0, 1);
 
                 is_dice_1_clicked = true; // indicating that dice_1 is clicked and played
                 is_dice_2_clicked = true; // indicating that dice_2 is clicked and played
 
-                roller_switcher(); // to deactivate the dice roller till the next round
+                round_selector(); // to cycle the round
+                roller_switcher(color); // to deactivate the dice roller till the next round
 
             // check if there is only one pawn in home to enter
             }else if(who_is_home_nicknames.length == 1){
 
-                who_is_home[who_is_home_nicknames[0]].style.left = spots.d52_spot_x + "px";
-                who_is_home[who_is_home_nicknames[0]].style.top = spots.d52_spot_y + "px";
+                who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
+                who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
                 who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
-                who_isin_spot.who_isin_spot52.push(blue_containers[who_is_home_nicknames[0]]);
+                who_isin_spot$$.push(colored_containers[who_is_home_nicknames[0]]);
                 delete who_is_home[who_is_home_nicknames[0]];
-                who_is_home_nicknames = who_is_home_nicknames.filter(container => container != who_is_home_nicknames[0]);
+                who_is_home_nicknames.splice(0, 1);
 
                 dice_1 = 0; // set dice_1 to zero because it is already played
                 is_dice_1_clicked = true; 
 
                 time = 400; // set the waiting time
-                number_sail(dice_1, dice_2); // to add the remaining dice number above the pawns
-
-                roller_switcher();
-
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color); // to add the remaining dice number above the pawns
+                roller_switcher(color);
+                
             // check if there is no pawn in home to enter
             }else if(who_is_home_nicknames.length == 0){
-
+                
                 time = 0;
-                number_sail(dice_1, dice_2);
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
             }
 
-        // check if the spot 52 is occupied with only one pawn, to enter only one pawn to spot 52
-        }else if(who_isin_spot.who_isin_spot52.length == 1){
+        // check if the enter spot (52, 35, 18, or 1) is occupied with only one pawn, to enter only one pawn
+        }else if(who_isin_spot$$.length == 1){
 
             // check if there is at least 1 pawn in home to enter
             if(who_is_home_nicknames.length >= 1){
 
-                who_isin_spot.who_isin_spot52[0].style.left = spots.d52_spot_x + 15 + "px";
-                who_isin_spot.who_isin_spot52[0].style.top = spots.d52_spot_y + "px";
-    
-                who_is_home[who_is_home_nicknames[0]].style.left = spots.d52_spot_x - 15 + "px";
-                who_is_home[who_is_home_nicknames[0]].style.top = spots.d52_spot_y + "px";
-    
+                if(color == "green" || color == "blue"){
+                    
+                    who_isin_spot$$[0].style.left = d$$_spot_x + 15 + "px";
+                    who_isin_spot$$[0].style.top = d$$_spot_y + "px";
+        
+                    who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x - 15 + "px";
+                    who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
+
+                }else if(color == "red" || color == "yellow"){
+                    
+                    who_isin_spot$$[0].style.left = d$$_spot_x + "px";
+                    who_isin_spot$$[0].style.top = d$$_spot_y + 15  + "px";
+        
+                    who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
+                    who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y - 15 + "px";
+                
+                }
+
                 who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
-                who_isin_spot.who_isin_spot52.push(blue_containers[who_is_home_nicknames[0]]);
+                who_isin_spot$$.push(colored_containers[who_is_home_nicknames[0]]);
                 delete who_is_home[who_is_home_nicknames[0]];
-                who_is_home_nicknames = who_is_home_nicknames.filter(container => container != who_is_home_nicknames[0]);
+                who_is_home_nicknames.splice(0, 1);
                 
                 dice_1 = 0;
                 is_dice_1_clicked = true;
     
                 time = 400;
-                number_sail(dice_1, dice_2);
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
     
-                roller_switcher();
+                roller_switcher(color);
 
             // check if there is no pawn in home to enter
             }else if(who_is_home_nicknames.length == 0){
 
                 time = 0;
-                number_sail(dice_1, dice_2);
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
             }
 
-        // check if the spot 52 is full with two pawns, to show a floating numbers box above it
-        }else if(who_isin_spot.who_isin_spot52.length == 2){
+        // check if the enter spot (52, 35, 18, or 1) is full with two pawns
+        }else if(who_isin_spot$$.length == 2){
 
+            roller_switcher(color);
             time = 0;
-            number_sail(dice_1, dice_2);
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
         }
     }
 
     // enter the pawns to the path if at least one of the dices or the sum of the both of them is equel to 5
     else if(dice_1 == 5 || dice_2 == 5 || dice_1 + dice_2 == 5){
 
-        // check if pawn one is in home, and the spot 52 is not completely full, to enter it to the path
-        if(who_is_home_nicknames.length >= 1 && who_isin_spot.who_isin_spot52.length <= 1){
+        // check if there is at least one pawn in home, and if the enter spot (52, 35, 18, or 1) is not completely full
+        if(who_is_home_nicknames.length >= 1 && who_isin_spot$$.length <= 1){
 
-            roller_switcher();  // to reactivate the dice roller
+            roller_switcher(color);  // to reactivate the dice roller
 
-            who_is_home[who_is_home_nicknames[0]].style.left = spots.d52_spot_x + "px";
-            who_is_home[who_is_home_nicknames[0]].style.top = spots.d52_spot_y + "px";
-            who_isin_spot.who_isin_spot52.push(who_is_home[who_is_home_nicknames[0]]);
+            who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
+            who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
+            who_isin_spot$$.push(who_is_home[who_is_home_nicknames[0]]);
             who_is_outof_home_nicknames.push(who_is_home_nicknames[0]);
             delete who_is_home[who_is_home_nicknames[0]];
-            who_is_home_nicknames = who_is_home_nicknames.filter(container => container != who_is_home_nicknames[0]);
+            who_is_home_nicknames.splice(0, 1);
 
             // check if only one pawn is out of home
             if(who_is_home_nicknames.length == 3){
@@ -382,7 +577,7 @@ function roll_dice(roller_one_image, roller_two_image){
                     setTimeout(() => {
 
                         // to move the pawn by the remaining dice automatically
-                        movements(dice_2, blue_containers[who_is_outof_home_nicknames[0]], 52, dice_1, dice_2);
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color);
 
                     }, 250);
 
@@ -394,7 +589,7 @@ function roll_dice(roller_one_image, roller_two_image){
 
                     setTimeout(() => {
 
-                        movements(dice_1, blue_containers[who_is_outof_home_nicknames[0]], 52, dice_1, dice_2);
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color);
 
                     }, 250);
 
@@ -429,29 +624,30 @@ function roll_dice(roller_one_image, roller_two_image){
                 dice_2 = 0;
                 is_dice_2_clicked = true;
                 dice = dice_1 + dice_2;
+                round_selector();
             } 
 
-            parallel_check(52); // to check if two pawn are over each other
+            parallel_check(spot_number); // to check if two pawn are over each other
 
             // check if there is more than one pawn out of home
             if(who_is_outof_home_nicknames.length > 1){
 
                 time = 400;
-                number_sail(dice_1, dice_2);
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
             }
 
             setTimeout(() => {
 
-                roller_switcher();
+                roller_switcher(color);
 
             }, dice * 250 + 400);
 
         // check if none pf the pawns are home
-        }else if(who_is_home_nicknames.length == 0){
+        }else if(who_is_home_nicknames.length == 0 || who_isin_spot$$.length == 2){
             
-            roller_switcher();
-            time = 0
-            number_sail(dice_1, dice_2);
+            roller_switcher(color);
+            time = 0;
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
         }
 
     // If neither of the dices nor their sum is equal to 5
@@ -460,8 +656,14 @@ function roll_dice(roller_one_image, roller_two_image){
         // check if there is at least one pawn out of home
         if(who_is_outof_home_nicknames.length > 0){
             
+            roller_switcher(color);
             time = 0;
-            number_sail(dice_1, dice_2);
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+
+        // if all the pawn are in home
+        }else{
+
+            round_selector();
         }
     }
 };
@@ -469,9 +671,18 @@ function roll_dice(roller_one_image, roller_two_image){
 //------------------------------------------movements function----to move the pawns----------------------------------------
 
 let counter; // set a counter
-let blue_finishers = []; // to store the pawns that finished
 
-function movements(dice, container, spot_number, dice_1, dice_2){
+// object of arrays to store the pawns that finished the race
+let finishers_map = {
+
+    blue: [],
+    red: [],
+    green: [],
+    yellow: []
+
+};
+
+function movements(dice, container, spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames){
 
     counter = 0; // reset the counter
 
@@ -481,16 +692,13 @@ function movements(dice, container, spot_number, dice_1, dice_2){
         if(spot_number + i <= 68){
 
             // if the the pawn is blue and in the spot-number 47, so the next spot should be the winning path (blue path)
-            if((spot_number + i - 1 == 47) &&
-               (container.id == "blue-one-container" || "blue-two-container" ||
-                              "blue-three-container" || "blue-four-container"))
-            {
+            if((spot_number + i - 1 == 47) && color == "blue"){
 
                 colored_dice = dice - i + 1;
                 
                 for(let j = 69; j < colored_dice + 69; j++){
 
-                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                    who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
                     
                     setTimeout(() => {
 
@@ -512,7 +720,10 @@ function movements(dice, container, spot_number, dice_1, dice_2){
             // else if the next spot shouldn't be the winning path (normal move)
             }else{
 
-                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
+
+                    who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                }
 
                 setTimeout(() => {
         
@@ -537,7 +748,10 @@ function movements(dice, container, spot_number, dice_1, dice_2){
                 // the next final spot-number shouldn't be the finish triangle
                 if(!(spot_number + j >= 76)){
 
-                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                    if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
+
+                        who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                    }
 
                     setTimeout(() => {
             
@@ -569,7 +783,10 @@ function movements(dice, container, spot_number, dice_1, dice_2){
                     let fourth_spot_x = first_spot_x; 
                     let fourth_spot_y = first_spot_y + 26 + 2; // first_spot_y + pawn height + marging
 
-                    who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                    if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
+
+                        who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                    }
                     
                     setTimeout(() => {
                         
@@ -614,7 +831,10 @@ function movements(dice, container, spot_number, dice_1, dice_2){
 
             for(let j = 1; j <= new_dice; j++){
 
-                who_isin_spot[`who_isin_spot${spot_number}`] = who_isin_spot[`who_isin_spot${spot_number}`].filter(containers => containers != container);
+                if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
+
+                    who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                }
                 
                 setTimeout(() => {
 
@@ -635,25 +855,28 @@ function movements(dice, container, spot_number, dice_1, dice_2){
         }
     }
 
-    center_check(who_isin_spot[`who_isin_spot${spot_number}`], spot_number);
+    center_check(who_isin_spot[`who_isin_spot${spot_number}`], spot_number); // check if a pawn not centered
 
+    // check if only dice_1 is played and consumed
     if(is_dice_1_clicked == true && is_dice_2_clicked != true){
-
+        
         dice_1 = 0;
         time = (dice + 1) * 250;
-        number_sail(dice_1, dice_2);
+        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
         
+    // check if only dice_2 is played and consumed
     }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
         
         dice_2 = 0;
         time = (dice + 1) * 250;
-        number_sail(dice_1, dice_2);
-
+        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
     }
 
+    // check if both dice_1 and dice_2 are played and consumed
     if(is_dice_1_clicked == true && is_dice_2_clicked == true){
 
         number_sail_destroyer();
+        round_selector();
     } 
 
 };
@@ -717,7 +940,17 @@ function center_check(who_isin_spot, spot_number){
 
 let hovered = []; // to store the hoverd pawns (the cure of the headache)
 
-function number_sail(dice_1, dice_2){
+// object of arrays to store the pawns that cannot be played, due to a blockade for example
+let incompetents_map = {
+
+    blue: [],
+    red: [],
+    green: [],
+    yellow: []
+
+};
+
+function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color){
 
     // check if at least one dice is not played
     if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
@@ -725,7 +958,7 @@ function number_sail(dice_1, dice_2){
        (is_dice_1_clicked == false && is_dice_2_clicked == false))
     { 
 
-        let incompetents = []; // to store the incompetents pawns that can't play
+        let incompetents = incompetents_map[color]; // apply changes only to the specified color's incompetents
 
         for(let i = 1 ; i <= who_is_outof_home_nicknames.length; i++){
             
@@ -736,8 +969,8 @@ function number_sail(dice_1, dice_2){
                 
         setTimeout(() => {
             
-            shows[`circle${i}`].style.left = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
-            shows[`circle${i}`].style.top = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
+            shows[`circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
+            shows[`circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
 
             let spot_number;
 
@@ -747,7 +980,7 @@ function number_sail(dice_1, dice_2){
                 div_in_spot = who_isin_spot[`who_isin_spot${j}`]; // store the array 'who_isin_spot$$'
 
                 // check if the spot contains one or two pawns
-                if(div_in_spot[0] == blue_containers[who_is_outof_home_nicknames[i - 1]] || div_in_spot[1] == blue_containers[who_is_outof_home_nicknames[i - 1]]){
+                if(div_in_spot[0] == colored_containers[who_is_outof_home_nicknames[i - 1]] || div_in_spot[1] == colored_containers[who_is_outof_home_nicknames[i - 1]]){
 
                     spot_number = j;
                     break;
@@ -804,8 +1037,8 @@ function number_sail(dice_1, dice_2){
                 shows[`circle${i}`].addEventListener('click', function(){
                     
                     is_dice_2_clicked = true;
-                    movements(dice_2, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                    roller_switcher();
+                    movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                    roller_switcher(color);
                     number_sail_destroyer();
                 });
                 
@@ -817,8 +1050,8 @@ function number_sail(dice_1, dice_2){
                 shows[`circle${i}`].addEventListener('click', function(){
 
                     is_dice_1_clicked = true;
-                    movements(dice_1, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                    roller_switcher();
+                    movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                    roller_switcher(color);
                     number_sail_destroyer();
                     
                 });
@@ -834,15 +1067,15 @@ function number_sail(dice_1, dice_2){
                     shows[`left_half_circle${i}`].classList.add("left-half-circle");
                     document.body.appendChild(shows[`left_half_circle${i}`]);
                     shows[`left_half_circle${i}`].style.visibility = "visible";
-                    shows[`left_half_circle${i}`].style.left = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
-                    shows[`left_half_circle${i}`].style.top = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
+                    shows[`left_half_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
+                    shows[`left_half_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
     
                     shows[`left_half_circle${i}`].textContent = `${dice_1}`;
                     shows[`left_half_circle${i}`].addEventListener('click', function(){
     
                         is_dice_1_clicked = true;
-                        movements(dice_1, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                        roller_switcher();
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                        roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -856,15 +1089,15 @@ function number_sail(dice_1, dice_2){
                     shows[`right_half_circle${i}`].classList.add("right-half-circle");
                     document.body.appendChild(shows[`right_half_circle${i}`]);
                     shows[`right_half_circle${i}`].style.visibility = "visible";
-                    shows[`right_half_circle${i}`].style.left = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
-                    shows[`right_half_circle${i}`].style.top = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
+                    shows[`right_half_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
+                    shows[`right_half_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
     
                     shows[`right_half_circle${i}`].textContent = `${dice_2}`;
                     shows[`right_half_circle${i}`].addEventListener('click', function(){
     
                         is_dice_2_clicked = true;
-                        movements(dice_2, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                        roller_switcher();
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                        roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -878,8 +1111,8 @@ function number_sail(dice_1, dice_2){
                     shows[`full_circle${i}`].classList.add("circle");
                     document.body.appendChild(shows[`full_circle${i}`]);
                     shows[`full_circle${i}`].style.visibility = "visible";
-                    shows[`full_circle${i}`].style.left = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
-                    shows[`full_circle${i}`].style.top = blue_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
+                    shows[`full_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
+                    shows[`full_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
     
                 }
 
@@ -898,8 +1131,8 @@ function number_sail(dice_1, dice_2){
                     shows[`full_circle${i}`].addEventListener('click', function(){
     
                         is_dice_1_clicked = true;
-                        movements(dice_1, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                        roller_switcher();
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                        roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -913,8 +1146,8 @@ function number_sail(dice_1, dice_2){
                     shows[`full_circle${i}`].addEventListener('click', function(){
     
                         is_dice_2_clicked = true;
-                        movements(dice_2, blue_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2);
-                        roller_switcher();
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
+                        roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -922,9 +1155,9 @@ function number_sail(dice_1, dice_2){
                 // if at least one of the dices + spot_number will exceed 76
                 }else if(spot_number + dice_1 > 76 || spot_number + dice_2 > 76){
 
-                    if(!(incompetents.includes(blue_containers[who_is_outof_home_nicknames[i - 1]]))){
+                    if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
 
-                        incompetents.push(blue_containers[who_is_outof_home_nicknames[i - 1]]);
+                        incompetents.push(colored_containers[who_is_outof_home_nicknames[i - 1]]);
                     }
 
                 }
@@ -932,14 +1165,14 @@ function number_sail(dice_1, dice_2){
             // if one of the remaining dices + spot_number will exceed 76
             }else if(spot_number + dice_1 > 76 || spot_number + dice_2 > 76){
 
-                if(!(incompetents.includes(blue_containers[who_is_outof_home_nicknames[i - 1]]))){
+                if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
 
-                    incompetents.push(blue_containers[who_is_outof_home_nicknames[i - 1]]);
+                    incompetents.push(colored_containers[who_is_outof_home_nicknames[i - 1]]);
                 }
             }
 
             // check if all the four pawns are incompetent to be played, to skip the round
-            if(incompetents.length + blue_finishers.length == 4){
+            if(incompetents.length + finishers_map[color].length == 4){
 
                 // act like the dice_1 is played
                 dice_1 = 0;
@@ -949,7 +1182,7 @@ function number_sail(dice_1, dice_2){
                 dice_2 = 0;
                 is_dice_2_clicked = true;
 
-                roller_switcher();
+                roller_switcher(color);
             }
         }, time);
         }
@@ -958,24 +1191,42 @@ function number_sail(dice_1, dice_2){
 
 //-------------------roller switcher function---------to prevent the player from cliking the dice roller-----------------
 
-function roller_switcher(){
+function roller_switcher(color){
 
-    blue_roll = document.getElementById("blue-roll");
+    let colored_roll;
+
+    if(color == "blue"){
+
+        colored_roll = document.getElementById("blue-roll");
+
+    }else if(color == "red"){
+
+        colored_roll = document.getElementById("red-roll");
+
+    }else if(color == "green"){
+
+        colored_roll = document.getElementById("green-roll");
+
+    }else if(color == "yellow"){
+
+        colored_roll = document.getElementById("yellow-roll");
+    }
     
     // check if at least one of the dices is not played
     if(!(is_dice_1_clicked == true && is_dice_2_clicked == true)){ 
 
-        blue_roll.style.pointerEvents = "none"; 
-        blue_roll.style.opacity = 0.5;
+        colored_roll.style.pointerEvents = "none"; 
+        colored_roll.style.opacity = 0.5;
 
-    // check if both of the dices are played
-    }else{
-        
-        blue_roll.style.pointerEvents = "visible"; 
-        blue_roll.style.opacity = 1;
-        is_dice_1_clicked = false;
-        is_dice_2_clicked = false;
     }
+    // check if both of the dices are played
+    // else{
+        
+    //     colored_roll.style.pointerEvents = "visible"; 
+    //     colored_roll.style.opacity = 1;
+    //     is_dice_1_clicked = false;
+    //     is_dice_2_clicked = false;
+    // }
 };
 
 //----------------number sail destroyer function---------to destroy the number sail circles if they are used-----------------
