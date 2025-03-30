@@ -3,108 +3,108 @@ let Main_Container = document.getElementById("Main-Container");
 let Main_Container_cords = Main_Container.getBoundingClientRect();
 
 // blue ovals coordinantes
-let blue_oval1_cords = document.getElementById("blue-oval1").getBoundingClientRect();
-let blue_oval2_cords = document.getElementById("blue-oval2").getBoundingClientRect();
-let blue_oval3_cords = document.getElementById("blue-oval3").getBoundingClientRect();
-let blue_oval4_cords = document.getElementById("blue-oval4").getBoundingClientRect();
+let blue_oval_one_cords = document.getElementById("blue_oval_one").getBoundingClientRect();
+let blue_oval_two_cords = document.getElementById("blue_oval_two").getBoundingClientRect();
+let blue_oval_three_cords = document.getElementById("blue_oval_three").getBoundingClientRect();
+let blue_oval_four_cords = document.getElementById("blue_oval_four").getBoundingClientRect();
 
 // red ovals coordinantes
-let red_oval1_cords = document.getElementById("red-oval1").getBoundingClientRect();
-let red_oval2_cords = document.getElementById("red-oval2").getBoundingClientRect();
-let red_oval3_cords = document.getElementById("red-oval3").getBoundingClientRect();
-let red_oval4_cords = document.getElementById("red-oval4").getBoundingClientRect();
+let red_oval_one_cords = document.getElementById("red_oval_one").getBoundingClientRect();
+let red_oval_two_cords = document.getElementById("red_oval_two").getBoundingClientRect();
+let red_oval_three_cords = document.getElementById("red_oval_three").getBoundingClientRect();
+let red_oval_four_cords = document.getElementById("red_oval_four").getBoundingClientRect();
 
 // green ovals coordinantes
-let green_oval1_cords = document.getElementById("green-oval1").getBoundingClientRect();
-let green_oval2_cords = document.getElementById("green-oval2").getBoundingClientRect();
-let green_oval3_cords = document.getElementById("green-oval3").getBoundingClientRect();
-let green_oval4_cords = document.getElementById("green-oval4").getBoundingClientRect();
+let green_oval_one_cords = document.getElementById("green_oval_one").getBoundingClientRect();
+let green_oval_two_cords = document.getElementById("green_oval_two").getBoundingClientRect();
+let green_oval_three_cords = document.getElementById("green_oval_three").getBoundingClientRect();
+let green_oval_four_cords = document.getElementById("green_oval_four").getBoundingClientRect();
 
 // yellow ovals coordinantes
-let yellow_oval1_cords = document.getElementById("yellow-oval1").getBoundingClientRect();
-let yellow_oval2_cords = document.getElementById("yellow-oval2").getBoundingClientRect();
-let yellow_oval3_cords = document.getElementById("yellow-oval3").getBoundingClientRect();
-let yellow_oval4_cords = document.getElementById("yellow-oval4").getBoundingClientRect();
+let yellow_oval_one_cords = document.getElementById("yellow_oval_one").getBoundingClientRect();
+let yellow_oval_two_cords = document.getElementById("yellow_oval_two").getBoundingClientRect();
+let yellow_oval_three_cords = document.getElementById("yellow_oval_three").getBoundingClientRect();
+let yellow_oval_four_cords = document.getElementById("yellow_oval_four").getBoundingClientRect();
 
 // Pawns Containers Id's
-let blue_one_container = document.getElementById("blue-one-container");
-let blue_two_container = document.getElementById("blue-two-container");
-let blue_three_container = document.getElementById("blue-three-container");
-let blue_four_container = document.getElementById("blue-four-container");
+let blue_one_container = document.getElementById("blue_one_container");
+let blue_two_container = document.getElementById("blue_two_container");
+let blue_three_container = document.getElementById("blue_three_container");
+let blue_four_container = document.getElementById("blue_four_container");
 
 // Sample pawn Container coordinantes
-let pawn_container_cords = document.getElementById("blue-one-container").getBoundingClientRect();
+let pawn_container_cords = document.getElementById("blue_one_container").getBoundingClientRect();
 
 // blue home coordinantes
 
-blue_one_container.style.left = blue_oval1_cords.x - Main_Container_cords.x + ((blue_oval1_cords.width - pawn_container_cords.width)/2) + "px";
-blue_one_container.style.top = blue_oval1_cords.y - Main_Container_cords.y + ((blue_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+blue_one_container.style.left = blue_oval_one_cords.x - Main_Container_cords.x + ((blue_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
+blue_one_container.style.top = blue_oval_one_cords.y - Main_Container_cords.y + ((blue_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_two_container.style.left = blue_oval2_cords.x - Main_Container_cords.x + ((blue_oval2_cords.width - pawn_container_cords.width)/2) + "px";
-blue_two_container.style.top = blue_oval2_cords.y - Main_Container_cords.y + ((blue_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+blue_two_container.style.left = blue_oval_two_cords.x - Main_Container_cords.x + ((blue_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
+blue_two_container.style.top = blue_oval_two_cords.y - Main_Container_cords.y + ((blue_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_three_container.style.left = blue_oval3_cords.x - Main_Container_cords.x + ((blue_oval3_cords.width - pawn_container_cords.width)/2) + "px";
-blue_three_container.style.top = blue_oval3_cords.y - Main_Container_cords.y + ((blue_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+blue_three_container.style.left = blue_oval_three_cords.x - Main_Container_cords.x + ((blue_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
+blue_three_container.style.top = blue_oval_three_cords.y - Main_Container_cords.y + ((blue_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
 
-blue_four_container.style.left = blue_oval4_cords.x - Main_Container_cords.x + ((blue_oval4_cords.width - pawn_container_cords.width)/2) + "px";
-blue_four_container.style.top = blue_oval4_cords.y - Main_Container_cords.y + ((blue_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+blue_four_container.style.left = blue_oval_four_cords.x - Main_Container_cords.x + ((blue_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
+blue_four_container.style.top = blue_oval_four_cords.y - Main_Container_cords.y + ((blue_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
 
 // red home coordinantes
 
-let red_one_container = document.getElementById("red-one-container");
-let red_two_container = document.getElementById("red-two-container");
-let red_three_container = document.getElementById("red-three-container");
-let red_four_container = document.getElementById("red-four-container");
+let red_one_container = document.getElementById("red_one_container");
+let red_two_container = document.getElementById("red_two_container");
+let red_three_container = document.getElementById("red_three_container");
+let red_four_container = document.getElementById("red_four_container");
 
-red_one_container.style.left = red_oval1_cords.x - Main_Container_cords.x + ((red_oval1_cords.width - pawn_container_cords.width)/2) + "px";
-red_one_container.style.top = red_oval1_cords.y - Main_Container_cords.y + ((red_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+red_one_container.style.left = red_oval_one_cords.x - Main_Container_cords.x + ((red_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
+red_one_container.style.top = red_oval_one_cords.y - Main_Container_cords.y + ((red_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_two_container.style.left = red_oval2_cords.x - Main_Container_cords.x + ((red_oval2_cords.width - pawn_container_cords.width)/2) + "px";
-red_two_container.style.top = red_oval2_cords.y - Main_Container_cords.y + ((red_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+red_two_container.style.left = red_oval_two_cords.x - Main_Container_cords.x + ((red_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
+red_two_container.style.top = red_oval_two_cords.y - Main_Container_cords.y + ((red_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_three_container.style.left = red_oval3_cords.x - Main_Container_cords.x + ((red_oval3_cords.width - pawn_container_cords.width)/2) + "px";
-red_three_container.style.top = red_oval3_cords.y - Main_Container_cords.y + ((red_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+red_three_container.style.left = red_oval_three_cords.x - Main_Container_cords.x + ((red_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
+red_three_container.style.top = red_oval_three_cords.y - Main_Container_cords.y + ((red_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
 
-red_four_container.style.left = red_oval4_cords.x - Main_Container_cords.x + ((red_oval4_cords.width - pawn_container_cords.width)/2) + "px";
-red_four_container.style.top = red_oval4_cords.y - Main_Container_cords.y + ((red_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+red_four_container.style.left = red_oval_four_cords.x - Main_Container_cords.x + ((red_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
+red_four_container.style.top = red_oval_four_cords.y - Main_Container_cords.y + ((red_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
 
 //yellow home coordinantes
 
-let yellow_one_container = document.getElementById("yellow-one-container");
-let yellow_two_container = document.getElementById("yellow-two-container");
-let yellow_three_container = document.getElementById("yellow-three-container");
-let yellow_four_container = document.getElementById("yellow-four-container");
+let yellow_one_container = document.getElementById("yellow_one_container");
+let yellow_two_container = document.getElementById("yellow_two_container");
+let yellow_three_container = document.getElementById("yellow_three_container");
+let yellow_four_container = document.getElementById("yellow_four_container");
 
-yellow_one_container.style.left = yellow_oval1_cords.x - Main_Container_cords.x + ((yellow_oval1_cords.width - pawn_container_cords.width)/2) + "px";
-yellow_one_container.style.top = yellow_oval1_cords.y - Main_Container_cords.y + ((yellow_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_one_container.style.left = yellow_oval_one_cords.x - Main_Container_cords.x + ((yellow_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_one_container.style.top = yellow_oval_one_cords.y - Main_Container_cords.y + ((yellow_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_two_container.style.left = yellow_oval2_cords.x - Main_Container_cords.x + ((yellow_oval2_cords.width - pawn_container_cords.width)/2) + "px";
-yellow_two_container.style.top = yellow_oval2_cords.y - Main_Container_cords.y + ((yellow_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_two_container.style.left = yellow_oval_two_cords.x - Main_Container_cords.x + ((yellow_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_two_container.style.top = yellow_oval_two_cords.y - Main_Container_cords.y + ((yellow_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_three_container.style.left = yellow_oval3_cords.x - Main_Container_cords.x + ((yellow_oval3_cords.width - pawn_container_cords.width)/2) + "px";
-yellow_three_container.style.top = yellow_oval3_cords.y - Main_Container_cords.y + ((yellow_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_three_container.style.left = yellow_oval_three_cords.x - Main_Container_cords.x + ((yellow_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_three_container.style.top = yellow_oval_three_cords.y - Main_Container_cords.y + ((yellow_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
 
-yellow_four_container.style.left = yellow_oval4_cords.x - Main_Container_cords.x + ((yellow_oval4_cords.width - pawn_container_cords.width)/2) + "px";
-yellow_four_container.style.top = yellow_oval4_cords.y - Main_Container_cords.y + ((yellow_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_four_container.style.left = yellow_oval_four_cords.x - Main_Container_cords.x + ((yellow_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
+yellow_four_container.style.top = yellow_oval_four_cords.y - Main_Container_cords.y + ((yellow_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
 
 // green home coordinantes
 
-let green_one_container = document.getElementById("green-one-container");
-let green_two_container = document.getElementById("green-two-container");
-let green_three_container = document.getElementById("green-three-container");
-let green_four_container = document.getElementById("green-four-container");
+let green_one_container = document.getElementById("green_one_container");
+let green_two_container = document.getElementById("green_two_container");
+let green_three_container = document.getElementById("green_three_container");
+let green_four_container = document.getElementById("green_four_container");
 
-green_one_container.style.left = green_oval1_cords.x - Main_Container_cords.x + ((green_oval1_cords.width - pawn_container_cords.width)/2) + "px";
-green_one_container.style.top = green_oval1_cords.y - Main_Container_cords.y + ((green_oval1_cords.width - pawn_container_cords.width)/2) + "px";
+green_one_container.style.left = green_oval_one_cords.x - Main_Container_cords.x + ((green_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
+green_one_container.style.top = green_oval_one_cords.y - Main_Container_cords.y + ((green_oval_one_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_two_container.style.left = green_oval2_cords.x - Main_Container_cords.x + ((green_oval2_cords.width - pawn_container_cords.width)/2) + "px";
-green_two_container.style.top = green_oval2_cords.y - Main_Container_cords.y + ((green_oval2_cords.width - pawn_container_cords.width)/2) + "px";
+green_two_container.style.left = green_oval_two_cords.x - Main_Container_cords.x + ((green_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
+green_two_container.style.top = green_oval_two_cords.y - Main_Container_cords.y + ((green_oval_two_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_three_container.style.left = green_oval3_cords.x - Main_Container_cords.x + ((green_oval3_cords.width - pawn_container_cords.width)/2) + "px";
-green_three_container.style.top = green_oval3_cords.y - Main_Container_cords.y + ((green_oval3_cords.width - pawn_container_cords.width)/2) + "px";
+green_three_container.style.left = green_oval_three_cords.x - Main_Container_cords.x + ((green_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
+green_three_container.style.top = green_oval_three_cords.y - Main_Container_cords.y + ((green_oval_three_cords.width - pawn_container_cords.width)/2) + "px";
 
-green_four_container.style.left = green_oval4_cords.x - Main_Container_cords.x + ((green_oval4_cords.width - pawn_container_cords.width)/2) + "px";
-green_four_container.style.top = green_oval4_cords.y - Main_Container_cords.y + ((green_oval4_cords.width - pawn_container_cords.width)/2) + "px";
+green_four_container.style.left = green_oval_four_cords.x - Main_Container_cords.x + ((green_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
+green_four_container.style.top = green_oval_four_cords.y - Main_Container_cords.y + ((green_oval_four_cords.width - pawn_container_cords.width)/2) + "px";
 
 //------------------------declare objects to store and calculate the divs id's, coordinantes and more------------------------
 
@@ -338,10 +338,14 @@ document.getElementById("yellow-roll").addEventListener('click', function() {rol
 
 //---------------------------------------------------declare variables-----------------------------------------------------
 
+let double = 0; // to keep track of how many times, the dices values doubled
+
 let is_dice_1_clicked = false; // indicates if the first dice number is played (true) or not (false)
 let is_dice_2_clicked = false; // indicates if the second dice number is played (true) or not (false)
 let time = 0; // to keep track and the correct wait time for the other setTimeout functions to complete 
 let count = 0; // to count how many times the dice rolled (used for debugging)
+let original_dice_1; // to store the original dice_1 value
+let original_dice_2; // to store the original dice_2 value
 
 //---------------------------------------------------roll dice function------------------------------------------------------
 
@@ -351,10 +355,39 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     is_dice_1_clicked = false;
     is_dice_2_clicked = false;
 
-    // set the dices
-    let dice_1 = Math.floor(Math.random() * 6) + 1;
-    let dice_2 = Math.floor(Math.random() * 6) + 1;
+    // a function fo set the dices values as desired for debugging (Temporary)
+    let dice_1;
+    let dice_2;
 
+    function dicy(){
+        if(count == 0 || count == 4 || count == 6){
+            dice_1 = 5;
+            dice_2 = 5;
+            count++;
+        }else if(count == 1 || count == 5){
+            dice_1 = 3;
+            dice_2 = 3;
+            count++
+        }else if(count == 2){
+            dice_1 = 1;
+            dice_2 = 1;
+            count++
+        }else{
+            dice_1 = 3;
+            dice_2 = 1;
+            count++
+        }
+    };
+
+    dicy();
+
+    // set the dices
+    // let dice_1 = Math.floor(Math.random() * 6) + 1;
+    // let dice_2 = Math.floor(Math.random() * 6) + 1;
+
+    original_dice_1 = dice_1;
+    original_dice_2 = dice_2;
+    
     // display the dice number one (first dice, left dice)
     let roller_1_image = document.getElementById(roller_one_image);
 
@@ -437,6 +470,8 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     // enter the pawns to the path if both of the dices are equel to 5
     if(dice_1 == 5 && dice_2 == 5){
 
+        double++;
+
         // check if the enter spot (52, 35, 18, or 1) is COMPLETELY empty, to enter TWO pawns to it
         if(who_isin_spot$$.length == 0){
 
@@ -473,8 +508,13 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                 is_dice_1_clicked = true; // indicating that dice_1 is clicked and played
                 is_dice_2_clicked = true; // indicating that dice_2 is clicked and played
 
-                round_selector(); // to cycle the round
-                roller_switcher(color); // to deactivate the dice roller till the next round
+                // roller_switcher(color); // to deactivate the dice roller till the next round
+
+                // check if the dices were the same for the third time in a row
+                if(double == 3){
+
+                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                }
 
             // check if there is only one pawn in home to enter
             }else if(who_is_home_nicknames.length == 1){
@@ -489,15 +529,29 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                 dice_1 = 0; // set dice_1 to zero because it is already played
                 is_dice_1_clicked = true; 
 
-                time = 400; // set the waiting time
-                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color); // to add the remaining dice number above the pawns
-                roller_switcher(color);
+                if(double != 3){
+
+                    time = 400;
+                    number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
+
+                }else if(double == 3){
+
+                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                }
+                // roller_switcher(color);
                 
             // check if there is no pawn in home to enter
             }else if(who_is_home_nicknames.length == 0){
                 
-                time = 0;
-                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+                if(double != 3){
+
+                    time = 0;
+                    number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
+
+                }else if(double == 3){
+
+                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                }
             }
 
         // check if the enter spot (52, 35, 18, or 1) is occupied with only one pawn, to enter only one pawn
@@ -532,24 +586,38 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                 dice_1 = 0;
                 is_dice_1_clicked = true;
     
-                time = 400;
-                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+                if(double != 3){
+
+                    time = 400;
+                    number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
+
+                }else if(double == 3){
+
+                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                }
     
-                roller_switcher(color);
+                // roller_switcher(color);
 
             // check if there is no pawn in home to enter
             }else if(who_is_home_nicknames.length == 0){
 
-                time = 0;
-                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+                if(double != 3){
+
+                    time = 0;
+                    number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
+
+                }else if(double == 3){
+
+                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                }
             }
 
         // check if the enter spot (52, 35, 18, or 1) is full with two pawns
         }else if(who_isin_spot$$.length == 2){
 
-            roller_switcher(color);
+            // roller_switcher(color);
             time = 0;
-            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
         }
     }
 
@@ -559,7 +627,7 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
         // check if there is at least one pawn in home, and if the enter spot (52, 35, 18, or 1) is not completely full
         if(who_is_home_nicknames.length >= 1 && who_isin_spot$$.length <= 1){
 
-            roller_switcher(color);  // to reactivate the dice roller
+            // roller_switcher(color);  // to reactivate the dice roller
 
             who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
             who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
@@ -577,7 +645,7 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                     setTimeout(() => {
 
                         // to move the pawn by the remaining dice automatically
-                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color);
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color, who_is_outof_home_nicknames);
 
                     }, 250);
 
@@ -589,7 +657,7 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
                     setTimeout(() => {
 
-                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color);
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[0]], spot_number, dice_1, dice_2, color, who_is_outof_home_nicknames);
 
                     }, 250);
 
@@ -633,38 +701,61 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
             if(who_is_outof_home_nicknames.length > 1){
 
                 time = 400;
-                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
             }
 
             setTimeout(() => {
 
-                roller_switcher(color);
+                // roller_switcher(color);
 
             }, dice * 250 + 400);
 
         // check if none pf the pawns are home
         }else if(who_is_home_nicknames.length == 0 || who_isin_spot$$.length == 2){
             
-            roller_switcher(color);
+            // roller_switcher(color);
             time = 0;
-            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
         }
 
     // If neither of the dices nor their sum is equal to 5
     }else{
 
-        // check if there is at least one pawn out of home
-        if(who_is_outof_home_nicknames.length > 0){
+        // check if the both, dice_1 and dice_2 are the same
+        if(original_dice_1 == original_dice_2){
             
-            roller_switcher(color);
+            double++;
+        }
+
+        // check if the both, dice_1 and dice_2 are the same for the third time in a row
+        if(original_dice_1 == original_dice_2 && double == 3){
+
+            go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+        }
+
+        // check if there is at least one pawn out of home
+        else if(who_is_outof_home_nicknames.length > 0){
+            
+            // roller_switcher(color);
             time = 0;
-            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
 
         // if all the pawn are in home
-        }else{
+        }else if(who_is_outof_home_nicknames.length == 0){
 
-            round_selector();
+            // check if the dices are not the same
+            if(original_dice_1 != original_dice_2){
+                
+                double = 0;
+                round_selector();
+            }
         }
+    }
+
+    // check if the both, dice_1 and dice_2 are the same for the third time in a row (for 5 & 5)
+    if(original_dice_1 == original_dice_2 == 5 && double == 3){
+
+        go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
     }
 };
 
@@ -682,7 +773,7 @@ let finishers_map = {
 
 };
 
-function movements(dice, container, spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames){
+function movements(dice, container, spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames){
 
     counter = 0; // reset the counter
 
@@ -722,7 +813,8 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
                 if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
-                    who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                    let index = who_isin_spot[`who_isin_spot${spot_number}`].indexOf(container);
+                    who_isin_spot[`who_isin_spot${spot_number}`].splice(index, 1);
                 }
 
                 setTimeout(() => {
@@ -750,7 +842,8 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
                     if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
-                        who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                        let index = who_isin_spot[`who_isin_spot${spot_number}`].indexOf(container);
+                        who_isin_spot[`who_isin_spot${spot_number}`].splice(index, 1);
                     }
 
                     setTimeout(() => {
@@ -785,7 +878,8 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
                     if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
-                        who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                        let index = who_isin_spot[`who_isin_spot${spot_number}`].indexOf(container);
+                        who_isin_spot[`who_isin_spot${spot_number}`].splice(index, 1);
                     }
                     
                     setTimeout(() => {
@@ -833,7 +927,8 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
                 if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
-                    who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
+                    let index = who_isin_spot[`who_isin_spot${spot_number}`].indexOf(container);
+                    who_isin_spot[`who_isin_spot${spot_number}`].splice(index, 1);
                 }
                 
                 setTimeout(() => {
@@ -862,21 +957,30 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
         
         dice_1 = 0;
         time = (dice + 1) * 250;
-        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
         
     // check if only dice_2 is played and consumed
     }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
         
         dice_2 = 0;
         time = (dice + 1) * 250;
-        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color);
+        number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames);
     }
 
     // check if both dice_1 and dice_2 are played and consumed
     if(is_dice_1_clicked == true && is_dice_2_clicked == true){
 
         number_sail_destroyer();
-        round_selector();
+
+        if(original_dice_1 != original_dice_2){
+
+            round_selector();
+
+        // check if the both, dice_1 and dice_2 are the same for the third time in a row
+        }else if((original_dice_1 == original_dice_2) && (double == 3)){
+
+            go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+        }
     } 
 
 };
@@ -950,7 +1054,7 @@ let incompetents_map = {
 
 };
 
-function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color){
+function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames){
 
     // check if at least one dice is not played
     if((is_dice_1_clicked == false && is_dice_2_clicked != false) || 
@@ -1037,8 +1141,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 shows[`circle${i}`].addEventListener('click', function(){
                     
                     is_dice_2_clicked = true;
-                    movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                    roller_switcher(color);
+                    movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                    // roller_switcher(color);
                     number_sail_destroyer();
                 });
                 
@@ -1050,8 +1154,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 shows[`circle${i}`].addEventListener('click', function(){
 
                     is_dice_1_clicked = true;
-                    movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                    roller_switcher(color);
+                    movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                    // roller_switcher(color);
                     number_sail_destroyer();
                     
                 });
@@ -1074,8 +1178,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`left_half_circle${i}`].addEventListener('click', function(){
     
                         is_dice_1_clicked = true;
-                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                        roller_switcher(color);
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                        // roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -1096,8 +1200,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`right_half_circle${i}`].addEventListener('click', function(){
     
                         is_dice_2_clicked = true;
-                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                        roller_switcher(color);
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                        // roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -1131,8 +1235,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`full_circle${i}`].addEventListener('click', function(){
     
                         is_dice_1_clicked = true;
-                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                        roller_switcher(color);
+                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                        // roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -1146,8 +1250,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`full_circle${i}`].addEventListener('click', function(){
     
                         is_dice_2_clicked = true;
-                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames);
-                        roller_switcher(color);
+                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
+                        // roller_switcher(color);
                         number_sail_destroyer();
     
                     });
@@ -1182,7 +1286,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 dice_2 = 0;
                 is_dice_2_clicked = true;
 
-                roller_switcher(color);
+                // roller_switcher(color);
             }
         }, time);
         }
@@ -1248,3 +1352,91 @@ function number_sail_destroyer() {
         if (full_circle) { full_circle.remove(); }
     }
 };
+
+//---------------------go back home function----to send back the furthest pawn from home, back to home-----------------------
+
+function go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames){
+
+    let spot_numbers = [];
+    let original_spot_numbers = [];
+
+    for(let j = 1; j <= 68; j++) {
+
+        if(who_isin_spot[`who_isin_spot${j}`].length > 0){
+
+            div_in_spot = who_isin_spot[`who_isin_spot${j}`]; // store the array 'who_isin_spot$$'
+
+            for(let i = 0; i < who_is_outof_home_nicknames.length; i++){
+
+                // check if the spot contains one or two pawns
+                if(div_in_spot[0] == colored_containers[who_is_outof_home_nicknames[i]]){
+                    
+                    if(52 <= j && j <= 68){
+                        
+                        index = j - 68
+                    }
+
+                    index = j;
+                    
+                    spot_numbers.push(index);
+                    original_spot_numbers.push(j);
+                }
+            }
+        }
+    }
+
+    let spot = who_isin_spot[`who_isin_spot${Math.max(...spot_numbers)}`];
+    let pawn = spot[0];
+    let original_index = spot_numbers.indexOf(Math.max(...spot_numbers));
+
+    let number = pawn.id.split("_")[1]; 
+
+    window[`${color}_${number}_container`] = document.getElementById(`${color}_${number}_container`);
+    let colored_pawn = window[`${color}_${number}_container`];
+
+    window[`${color}_oval_${number}_cords`] = document.getElementById(`${color}_oval_${number}`);
+    let oval_cords = window[`${color}_oval_${number}_cords`];
+
+    if(pawn.id == colored_pawn.id) { 
+
+        colored_pawn.style.left = oval_cords.getBoundingClientRect().x - Main_Container_cords.x + ((oval_cords.getBoundingClientRect().width - pawn_container_cords.width) / 2) + "px";
+        colored_pawn.style.top = oval_cords.getBoundingClientRect().y - Main_Container_cords.y + ((oval_cords.getBoundingClientRect().width - pawn_container_cords.width) / 2) + "px";
+    }
+
+    let nickname = who_is_outof_home_nicknames.indexOf(`${color}_${number}`);
+    who_is_outof_home_nicknames.splice(nickname, 1);
+
+    who_is_home_nicknames.splice(0, 0, `${color}_${number}`);
+
+    who_isin_spot[`who_isin_spot${original_spot_numbers[original_index]}`].splice(0, 1);
+
+    center_check(who_isin_spot[`who_isin_spot${original_spot_numbers[original_index]}`], original_spot_numbers[original_index]); // check if a pawn not centered
+
+    if(color == "blue"){
+        
+        let entries = Object.entries(blue_who_is_home); // convert object to an array of key-value pairs
+        entries.unshift([`${color}_${number}`, document.getElementById(`${color}_${number}_container`)]); // insert the new key-value pair at the first index
+        blue_who_is_home = Object.fromEntries(entries); // convert the array back to an object
+
+    }else if(color == "red"){
+        
+        let entries = Object.entries(red_who_is_home);
+        entries.unshift([`${color}_${number}`, document.getElementById(`${color}_${number}_container`)]);
+        red_who_is_home = Object.fromEntries(entries);
+
+    }else if(color == "green"){
+        
+        let entries = Object.entries(green_who_is_home);
+        entries.unshift([`${color}_${number}`, document.getElementById(`${color}_${number}_container`)]);
+        green_who_is_home = Object.fromEntries(entries);
+
+    }else if(color == "yellow"){
+        
+        let entries = Object.entries(yellow_who_is_home);
+        entries.unshift([`${color}_${number}`, document.getElementById(`${color}_${number}_container`)]);
+        yellow_who_is_home = Object.fromEntries(entries);
+
+    }
+
+    round_selector();
+}
