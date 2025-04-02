@@ -279,7 +279,7 @@ green_roll.style.opacity = 0.5;
 
 //-----------------------------------the round selector function to cycle through the rounds----------------------------------
 
-let round = 1; // to indicate the round (starts with blue)
+let round = 3; // to indicate the round (starts with blue)
 
 function round_selector(){
 
@@ -290,7 +290,7 @@ function round_selector(){
 
         yellow_roll.style.pointerEvents =  "none"; 
         yellow_roll.style.opacity = 0.5;
-        round++;
+        // round++;
 
     }else if(round == 2){
 
@@ -299,7 +299,7 @@ function round_selector(){
 
         blue_roll.style.pointerEvents =  "none"; 
         blue_roll.style.opacity = 0.5;
-        round++;
+        // round++;
 
     }else if(round == 3){
 
@@ -308,7 +308,7 @@ function round_selector(){
 
         red_roll.style.pointerEvents =  "none"; 
         red_roll.style.opacity = 0.5;
-        round++;
+        // round++;
 
     }else if(round == 4){
 
@@ -317,7 +317,7 @@ function round_selector(){
 
         green_roll.style.pointerEvents =  "none"; 
         green_roll.style.opacity = 0.5;
-        round++;
+        // round++;
     }
 
     // start over from 1 when the round finishes
@@ -360,21 +360,41 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     let dice_2;
 
     function dicy(){
-        if(count == 0 || count == 4 || count == 6){
+        if(count <= 2){
             dice_1 = 5;
-            dice_2 = 5;
+            dice_2 = 6;
             count++;
-        }else if(count == 1 || count == 5){
-            dice_1 = 3;
+        }else if(count <= 42 || count <= 5 || count == 9 || count == 12){
+            dice_1 = 6;
+            dice_2 = 6;
+            count++
+        }else if(count == 2 || count == 6 || count == 10 ){
+            dice_1 = 6;
             dice_2 = 3;
             count++
-        }else if(count == 2){
+        }else if(count == 3 || count == 7){
+            dice_1 = 1;
+            dice_2 = 2;
+            count++
+        }else if(count == 13){
+            dice_1 = 5;
+            dice_2 = 4;
+            count++
+        }else if(count == 14){
             dice_1 = 1;
             dice_2 = 1;
             count++
-        }else{
+        }else if(count <= 16){
+            dice_1 = 5;
+            dice_2 = 5;
+            count++
+        }else if(count == 17){
             dice_1 = 3;
-            dice_2 = 1;
+            dice_2 = 3;
+            count++
+        }else if(count == 18){
+            dice_1 = 1;
+            dice_2 = 2;
             count++
         }
     };
@@ -724,7 +744,7 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
         // check if the both, dice_1 and dice_2 are the same
         if(original_dice_1 == original_dice_2){
             
-            double++;
+            // double++;
         }
 
         // check if the both, dice_1 and dice_2 are the same for the third time in a row
@@ -779,15 +799,42 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
     for(let i = 1; i <= dice; i++){
 
+        let first_winning_path;
+        let winning_spot;
+
+        if(color == "blue"){
+
+            first_winning_path = 69;
+            winning_spot = 76;
+
+        }else if(color == "red"){
+
+            first_winning_path = 76;
+            winning_spot = 83;
+            
+        }else if(color == "green"){
+
+            first_winning_path = 83;
+            winning_spot = 90;
+            
+        }else if(color == "yellow"){
+
+            first_winning_path = 90;
+            winning_spot = 97;
+            
+        }
+
         // if the next final spot-number will not be greater than 68
         if(spot_number + i <= 68){
 
-            // if the the pawn is blue and in the spot-number 47, so the next spot should be the winning path (blue path)
-            if((spot_number + i - 1 == 47) && color == "blue"){
+            // if the current spot is the last spot, before jumping to the first spot in the winning path
+            if( ((spot_number + i - 1 == 47) && color == "blue") || ((spot_number + i - 1 == 30) && color == "red") || 
+               ((spot_number + i - 1 == 13) && color == "green") || ((spot_number + i - 1 == 64) && color == "yellow") )
+            {
 
                 colored_dice = dice - i + 1;
                 
-                for(let j = 69; j < colored_dice + 69; j++){
+                for(let j = first_winning_path; j < colored_dice + first_winning_path; j++){
 
                     who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1);
                     
@@ -797,13 +844,13 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                         container.style.left = spots[`d${j}_spot_x`] + "px";
                         counter++;
 
-                        if(!(who_isin_spot[`who_isin_spot${colored_dice + 68}`].includes(container)) && counter == dice){
+                        if(!(who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].includes(container)) && counter == dice){
 
-                            who_isin_spot[`who_isin_spot${colored_dice + 68}`].push(container);
-                            parallel_check(colored_dice + 68);
+                            who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].push(container);
+                            parallel_check(colored_dice + first_winning_path - 1);
                         }
 
-                    },(i * 250) + ((j - 69) * 250) - 250);
+                    },(i * 250) + ((j - first_winning_path) * 250) - 250);
                 }
 
                 break;
@@ -838,7 +885,7 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
             for(let j = 1; j <= dice; j++){
 
                 // the next final spot-number shouldn't be the finish triangle
-                if(!(spot_number + j >= 76)){
+                if(!(spot_number + j >= winning_spot)){
 
                     if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
@@ -852,7 +899,7 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                         container.style.left = spots[`d${spot_number + j}_spot_x`] + "px";
                         counter++;
                         
-                        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice && !(spot_number + dice > 75)){
+                        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice && !(spot_number + dice > winning_spot - 1)){
     
                             who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
                             parallel_check(spot_number + dice);
@@ -884,30 +931,30 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                     
                     setTimeout(() => {
                         
-                        if(!(blue_finishers.includes(container))){
+                        if(!(finishers_map[color].includes(container))){
     
-                            blue_finishers.push(container);
+                            finishers_map[color].push(container);
                         }
 
-                        if(blue_finishers.length == 1){
+                        if(finishers_map[color].length == 1){
 
                             container.style.left = first_spot_y + "px";
                             container.style.top = first_spot_x + "px";
                             counter++;
 
-                        }else if(blue_finishers.length == 2){
+                        }else if(finishers_map[color].length == 2){
 
                             container.style.left = second_spot_y + "px";
                             container.style.top = second_spot_x + "px";
                             counter++;
 
-                        }else if(blue_finishers.length == 3){
+                        }else if(finishers_map[color].length == 3){
 
                             container.style.left = third_spot_y + "px";
                             container.style.top = third_spot_x + "px";
                             counter++;
 
-                        }else if(blue_finishers.length == 4){
+                        }else if(finishers_map[color].length == 4){
 
                             container.style.left = fourth_spot_y + "px";
                             container.style.top = fourth_spot_x + "px";
@@ -1061,6 +1108,25 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
        (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
        (is_dice_1_clicked == false && is_dice_2_clicked == false))
     { 
+        let winning_spot;
+
+        if(color == "blue"){
+
+            winning_spot = 76;
+
+        }else if(color == "red"){
+
+            winning_spot = 83; 
+
+        }else if(color == "green"){
+
+            winning_spot = 90; 
+            
+        }else if(color == "yellow"){
+
+            winning_spot = 97; 
+            
+        }
 
         let incompetents = incompetents_map[color]; // apply changes only to the specified color's incompetents
 
@@ -1092,8 +1158,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
             }
 
             // Declare booleans to indicate if there is a blockade in the upcoming dice range spots
-            let is_blockade1;
-            let is_blockade2;
+            let is_blockade1 = false;
+            let is_blockade2 = false;
 
             // make copies of the spot_number, to leave the original as it is
             let spot_number_copy1 = spot_number;
@@ -1109,10 +1175,21 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 }
 
                 // check if the spot contains two pawns (blockade)
-                if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2 ){
+                if((color == "blue" && !((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47))){
 
-                    is_blockade1 = true; // indicate that there is a blockade
-                    break;
+                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2){
+    
+                        is_blockade1 = true; // indicate that there is a blockade
+                        break;
+                    }
+
+                }else if(color == "blue" && ((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47)){
+                    
+                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j + 21}`].length == 2){
+        
+                            is_blockade1 = true; // indicate that there is a blockade
+                            break;
+                    }
                 }
             }
 
@@ -1126,15 +1203,32 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 }
 
                 // check if the spot contains two pawns (blockade)
-                if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2 ){
+                if((color == "blue" && !((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47))){
 
-                    is_blockade2 = true; // indicate that there is a blockade
-                    break;
+                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2){
+    
+                        is_blockade2 = true; // indicate that there is a blockade
+                        break;
+                    }
+
+                }else if(color == "blue" && ((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47)){
+                    
+                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j + 21}`].length == 2){
+        
+                            is_blockade2 = true; // indicate that there is a blockade
+                            break;
+                    }
                 }
             }
 
+            // check if no pawn is able to move
+            if((is_blockade1 == true && is_blockade2 == true) || (is_blockade1 == true && is_dice_2_clicked == true) || (is_blockade2 == true && is_dice_1_clicked == true)){
+
+                incompetents.push(colored_containers[who_is_outof_home_nicknames[i - 1]]);
+            }
+
             // if dice_1 is already played and, dice_2 + spot_number will not exceed 76, and there is no blockade
-            if(dice_1 == 0 && (spot_number + dice_2 <= 76) && is_blockade2 != true){
+            if(dice_1 == 0 && (spot_number + dice_2 <= winning_spot) && is_blockade2 != true && dice_2 != 0){
                 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_2}`;
@@ -1147,7 +1241,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 });
                 
             // if dice_2 is already played, and dice_1 + spot_number will not exceed 76, and there is no blockade
-            }else if(dice_2 == 0 && (spot_number + dice_1 <= 76) && is_blockade1 != true){
+            }else if(dice_2 == 0 && (spot_number + dice_1 <= winning_spot) && is_blockade1 != true && dice_1 != 0){
 
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_1}`;
@@ -1220,14 +1314,14 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
     
                 }
 
-                // if both of the dices + spot_number will not exceed 76, and there is no blockade
-                if((spot_number + dice_1 <= 76) && (spot_number + dice_2 <= 76) && is_blockade1 != true && is_blockade2 != true){
+                // if both of the dices + spot_number will not exceed the winning_spot, and there is no blockade
+                if((spot_number + dice_1 <= winning_spot) && (spot_number + dice_2 <= winning_spot) && is_blockade1 != true && is_blockade2 != true){
 
                     left_half();
                     right_half();
 
-                // if just the dice_1 + spot_number will not exceed 76, and there is no blockade
-                }else if(spot_number + dice_1 <= 76 && is_blockade1 != true){
+                // if just the dice_1 + spot_number will not exceed the winning_spot, and there is no blockade
+                }else if(spot_number + dice_1 <= winning_spot && is_blockade1 != true){
 
                     full_circle();
 
@@ -1241,8 +1335,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
     
                     });
 
-                // if just the dice_2 + spot_number will not exceed 76, and there is no blockade
-                }else if(spot_number + dice_2 <= 76 && is_blockade2 != true){
+                // if just the dice_2 + spot_number will not exceed the winning_spot, and there is no blockade
+                }else if(spot_number + dice_2 <= winning_spot && is_blockade2 != true){
 
                     full_circle();
 
@@ -1256,8 +1350,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
     
                     });
 
-                // if at least one of the dices + spot_number will exceed 76
-                }else if(spot_number + dice_1 > 76 || spot_number + dice_2 > 76){
+                // if at least one of the dices + spot_number will exceed the winning_spot
+                }else if(spot_number + dice_1 > winning_spot || spot_number + dice_2 > winning_spot){
 
                     if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
 
@@ -1266,8 +1360,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
                 }
 
-            // if one of the remaining dices + spot_number will exceed 76
-            }else if(spot_number + dice_1 > 76 || spot_number + dice_2 > 76){
+            // if one of the remaining dices + spot_number will exceed the winning_spot
+            }else if(spot_number + dice_1 > winning_spot || spot_number + dice_2 > winning_spot){
 
                 if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
 
@@ -1276,7 +1370,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
             }
 
             // check if all the four pawns are incompetent to be played, to skip the round
-            if(incompetents.length + finishers_map[color].length == 4){
+            if(incompetents.length + finishers_map[color].length + who_is_home_nicknames.length == 4){
 
                 // act like the dice_1 is played
                 dice_1 = 0;
@@ -1287,6 +1381,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 is_dice_2_clicked = true;
 
                 // roller_switcher(color);
+                // round_selector();
             }
         }, time);
         }
