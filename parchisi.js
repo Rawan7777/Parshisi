@@ -277,7 +277,7 @@ red_roll.style.opacity = 0.5;
 green_roll.style.pointerEvents =  "none"; 
 green_roll.style.opacity = 0.5;
 
-//-----------------------------------the round selector function to cycle through the rounds----------------------------------
+//---------------------------------the round selector function---to cycle through the rounds----------------------------------
 
 let round = 3; // to indicate the round (starts with blue)
 
@@ -364,35 +364,15 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
             dice_1 = 5;
             dice_2 = 6;
             count++;
-        }else if(count <= 42 || count <= 5 || count == 9 || count == 12){
+        }else if(count <= 18){
             dice_1 = 6;
             dice_2 = 6;
             count++
-        }else if(count == 2 || count == 6 || count == 10 ){
+        }else if(count == 19){
             dice_1 = 6;
             dice_2 = 3;
             count++
-        }else if(count == 3 || count == 7){
-            dice_1 = 1;
-            dice_2 = 2;
-            count++
-        }else if(count == 13){
-            dice_1 = 5;
-            dice_2 = 4;
-            count++
-        }else if(count == 14){
-            dice_1 = 1;
-            dice_2 = 1;
-            count++
-        }else if(count <= 16){
-            dice_1 = 5;
-            dice_2 = 5;
-            count++
-        }else if(count == 17){
-            dice_1 = 3;
-            dice_2 = 3;
-            count++
-        }else if(count == 18){
+        }else if(count >= 20){
             dice_1 = 1;
             dice_2 = 2;
             count++
@@ -844,10 +824,13 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                         container.style.left = spots[`d${j}_spot_x`] + "px";
                         counter++;
 
-                        if(!(who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].includes(container)) && counter == dice){
+                        if(spot_number + dice <= 96){
 
-                            who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].push(container);
-                            parallel_check(colored_dice + first_winning_path - 1);
+                            if(!(who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].includes(container)) && counter == dice){
+    
+                                who_isin_spot[`who_isin_spot${colored_dice + first_winning_path - 1}`].push(container);
+                                parallel_check(colored_dice + first_winning_path - 1);
+                            }
                         }
 
                     },(i * 250) + ((j - first_winning_path) * 250) - 250);
@@ -870,10 +853,13 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                     container.style.left = spots[`d${spot_number + i}_spot_x`] + "px";
                     counter++;
 
-                    if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice){
+                    if(spot_number + dice <= 96){
 
-                        who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
-                        parallel_check(spot_number + dice);
+                        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice){
+    
+                            who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+                            parallel_check(spot_number + dice);
+                        }
                     }
                     
                 }, (i - 1) * 250);
@@ -898,30 +884,21 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                         container.style.top = spots[`d${spot_number + j}_spot_y`] + "px";
                         container.style.left = spots[`d${spot_number + j}_spot_x`] + "px";
                         counter++;
-                        
-                        if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice && !(spot_number + dice > winning_spot - 1)){
-    
-                            who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
-                            parallel_check(spot_number + dice);
+
+                        if(spot_number + dice <= 96){
+
+                            if(!(who_isin_spot[`who_isin_spot${spot_number + dice}`].includes(container)) && counter == dice && !(spot_number + dice > winning_spot - 1)){
+        
+                                who_isin_spot[`who_isin_spot${spot_number + dice}`].push(container);
+                                parallel_check(spot_number + dice);
+                            }
                         }
 
                     }, (j - 1) * 250);
 
 
                 // the next final spot-number will be the finish triangle
-                }else if(spot_number + dice == 76){
-
-                    let first_spot_x = 201 + 2; // triangle_x + little bit of marging
-                    let first_spot_y = 201 + 73 - 13; // triangle_y + half triangle height - half pawn height
-
-                    let second_spot_x = first_spot_x + 26 + 2; // first_spot_x + pawn width + marging
-                    let second_spot_y = first_spot_y; 
-
-                    let third_spot_x = first_spot_x;
-                    let third_spot_y = first_spot_y - 26 - 2; // first_spot_y - pawn height - marging
-
-                    let fourth_spot_x = first_spot_x; 
-                    let fourth_spot_y = first_spot_y + 26 + 2; // first_spot_y + pawn height + marging
+                }else if(spot_number + dice == winning_spot){
 
                     if(who_isin_spot[`who_isin_spot${spot_number}`].includes(container)){
 
@@ -936,30 +913,8 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                             finishers_map[color].push(container);
                         }
 
-                        if(finishers_map[color].length == 1){
-
-                            container.style.left = first_spot_y + "px";
-                            container.style.top = first_spot_x + "px";
-                            counter++;
-
-                        }else if(finishers_map[color].length == 2){
-
-                            container.style.left = second_spot_y + "px";
-                            container.style.top = second_spot_x + "px";
-                            counter++;
-
-                        }else if(finishers_map[color].length == 3){
-
-                            container.style.left = third_spot_y + "px";
-                            container.style.top = third_spot_x + "px";
-                            counter++;
-
-                        }else if(finishers_map[color].length == 4){
-
-                            container.style.left = fourth_spot_y + "px";
-                            container.style.top = fourth_spot_x + "px";
-                            counter++;
-                        }
+                        finishers_maker(finishers_map[color], container, color);
+                        counter++
 
                     }, (j - 1) * 250);
                 }
@@ -1029,10 +984,113 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
             go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames);
         }
     } 
-
 };
 
-//----------------Parallel check function----prevent two pawns to overlap on each other if they are in the same spot-----------
+//-----------------------finishers make function------to place the pawns the finished the race in place-----------------------
+
+function finishers_maker(finishers, container, color){
+
+    let cords_203 = 201 + 2; // triangle_x + little bit of marging 
+    let cords_260 = 201 + 73 - 14; // triangle_y + half triangle height - half pawn container height 
+    let cords_230 = cords_203 + 28 + 2; // cords_203 + pawn container width + marging 
+    let cords_290 = cords_260 + 28 + 2; // cords_260 + pawn container height + marging 
+    let cords_317 = 201 + 146 - 28 - 2; // triangle_y + triangle height - pawn container height - marging 
+
+    if(color == "blue"){
+
+        if(finishers.length == 1){
+    
+            container.style.top = cords_203 + "px";
+            container.style.left = cords_260 + "px";
+    
+        }else if(finishers.length == 2){
+    
+            container.style.top = cords_230 + "px";
+            container.style.left = cords_260 + "px";
+    
+        }else if(finishers.length == 3){
+    
+            container.style.top = cords_203 + "px";
+            container.style.left = cords_230 + "px";
+    
+        }else if(finishers.length == 4){
+    
+            container.style.top = cords_203 + "px";
+            container.style.left = cords_290 + "px";
+        }
+
+    }else if(color == "red"){
+
+        if(finishers.length == 1){
+    
+            container.style.top = cords_260 + "px";
+            container.style.left = cords_317 + "px";
+    
+        }else if(finishers.length == 2){
+    
+            container.style.top = cords_260 + "px";
+            container.style.left = cords_290 + "px";
+    
+        }else if(finishers.length == 3){
+    
+            container.style.top = cords_230 + "px";
+            container.style.left = cords_317 + "px";
+    
+        }else if(finishers.length == 4){
+    
+            container.style.top = cords_290 + "px";
+            container.style.left = cords_317 + "px";
+        }
+        
+    }else if(color == "green"){
+
+        if(finishers.length == 1){
+    
+            container.style.top = cords_317 + "px";
+            container.style.left = cords_260 + "px";
+    
+        }else if(finishers.length == 2){
+    
+            container.style.top = cords_290 + "px";
+            container.style.left = cords_260 + "px";
+    
+        }else if(finishers.length == 3){
+    
+            container.style.top = cords_317 + "px";
+            container.style.left = cords_230 + "px";
+    
+        }else if(finishers.length == 4){
+    
+            container.style.top = cords_317 + "px";
+            container.style.left = cords_290 + "px";
+        }
+        
+    }else if(color == "yellow"){
+
+        if(finishers.length == 1){
+    
+            container.style.top = cords_260 + "px";
+            container.style.left = cords_203 + "px";
+    
+        }else if(finishers.length == 2){
+    
+            container.style.top = cords_260 + "px";
+            container.style.left = cords_230 + "px";
+    
+        }else if(finishers.length == 3){
+    
+            container.style.top = cords_230 + "px";
+            container.style.left = cords_203 + "px";
+    
+        }else if(finishers.length == 4){
+    
+            container.style.top = cords_290 + "px";
+            container.style.left = cords_203 + "px";
+        }
+    }
+}
+
+//--------------Parallel check function----prevent two pawns to overlap on each other if they are in the same spot-----------
 
 function parallel_check(spot_number){
 
@@ -1041,7 +1099,7 @@ function parallel_check(spot_number){
 
         // check if the spot is wide
         if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21) ||
-           (69 <= spot_number && spot_number <= 75) || (90 <= spot_number && spot_number <= 96))
+           (69 <= spot_number && spot_number <= 75) || (83 <= spot_number && spot_number <= 89))
         {
 
             who_isin_spot[`who_isin_spot${spot_number}`][0].style.left = spots[`d${spot_number}_spot_x`] + 15 + "px";
@@ -1065,7 +1123,7 @@ function center_check(who_isin_spot, spot_number){
         
         // check if the spot is wide
         if((39 <= spot_number && spot_number <= 55) || (5 <= spot_number && spot_number <= 21) ||
-           (69 <= spot_number && spot_number <= 75) || (90 <= spot_number && spot_number <= 96))
+           (69 <= spot_number && spot_number <= 75) || (83 <= spot_number && spot_number <= 89))
         {
 
             // Check if the x-coordinates do not match
@@ -1091,16 +1149,6 @@ function center_check(who_isin_spot, spot_number){
 
 let hovered = []; // to store the hoverd pawns (the cure of the headache)
 
-// object of arrays to store the pawns that cannot be played, due to a blockade for example
-let incompetents_map = {
-
-    blue: [],
-    red: [],
-    green: [],
-    yellow: []
-
-};
-
 function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames){
 
     // check if at least one dice is not played
@@ -1108,24 +1156,48 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
        (is_dice_1_clicked != false && is_dice_2_clicked == false) || 
        (is_dice_1_clicked == false && is_dice_2_clicked == false))
     { 
-        let winning_spot;
+
+        // object of arrays to store the pawns that cannot be played, due to a blockade for example
+        let incompetents_map = {
+
+            blue: [],
+            red: [],
+            green: [],
+            yellow: []
+
+        };
 
         if(color == "blue"){
 
             winning_spot = 76;
+            added_offset = 21;
+            circle_color = "rgba(64, 17, 151, 0.3)";
+            left_circle_color = "rgba(64, 17, 151, 0.3)";
+            right_circle_color = "rgba(10, 0, 154, 0.5)";
 
         }else if(color == "red"){
 
             winning_spot = 83; 
+            added_offset = 45;
+            circle_color = "rgba(174, 3, 3, 0.4)";
+            left_circle_color = "rgba(233, 73, 53, 0.3)";
+            right_circle_color = "rgba(174, 3, 3, 0.5)";
 
         }else if(color == "green"){
 
-            winning_spot = 90; 
+            winning_spot = 90;
+            added_offset = 69;
+            circle_color = "rgba(33, 168, 74, 0.5)";
+            left_circle_color = "rgba(32, 202, 85, 0.5)";
+            right_circle_color = "rgba(33, 168, 74, 0.8)";
             
         }else if(color == "yellow"){
 
             winning_spot = 97; 
-            
+            added_offset = 25;
+            circle_color = "rgba(218, 203, 0, 0.6)";
+            left_circle_color = "rgba(218, 218, 0, 0.5)";
+            right_circle_color = "rgba(218, 203, 0, 0.8)";
         }
 
         let incompetents = incompetents_map[color]; // apply changes only to the specified color's incompetents
@@ -1139,6 +1211,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 
         setTimeout(() => {
             
+            shows[`circle${i}`].style.backgroundColor = circle_color;
             shows[`circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
             shows[`circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
 
@@ -1169,26 +1242,43 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
             for(let j = 1; j <= dice_1; j++){
 
                 // check if the spot_number exceeds 68, to start counting over
-                if(spot_number_copy1 + j > 68){
+                if(spot_number_copy1 <= 68 && spot_number_copy1 + j > 68){
 
                     spot_number_copy1 = spot_number_copy1 - 68;
                 }
 
-                // check if the spot contains two pawns (blockade)
-                if((color == "blue" && !((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47))){
+                // check if the pawn not in the danger zone and will not enter the colored path using dice_1
+                if((color == "blue" && !((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47)) ||
+                   (color == "red" && !((spot_number_copy1 >= 25 && 30 >= spot_number_copy1) && spot_number_copy1 + j > 30)) ||
+                   (color == "green" && !((spot_number_copy1 >= 8 && 13 >= spot_number_copy1) && spot_number_copy1 + j > 13)) ||
+                   (color == "yellow" && !((spot_number_copy1 >= 59 && 64 >= spot_number_copy1) && spot_number_copy1 + j > 64)))
+                {
 
-                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2){
-    
-                        is_blockade1 = true; // indicate that there is a blockade
-                        break;
-                    }
+                    if(spot_number_copy1 + j <= 96){
 
-                }else if(color == "blue" && ((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47)){
-                    
-                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j + 21}`].length == 2){
-        
+                        // check if the spot contains two pawns (blockade)
+                        if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2){
+
                             is_blockade1 = true; // indicate that there is a blockade
                             break;
+                        }
+                    }
+
+                // check if the pawn is in the danger zone and will enter the colored path using dice_1
+                }else if((color == "blue" && ((spot_number_copy1 >= 42 && 47 >= spot_number_copy1) && spot_number_copy1 + j > 47)) ||
+                         (color == "red" && ((spot_number_copy1 >= 25 && 30 >= spot_number_copy1) && spot_number_copy1 + j > 30)) ||
+                         (color == "green" && ((spot_number_copy1 >= 8 && 13 >= spot_number_copy1) && spot_number_copy1 + j > 13)) ||
+                         (color == "yellow" && ((spot_number_copy1 >= 59 && 64 >= spot_number_copy1) && spot_number_copy1 + j > 64)))
+                {
+
+                    if(spot_number_copy1 + j <= 96){
+
+                        // check if the spot contains two pawns (blockade)
+                        if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j + added_offset}`].length == 2){
+                            
+                            is_blockade1 = true; // indicate that there is a blockade
+                            break;
+                        }
                     }
                 }
             }
@@ -1197,26 +1287,42 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
             for(let j = 1; j <= dice_2; j++){
 
                 // check if the spot_number exceeds 68, to start counting over
-                if(spot_number_copy2 + j > 68){
+                if(spot_number_copy2 <= 68 && spot_number_copy2 + j > 68){
 
                     spot_number_copy2 = spot_number_copy2 - 68;
                 }
 
-                // check if the spot contains two pawns (blockade)
-                if((color == "blue" && !((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47))){
+                // check if the pawn not in the danger zone and will not enter the colored path using dice_2
+                if((color == "blue" && !((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47)) ||
+                   (color == "red" && !((spot_number_copy2 >= 25 && 30 >= spot_number_copy2) && spot_number_copy2 + j > 30)) ||
+                   (color == "green" && !((spot_number_copy2 >= 8 && 13 >= spot_number_copy2) && spot_number_copy2 + j > 13)) ||
+                   (color == "yellow" && !((spot_number_copy2 >= 59 && 64 >= spot_number_copy2) && spot_number_copy2 + j > 64)))
+                {
 
-                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2){
-    
-                        is_blockade2 = true; // indicate that there is a blockade
-                        break;
-                    }
+                    if(spot_number_copy2 + j <= 96){
 
-                }else if(color == "blue" && ((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47)){
-                    
-                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j + 21}`].length == 2){
-        
+                        // check if the spot contains two pawns (blockade)
+                        if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2){
+
                             is_blockade2 = true; // indicate that there is a blockade
                             break;
+                        }
+                    }
+
+                // check if the pawn is in the danger zone and will enter the colored path using dice_2
+                }else if((color == "blue" && ((spot_number_copy2 >= 42 && 47 >= spot_number_copy2) && spot_number_copy2 + j > 47)) ||
+                         (color == "red" && ((spot_number_copy2 >= 25 && 30 >= spot_number_copy2) && spot_number_copy2 + j > 30)) ||
+                         (color == "green" && ((spot_number_copy2 >= 8 && 13 >= spot_number_copy2) && spot_number_copy2 + j > 13)) ||
+                         (color == "yellow" && ((spot_number_copy2 >= 59 && 64 >= spot_number_copy2) && spot_number_copy2 + j > 64)))
+                {
+                    
+                    if(spot_number_copy2 + j <= 96){
+
+                        if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j + added_offset}`].length == 2){
+                            
+                            is_blockade2 = true; // indicate that there is a blockade
+                            break;
+                        }
                     }
                 }
             }
@@ -1229,7 +1335,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
             // if dice_1 is already played and, dice_2 + spot_number will not exceed 76, and there is no blockade
             if(dice_1 == 0 && (spot_number + dice_2 <= winning_spot) && is_blockade2 != true && dice_2 != 0){
-                
+
                 shows[`circle${i}`].style.visibility = "visible";
                 shows[`circle${i}`].textContent = `${dice_2}`;
                 shows[`circle${i}`].addEventListener('click', function(){
@@ -1264,6 +1370,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`left_half_circle${i}`].id = `left-half-circle${i}`;
                     shows[`left_half_circle${i}`].classList.add("left-half-circle");
                     document.body.appendChild(shows[`left_half_circle${i}`]);
+                    shows[`left_half_circle${i}`].style.backgroundColor = left_circle_color;
                     shows[`left_half_circle${i}`].style.visibility = "visible";
                     shows[`left_half_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
                     shows[`left_half_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
@@ -1286,6 +1393,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`right_half_circle${i}`].id = `right-half-circle${i}`;
                     shows[`right_half_circle${i}`].classList.add("right-half-circle");
                     document.body.appendChild(shows[`right_half_circle${i}`]);
+                    shows[`right_half_circle${i}`].style.backgroundColor = right_circle_color;
                     shows[`right_half_circle${i}`].style.visibility = "visible";
                     shows[`right_half_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + 20 + "px";
                     shows[`right_half_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
@@ -1308,6 +1416,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     shows[`full_circle${i}`].id = `full-circle${i}`;
                     shows[`full_circle${i}`].classList.add("circle");
                     document.body.appendChild(shows[`full_circle${i}`]);
+                    shows[`full_circle${i}`].style.backgroundColor = circle_color;
                     shows[`full_circle${i}`].style.visibility = "visible";
                     shows[`full_circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
                     shows[`full_circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
@@ -1379,6 +1488,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 // act like the dice_1 is played
                 dice_2 = 0;
                 is_dice_2_clicked = true;
+
+                number_sail_destroyer();
 
                 // roller_switcher(color);
                 // round_selector();

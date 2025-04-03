@@ -662,7 +662,6 @@ body{
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: rgba(64, 17, 151, 0.3);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -682,7 +681,6 @@ body{
     width: 20px;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
-    background-color: rgba(64, 17, 151, 0.3);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -700,7 +698,6 @@ body{
 .right-half-circle{
     height: 40px;
     width: 20px;
-    background-color: rgba(10, 0, 154, 0.5);
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
