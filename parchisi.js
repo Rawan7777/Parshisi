@@ -359,6 +359,7 @@ let kill_time; // to keep track and the correct wait time for the setTimeout in 
 let count = 0; // to count how many times the dice rolled (used for debugging)
 let original_dice_1; // to store the original dice_1 value
 let original_dice_2; // to store the original dice_2 value
+let x = console.log; // shortcut
 
 //---------------------------------------------------roll dice function------------------------------------------------------
 
@@ -371,26 +372,23 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     let is_killed = false; // indicate if the kill function is triggerd or not
 
     // a function fo set the dices values as desired for debugging (Temporary)
-    // let dice_1;
-    // let dice_2;
+    let dice_1;
+    let dice_2;
 
     function dicy(){
-        if(count == 0){
+        if(count == 0 || count == 4 || count == 8){
+            dice_1 = 4;
+            dice_2 = 1;
+            count++;
+        }else if(count == 1){
             dice_1 = 6;
             dice_2 = 5;
-            count++;
-        }else if(count ==3){
-            dice_1 = 3;
+            count++
+        }else if(count == 5){
+            dice_1 = 6;
             dice_2 = 2;
             count++
-        }else if(count == 4){
-            dice_1 = 6;
-            dice_2 = 6;
-            count++
-        }else if(count == 8){
-            dice_1 = 2;
-            dice_2 = 4;
-            count++
+
         }else{
             dice_1 = 1;
             dice_2 = 2;
@@ -398,11 +396,11 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
         }
     };
 
-    // dicy();
+    dicy();
 
     // set the dices
-    let dice_1 = Math.floor(Math.random() * 6) + 1;
-    let dice_2 = Math.floor(Math.random() * 6) + 1;
+    // let dice_1 = Math.floor(Math.random() * 6) + 1;
+    // let dice_2 = Math.floor(Math.random() * 6) + 1;
 
     // keep a copy of the dices values
     original_dice_1 = dice_1;
@@ -499,12 +497,20 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
     // enter the pawns to the path if both of the dices are equel to 5
     if(dice_1 == 5 && dice_2 == 5){
-
+        
         double++;
 
-        // check if the enter spot (52, 35, 18, or 1) is COMPLETELY empty, or has one or two enemy pawns
-        if(who_isin_spot$$.length == 0 || ((who_isin_spot$$.length == 1 || who_isin_spot$$.length == 2) && !(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn))))){
+        // check if the dices were the same for the third time in a row
+        if(double == 3){
 
+            go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
+        }
+        
+        roller_switcher(color, original_dice_1, original_dice_2); // to deactivate the dice roller
+        
+        // check if the enter spot (52, 35, 18, or 1) is COMPLETELY empty, or has one or two enemy pawns
+        if(double != 3 && (who_isin_spot$$.length == 0 || ((who_isin_spot$$.length == 1 || who_isin_spot$$.length == 2) && !(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn)))))){
+            
             // check if the enter spot has one or two enemy pawns, to call the kill function
             if((who_isin_spot$$.length == 1 || who_isin_spot$$.length == 2) && !(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn))) && (who_is_home_nicknames.length != 0)){
 
@@ -548,14 +554,6 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                 is_dice_1_clicked = true; // indicating that dice_1 is clicked and played
                 is_dice_2_clicked = true; // indicating that dice_2 is clicked and played
 
-                // roller_switcher(color); // to deactivate the dice roller till the next round
-
-                // check if the dices were the same for the third time in a row
-                if(double == 3){
-
-                    go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
-                }
-
                 // check if the kill function is called, to add bonus move of 20
                 if(is_killed == true){
 
@@ -596,7 +594,6 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                     number_sail(20, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
                     
                 }
-                // roller_switcher(color);
                 
             // check if there is no pawn in home to enter
             }else if(who_is_home_nicknames.length == 0){
@@ -612,8 +609,10 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                 }
             }
 
+        setTimeout(() => { roller_switcher(color, original_dice_1, original_dice_2); }, 150); // to reactivate the dice roller if necessary
+
         // check if the enter spot (52, 35, 18, or 1) is occupied with only one pawn, to enter only one pawn
-        }else if(who_isin_spot$$.length == 1){
+        }else if(double != 3 && who_isin_spot$$.length == 1){
 
             // check if the pawn in enter spot belongs to the same color
             if(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn))){
@@ -658,8 +657,6 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
                         go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
                     }
         
-                    // roller_switcher(color);
-
                 // check if there is no pawn in home to enter
                 }else if(who_is_home_nicknames.length == 0){
 
@@ -676,9 +673,8 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
             }
 
         // check if the enter spot (52, 35, 18, or 1) is full with two pawns
-        }else if(who_isin_spot$$.length == 2){
+        }else if(double != 3 && who_isin_spot$$.length == 2){
 
-            // roller_switcher(color);
             time = 0;
             number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
         }
@@ -686,11 +682,19 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
     // enter the pawns to the path if at least one of the dices or the sum of the both of them is equel to 5
     else if(dice_1 == 5 || dice_2 == 5 || dice_1 + dice_2 == 5){
+        
+        roller_switcher(color, original_dice_1, original_dice_2, 0);  // to deactivate the dice roller
 
         // check if there is at least one pawn in home, and if the enter spot (52, 35, 18, or 1) is not completely full
-        if(who_is_home_nicknames.length >= 1 && who_isin_spot$$.length <= 1){
+        if(who_is_home_nicknames.length >= 1 && (who_isin_spot$$.length <= 1 || (who_isin_spot$$.length == 2 && !(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn)))))){
 
-            // roller_switcher(color);  // to reactivate the dice roller
+            // check if there is at least one enemy pawn in the enter_spot
+            if(who_isin_spot$$.length > 0 && !(who_isin_spot$$.some(pawn => who_is_outof_home.includes(pawn)))){
+
+                kill_time = 150;
+                is_killed = true;
+                kill(enter_spot);
+            }
 
             who_is_home[who_is_home_nicknames[0]].style.left = d$$_spot_x + "px";
             who_is_home[who_is_home_nicknames[0]].style.top = d$$_spot_y + "px";
@@ -701,10 +705,13 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
             who_is_home_nicknames.splice(0, 1);
 
             // check if only one pawn is out of home
-            if(who_is_home_nicknames.length == 3){
+            if(who_is_home_nicknames.length == 3 && is_killed == false){
 
                 // check if dice_1 is responsible for entering the pawn
                 if(dice_1 == 5){
+
+                    is_dice_1_clicked = true; // indicating that dice_1 is clicked and played
+                    is_dice_2_clicked = true; // indicating that dice_2 is will be right now clicked and played
 
                     setTimeout(() => {
 
@@ -713,11 +720,11 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
                     }, 250);
 
-                    dice = dice_2; // set the dice value (used later to set the waiting time)
-                    is_dice_2_clicked = true;
-
                 // check if dice_2 is responsible for entering the pawn
                 }else if(dice_2 == 5){
+
+                    is_dice_1_clicked = true;
+                    is_dice_2_clicked = true;
 
                     setTimeout(() => {
 
@@ -725,59 +732,63 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
                     }, 250);
 
-                    dice = dice_1; 
-                    is_dice_1_clicked = true;
-
-                // check if dice_1 + dice_2 are responsible for entering the pawn
-                }else if(dice_1 + dice_2 == 5){
-
-                    dice = 0;
-                    is_dice_1_clicked = true;
-                    is_dice_2_clicked = true;
                 }
             }
 
             if(dice_1 == 5){
 
-                dice_1 = 0; // set dice_1 to zero indicating that it is already played
-                is_dice_1_clicked = true;
-                dice = dice_1; 
+                if(is_killed == true){
+
+                    dice_1 = 20; // set dice_1 to 20 bonus
+
+                }else{
+
+                    dice_1 = 0; // set dice_1 to zero indicating that it is already played
+                    is_dice_1_clicked = true;
+                }
 
             }else if(dice_2 == 5){
 
-                dice_2 = 0; 
-                is_dice_2_clicked = true;
-                dice = dice_2;
+                if(is_killed == true){
+
+                    dice_2 = 20; // set dice_2 to 20 bonus
+
+                }else{
+
+                    dice_2 = 0; // set dice_2 to zero indicating that it is already played
+                    is_dice_2_clicked = true;
+                }
 
             }else if(dice_1 + dice_2 == 5){
 
-                dice_1 = 0;
-                is_dice_1_clicked = true;
-                dice_2 = 0;
-                is_dice_2_clicked = true;
-                dice = dice_1 + dice_2;
-                round_selector();
+                if(is_killed == true){
+
+                    dice_1 = 20; // set dice_1 to 20 bonus
+                    dice_2 = 0;
+                    is_dice_2_clicked = true;
+
+                }else{
+
+                    dice_1 = 0;
+                    is_dice_1_clicked = true;
+                    dice_2 = 0;
+                    is_dice_2_clicked = true;
+                    round_selector();
+                }
             } 
 
             parallel_check(spot_number); // to check if two pawn are over each other
 
-            // check if there is more than one pawn out of home
-            if(who_is_outof_home_nicknames.length > 1){
+            // check if there is more than one pawn out of home, or if there is more than one dice to play
+            if((who_is_outof_home_nicknames.length > 1 && is_killed == false) || who_is_outof_home_nicknames.length >= 1 && is_killed == true){
 
                 time = 400;
                 number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
             }
 
-            setTimeout(() => {
-
-                // roller_switcher(color);
-
-            }, dice * 250 + 400);
-
         // check if none pf the pawns are home
         }else if(who_is_home_nicknames.length == 0 || who_isin_spot$$.length == 2){
-            
-            // roller_switcher(color);
+
             time = 0;
             number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
         }
@@ -791,35 +802,43 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
             double++;
         }
 
-        // check if the both, dice_1 and dice_2 are the same for the third time in a row
-        if(original_dice_1 == original_dice_2 && double == 3){
+        if(who_is_outof_home_nicknames.length > 0){
 
-            go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
-        }
+            if(original_dice_1 == original_dice_2 && double == 3){
 
-        // check if there is at least one pawn out of home
-        else if(who_is_outof_home_nicknames.length > 0){
-            
-            // roller_switcher(color);
-            time = 0;
-            number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
+                go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
 
-        // if all the pawn are in home
+            }else{
+
+                console.log("a")
+                roller_switcher(color, original_dice_1, original_dice_2, 0);
+                time = 0;
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
+            }
+
         }else if(who_is_outof_home_nicknames.length == 0){
 
-            // check if the dices are not the same
-            if(original_dice_1 != original_dice_2){
-                
+            if(original_dice_1 == original_dice_2 && double == 3){
+
+                round_selector()
+
+            }else if(original_dice_1 != original_dice_2){
+
                 double = 0;
-                round_selector();
+                round_selector()
             }
+
         }
     }
 
     // check if the both, dice_1 and dice_2 are the same for the third time in a row (for 5 & 5)
-    if(original_dice_1 == original_dice_2 == 5 && double == 3){
+    // if(original_dice_1 == original_dice_2 == 5 && double == 3){
 
-        go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
+    //     go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
+    // }
+
+    if(double == 3){
+        double = 0;
     }
 };
 
@@ -841,18 +860,28 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
     let counter = 0; // reset the counter
     let is_killed = false; // indicate if the kill function is triggerd or not
+    let is_finished = false; // indicate if one of the pawn finished the race
 
     // set the is_killed boolean depending on the condition (had to be here, outside the setTimeout function)
     if(spot_number + dice <= 68){
         
-        if(who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 && !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn)))){
-            
+        if(!(spot_number + dice == 1 || spot_number + dice == 8 || spot_number + dice == 13 || spot_number + dice == 18 ||
+             spot_number + dice == 25 || spot_number + dice == 30 || spot_number + dice == 35 || spot_number + dice == 42 ||
+             spot_number + dice == 47 || spot_number + dice == 52 || spot_number + dice == 59 || spot_number + dice == 64) &&
+             who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 &&
+             !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))))
+        {
             is_killed = true;
         }
         
     }else if(spot_number + dice > 68){
         
-        if(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1 && !(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].some(pawn => who_is_outof_home.includes(pawn)))){
+        if(!((spot_number + dice) - 68 == 1 || (spot_number + dice) - 68 == 8 || (spot_number + dice) - 68 == 13 ||
+             (spot_number + dice) - 68 == 18 || (spot_number + dice) - 68 == 25 || (spot_number + dice) - 68 == 30 ||
+             (spot_number + dice) - 68 == 35 || (spot_number + dice) - 68 == 42 || (spot_number + dice) - 68 == 47 ||
+             (spot_number + dice) - 68 == 52 || (spot_number + dice) - 68 == 59 || (spot_number + dice) - 68 == 64) &&
+              who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1 &&
+            !(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].some(pawn => who_is_outof_home.includes(pawn)))){
     
             is_killed = true;
         }
@@ -888,6 +917,11 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
             winning_spot = 97;
             enter_spot = 1
             
+        }
+
+        if(spot_number + dice == winning_spot){
+
+            is_finished = true;
         }
 
         // if the next final spot-number will not be greater than 68
@@ -941,8 +975,12 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
 
                     if(spot_number + dice <= 96){
 
-                        if(who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 && !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))) && counter == dice){
-
+                        if(!(spot_number + dice == 1 || spot_number + dice == 8 || spot_number + dice == 13 || spot_number + dice == 18 ||
+                             spot_number + dice == 25 || spot_number + dice == 30 || spot_number + dice == 35 || spot_number + dice == 42 ||
+                             spot_number + dice == 47 || spot_number + dice == 52 || spot_number + dice == 59 || spot_number + dice == 64) &&
+                             who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 && counter == dice &&
+                             !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))))
+                        {
                             is_killed = true;
                             kill(spot_number + dice);
                         }
@@ -1033,8 +1071,13 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                     
                     if(!(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].includes(container)) && counter == dice){
         
-                        if(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1 && !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))) && counter == dice){
-
+                        if(!((spot_number + dice) - 68 == 1 || (spot_number + dice) - 68 == 8 || (spot_number + dice) - 68 == 13 ||
+                             (spot_number + dice) - 68 == 18 || (spot_number + dice) - 68 == 25 || (spot_number + dice) - 68 == 30 ||
+                             (spot_number + dice) - 68 == 35 || (spot_number + dice) - 68 == 42 || (spot_number + dice) - 68 == 47 ||
+                             (spot_number + dice) - 68 == 52 || (spot_number + dice) - 68 == 59 || (spot_number + dice) - 68 == 64) &&
+                              who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1  && counter == dice &&
+                              !(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].some(pawn => who_is_outof_home.includes(pawn))))
+                        {
                             is_killed = true;
                             kill((spot_number + dice) - 68);
                         }
@@ -1058,6 +1101,13 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
         if(is_dice_1_clicked == true && is_dice_2_clicked != true){
             
             dice_1 = 0;
+
+            if(is_finished){
+
+                dice_1 = 10;
+                is_dice_1_clicked = false;
+            }
+
             time = (dice + 1) * 250;
             number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
             
@@ -1065,23 +1115,43 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
         }else if(is_dice_2_clicked == true && is_dice_1_clicked != true){
             
             dice_2 = 0;
+
+            if(is_finished){
+
+                dice_2 = 10;
+                is_dice_2_clicked = false;
+            }
+
             time = (dice + 1) * 250;
             number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
         
         // check if both dice_1 and dice_2 are played and consumed
         }else if(is_dice_1_clicked == true && is_dice_2_clicked == true){
-    
-            number_sail_destroyer();
-    
-            if(original_dice_1 != original_dice_2){
-    
-                round_selector();
-    
-            // check if the both, dice_1 and dice_2 are the same for the third time in a row
-            }else if((original_dice_1 == original_dice_2) && (double == 3)){
-    
-                go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
+
+            if(is_finished){
+
+                dice_1 = 10;
+                is_dice_1_clicked = false;
+                dice_2 = 0;
+                is_dice_2_clicked = true;
+                time = (dice + 1) * 250;
+                number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
+            
+            }else{
+
+                number_sail_destroyer();
+        
+                if(original_dice_1 != original_dice_2){
+        
+                    setTimeout(() => { round_selector(); }, dice * 250);
+        
+                }
             }
+            // check if the both, dice_1 and dice_2 are the same for the third time in a row
+            // else if((original_dice_1 == original_dice_2) && (double == 3)){
+    
+            //     go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
+            // }
         } 
 
     }else if(is_killed == true){
@@ -1343,7 +1413,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
             document.body.appendChild(shows[`circle${i}`]);
                     
             setTimeout(() => {
-                
+
                 shows[`circle${i}`].style.backgroundColor = circle_color;
                 shows[`circle${i}`].style.left = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().x - 6 + "px";
                 shows[`circle${i}`].style.top = colored_containers[who_is_outof_home_nicknames[i - 1]].getBoundingClientRect().y - 6 + "px";
@@ -1396,6 +1466,19 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                                 is_blockade1 = true; // indicate that there is a blockade
                                 break;
                             }
+
+                            // check if the safe spot is occupied by an enemy pawn
+                            if(who_isin_spot[`who_isin_spot${spot_number_copy1 + dice_1}`].length != 0 &&
+                              (spot_number_copy1 + dice_1 == 1 || spot_number_copy1 + dice_1 == 8 || spot_number_copy1 + dice_1 == 13 ||
+                              spot_number_copy1 + dice_1 == 18 || spot_number_copy1 + dice_1 == 25 || spot_number_copy1 + dice_1 == 30 ||
+                              spot_number_copy1 + dice_1 == 35 || spot_number_copy1 + dice_1 == 42 || spot_number_copy1 + dice_1 == 47 ||
+                              spot_number_copy1 + dice_1 == 52 || spot_number_copy1 + dice_1 == 59 || spot_number_copy1 + dice_1 == 64) &&
+                             !(who_isin_spot[`who_isin_spot${spot_number_copy1 + dice_1}`].some(pawn => who_is_outof_home.includes(pawn)))){
+
+                                is_blockade1 = true; // indicate that there is a blockade
+                                break;
+
+                            }
                         }
 
                     // check if the pawn is in the danger zone and will enter the colored path using dice_1
@@ -1412,6 +1495,19 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                                 
                                 is_blockade1 = true; // indicate that there is a blockade
                                 break;
+                            }
+
+                            // check if the safe spot is occupied by an enemy pawn
+                            if(who_isin_spot[`who_isin_spot${spot_number_copy1 + dice_1}`].length != 0 &&
+                                (spot_number_copy1 + dice_1 == 1 || spot_number_copy1 + dice_1 == 8 || spot_number_copy1 + dice_1 == 13 ||
+                                 spot_number_copy1 + dice_1 == 18 || spot_number_copy1 + dice_1 == 25 || spot_number_copy1 + dice_1 == 30 ||
+                                 spot_number_copy1 + dice_1 == 35 || spot_number_copy1 + dice_1 == 42 || spot_number_copy1 + dice_1 == 47 ||
+                                 spot_number_copy1 + dice_1 == 52 || spot_number_copy1 + dice_1 == 59 || spot_number_copy1 + dice_1 == 64) &&
+                               !(who_isin_spot[`who_isin_spot${spot_number_copy1 + dice_1}`].some(pawn => who_is_outof_home.includes(pawn)))){
+
+                                is_blockade1 = true; // indicate that there is a blockade
+                                break;
+
                             }
                         }
                     }
@@ -1441,6 +1537,19 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                                 is_blockade2 = true; // indicate that there is a blockade
                                 break;
                             }
+
+                            // check if the safe spot is occupied by an enemy pawn
+                            if(who_isin_spot[`who_isin_spot${spot_number_copy2 + dice_2}`].length != 0 &&
+                                (spot_number_copy2 + dice_2 == 1 || spot_number_copy2 + dice_2 == 8 || spot_number_copy2 + dice_2 == 13 ||
+                                 spot_number_copy2 + dice_2 == 18 || spot_number_copy2 + dice_2 == 25 || spot_number_copy2 + dice_2 == 30 ||
+                                 spot_number_copy2 + dice_2 == 35 || spot_number_copy2 + dice_2 == 42 || spot_number_copy2 + dice_2 == 47 ||
+                                 spot_number_copy2 + dice_2 == 52 || spot_number_copy2 + dice_2 == 59 || spot_number_copy2 + dice_2 == 64) &&
+                               !(who_isin_spot[`who_isin_spot${spot_number_copy2 + dice_2}`].some(pawn => who_is_outof_home.includes(pawn)))){
+
+                                is_blockade2 = true; // indicate that there is a blockade
+                                break;
+
+                            }
                         }
 
                     // check if the pawn is in the danger zone and will enter the colored path using dice_2
@@ -1457,6 +1566,19 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                                 is_blockade2 = true; // indicate that there is a blockade
                                 break;
                             }
+
+                            if(who_isin_spot[`who_isin_spot${spot_number_copy2 + dice_2}`].length != 0 &&
+                              (spot_number_copy2 + dice_2 == 1 || spot_number_copy2 + dice_2 == 8 || spot_number_copy2 + dice_2 == 13 ||
+                               spot_number_copy2 + dice_2 == 18 || spot_number_copy2 + dice_2 == 25 || spot_number_copy2 + dice_2 == 30 ||
+                               spot_number_copy2 + dice_2 == 35 || spot_number_copy2 + dice_2 == 42 || spot_number_copy2 + dice_2 == 47 ||
+                               spot_number_copy2 + dice_2 == 52 || spot_number_copy2 + dice_2 == 59 || spot_number_copy2 + dice_2 == 64) &&
+                             !(who_isin_spot[`who_isin_spot${spot_number_copy2 + dice_2}`].some(pawn => who_is_outof_home.includes(pawn))))
+                            {
+
+                                is_blockade2 = true; // indicate that there is a blockade
+                                break;
+
+                            }
                         }
                     }
                 }
@@ -1468,7 +1590,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 }
 
                 // if dice_1 is already played, and dice_2 isn't, and dice_2 + spot_number will not exceed 76, and there is no blockade
-                if(dice_1 == 0 && dice_2 != 0 && (spot_number + dice_2 <= winning_spot) && is_blockade2 != true){
+                if(dice_1 == 0 && dice_2 != 0 && ((spot_number + dice_2 <= winning_spot) || dice_2 == 20) && is_blockade2 != true){
 
                     shows[`circle${i}`].style.visibility = "visible";
                     shows[`circle${i}`].textContent = `${dice_2}`;
@@ -1476,12 +1598,13 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                         
                         is_dice_2_clicked = true;
                         movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                        // roller_switcher(color);
+                        console.log("ns1")
+                        roller_switcher(color, original_dice_1, original_dice_2, dice_2);
                         number_sail_destroyer();
                     });
                     
                 // if dice_2 is already played, and dice_1 isn't, and dice_1 + spot_number will not exceed 76, and there is no blockade
-                }else if(dice_2 == 0 && dice_1 != 0 && (spot_number + dice_1 <= winning_spot) && is_blockade1 != true){
+                }else if(dice_2 == 0 && dice_1 != 0 && ((spot_number + dice_1 <= winning_spot) || dice_1 == 20) && is_blockade1 != true){
 
                     shows[`circle${i}`].style.visibility = "visible";
                     shows[`circle${i}`].textContent = `${dice_1}`;
@@ -1489,7 +1612,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
                         is_dice_1_clicked = true;
                         movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                        // roller_switcher(color);
+                        console.log("ns2")
+                        roller_switcher(color, original_dice_1, original_dice_2, dice_1);
                         number_sail_destroyer();
                         
                     });
@@ -1514,7 +1638,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_1_clicked = true;
                             movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            // roller_switcher(color);
+                            console.log("ns3")
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_1);
                             number_sail_destroyer();
         
                         });
@@ -1537,7 +1662,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_2_clicked = true;
                             movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            // roller_switcher(color);
+                            console.log("ns4")
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_2);
                             number_sail_destroyer();
         
                         });
@@ -1573,7 +1699,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_1_clicked = true;
                             movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            // roller_switcher(color);
+                            console.log("ns5")
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_1);
                             number_sail_destroyer();
         
                         });
@@ -1588,7 +1715,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_2_clicked = true;
                             movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            // roller_switcher(color);
+                            console.log("ns6")
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_2);
                             number_sail_destroyer();
         
                         });
@@ -1625,7 +1753,8 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
                     number_sail_destroyer();
 
-                    // roller_switcher(color);
+                    console.log("ns7")
+                    roller_switcher(color, original_dice_1, original_dice_2, 0);
                     round_selector();
                 }
             }, time);
@@ -1635,7 +1764,7 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
 //-------------------roller switcher function---------to prevent the player from cliking the dice roller-----------------
 
-function roller_switcher(color){
+function roller_switcher(color, original_dice_1, original_dice_2, wait_time){
 
     let colored_roll;
 
@@ -1664,13 +1793,17 @@ function roller_switcher(color){
 
     }
     // check if both of the dices are played
-    // else{
+    else if(original_dice_1 == original_dice_2){
         
-    //     colored_roll.style.pointerEvents = "visible"; 
-    //     colored_roll.style.opacity = 1;
-    //     is_dice_1_clicked = false;
-    //     is_dice_2_clicked = false;
-    // }
+        setTimeout(() => {
+            
+            colored_roll.style.pointerEvents = "visible"; 
+            colored_roll.style.opacity = 1;
+            is_dice_1_clicked = false;
+            is_dice_2_clicked = false;
+
+        }, wait_time * 250);
+    }
 };
 
 //----------------number sail destroyer function---------to destroy the number sail circles if they are used-----------------
@@ -1717,11 +1850,9 @@ function go_back_home(color, colored_containers, who_is_outof_home_nicknames, wh
                     if((enter_spot <= j) && (j <= 68) && (enter_spot != 1)){
                         
                         index = j - 68;
-
-                    }else{
-
-                        index = j;
                     }
+
+                    index = j;
                     
                     spot_numbers.push(index);
                     original_spot_numbers.push(j);
@@ -1800,7 +1931,9 @@ function go_back_home(color, colored_containers, who_is_outof_home_nicknames, wh
 
 function kill(spot_number){
 
-    for(let i = 0; i < who_isin_spot[`who_isin_spot${spot_number}`].length; i++){
+    length = who_isin_spot[`who_isin_spot${spot_number}`].length;
+
+    for(let i = 0; i < length; i++){
 
         let pawn = who_isin_spot[`who_isin_spot${spot_number}`][0]; // extract the pawn
         let color = pawn.id.split("_")[0]; // extract the pawn color
@@ -1821,7 +1954,7 @@ function kill(spot_number){
     
         who_isin_spot[`who_isin_spot${spot_number}`].splice(0, 1); // remove the pawn from the previous spot object{array}
     
-        // declare the object and arrays holder
+        // declare object and arrays holder
         let who_is_home_nicknames;
         let who_is_outof_home_nicknames;
         let who_is_outof_home;
