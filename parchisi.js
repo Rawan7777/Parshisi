@@ -372,23 +372,34 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     let is_killed = false; // indicate if the kill function is triggerd or not
 
     // a function fo set the dices values as desired for debugging (Temporary)
-    let dice_1;
-    let dice_2;
+    // let dice_1;
+    // let dice_2;
 
     function dicy(){
-        if(count == 0 || count == 4 || count == 8){
-            dice_1 = 4;
-            dice_2 = 1;
+        if(count == 0){
+            dice_1 = 5;
+            dice_2 = 5;
             count++;
-        }else if(count == 1){
+        }else if(count == 1  || count == 6 || count == 7){
+            dice_1 = 6;
+            dice_2 = 6;
+            count++
+        }else if(count == 8 || count == 12){
+            dice_1 = 4;
+            dice_2 = 6;
+            count++
+        }else if(count == 22 || count == 9){
+            dice_1 = 3;
+            dice_2 = 6;
+            count++
+        }else if(count == 2 || count == 11){
+            dice_1 = 4;
+            dice_2 = 6;
+            count++
+        }else if(count == 3 || count == 77 ){
             dice_1 = 6;
             dice_2 = 5;
             count++
-        }else if(count == 5){
-            dice_1 = 6;
-            dice_2 = 2;
-            count++
-
         }else{
             dice_1 = 1;
             dice_2 = 2;
@@ -396,11 +407,11 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
         }
     };
 
-    dicy();
+    // dicy();
 
     // set the dices
-    // let dice_1 = Math.floor(Math.random() * 6) + 1;
-    // let dice_2 = Math.floor(Math.random() * 6) + 1;
+    let dice_1 = Math.floor(Math.random() * 6) + 1;
+    let dice_2 = Math.floor(Math.random() * 6) + 1;
 
     // keep a copy of the dices values
     original_dice_1 = dice_1;
@@ -810,7 +821,6 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
             }else{
 
-                console.log("a")
                 roller_switcher(color, original_dice_1, original_dice_2, 0);
                 time = 0;
                 number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nicknames, color, who_is_home_nicknames, who_is_outof_home);
@@ -837,7 +847,9 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     //     go_back_home(color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home, enter_spot);
     // }
 
+    // reset double if it equels 3, because it would be already handeled
     if(double == 3){
+
         double = 0;
     }
 };
@@ -865,25 +877,36 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
     // set the is_killed boolean depending on the condition (had to be here, outside the setTimeout function)
     if(spot_number + dice <= 68){
         
-        if(!(spot_number + dice == 1 || spot_number + dice == 8 || spot_number + dice == 13 || spot_number + dice == 18 ||
-             spot_number + dice == 25 || spot_number + dice == 30 || spot_number + dice == 35 || spot_number + dice == 42 ||
-             spot_number + dice == 47 || spot_number + dice == 52 || spot_number + dice == 59 || spot_number + dice == 64) &&
-             who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 &&
-             !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))))
+        if((color == "blue" && !(spot_number <= 47 && spot_number >= 42 && spot_number + dice > 47)) ||
+           (color == "red" && !(spot_number <= 30 && spot_number >= 25 && spot_number + dice > 30)) || 
+           (color == "green" && !(spot_number <= 15 && spot_number >= 8 && spot_number + dice > 15)) || 
+           (color == "yellow" && !(spot_number <= 64 && spot_number >= 59 && spot_number + dice > 64)))
         {
-            is_killed = true;
+
+            if(!(spot_number + dice == 1 || spot_number + dice == 8 || spot_number + dice == 13 || spot_number + dice == 18 ||
+                 spot_number + dice == 25 || spot_number + dice == 30 || spot_number + dice == 35 || spot_number + dice == 42 ||
+                 spot_number + dice == 47 || spot_number + dice == 52 || spot_number + dice == 59 || spot_number + dice == 64) &&
+                 who_isin_spot[`who_isin_spot${spot_number + dice}`].length == 1 &&
+                 !(who_isin_spot[`who_isin_spot${spot_number + dice}`].some(pawn => who_is_outof_home.includes(pawn))))
+            {
+                is_killed = true;
+            }
         }
         
     }else if(spot_number + dice > 68){
         
-        if(!((spot_number + dice) - 68 == 1 || (spot_number + dice) - 68 == 8 || (spot_number + dice) - 68 == 13 ||
-             (spot_number + dice) - 68 == 18 || (spot_number + dice) - 68 == 25 || (spot_number + dice) - 68 == 30 ||
-             (spot_number + dice) - 68 == 35 || (spot_number + dice) - 68 == 42 || (spot_number + dice) - 68 == 47 ||
-             (spot_number + dice) - 68 == 52 || (spot_number + dice) - 68 == 59 || (spot_number + dice) - 68 == 64) &&
-              who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1 &&
-            !(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].some(pawn => who_is_outof_home.includes(pawn)))){
-    
-            is_killed = true;
+        if(spot_number <= 68){
+
+            if(!((spot_number + dice) - 68 == 1 || (spot_number + dice) - 68 == 8 || (spot_number + dice) - 68 == 13 ||
+                 (spot_number + dice) - 68 == 18 || (spot_number + dice) - 68 == 25 || (spot_number + dice) - 68 == 30 ||
+                 (spot_number + dice) - 68 == 35 || (spot_number + dice) - 68 == 42 || (spot_number + dice) - 68 == 47 ||
+                 (spot_number + dice) - 68 == 52 || (spot_number + dice) - 68 == 59 || (spot_number + dice) - 68 == 64) &&
+                  who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].length == 1 &&
+                !(who_isin_spot[`who_isin_spot${(spot_number + dice) - 68}`].some(pawn => who_is_outof_home.includes(pawn))))
+            {
+        
+                is_killed = true;
+            }
         }
     }
 
@@ -1374,6 +1397,9 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
             winning_spot = 76;
             added_offset = 21;
+            bonus_first_unsafe_spot = 36;
+            last_white_path = 47;
+            first_colored_path = 69;
             circle_color = "rgba(64, 17, 151, 0.3)";
             left_circle_color = "rgba(64, 17, 151, 0.3)";
             right_circle_color = "rgba(10, 0, 154, 0.5)";
@@ -1382,6 +1408,9 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
             winning_spot = 83; 
             added_offset = 45;
+            bonus_first_unsafe_spot = 19;
+            last_white_path = 30;
+            first_colored_path = 76;
             circle_color = "rgba(174, 3, 3, 0.4)";
             left_circle_color = "rgba(233, 73, 53, 0.3)";
             right_circle_color = "rgba(174, 3, 3, 0.5)";
@@ -1390,6 +1419,9 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
             winning_spot = 90;
             added_offset = 69;
+            bonus_first_unsafe_spot = 2;
+            last_white_path = 13;
+            first_colored_path = 83;
             circle_color = "rgba(33, 168, 74, 0.5)";
             left_circle_color = "rgba(32, 202, 85, 0.5)";
             right_circle_color = "rgba(33, 168, 74, 0.8)";
@@ -1398,6 +1430,9 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
             winning_spot = 97; 
             added_offset = 25;
+            bonus_first_unsafe_spot = 53;
+            last_white_path = 64;
+            first_colored_path = 90;
             circle_color = "rgba(218, 203, 0, 0.6)";
             left_circle_color = "rgba(218, 218, 0, 0.5)";
             right_circle_color = "rgba(218, 203, 0, 0.8)";
@@ -1456,15 +1491,20 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     (color == "green" && !((spot_number_copy1 >= 8 && 13 >= spot_number_copy1) && spot_number_copy1 + j > 13)) ||
                     (color == "yellow" && !((spot_number_copy1 >= 59 && 64 >= spot_number_copy1) && spot_number_copy1 + j > 64)))
                     {
-
                         // to not leave the last spot 96
                         if(spot_number_copy1 + j <= 96){
-
+                            
                             // check if the spot contains two pawns (blockade)
-                            if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2){
-
-                                is_blockade1 = true; // indicate that there is a blockade
-                                break;
+                            if((dice_1 != 20) || (dice_1 == 20 && !(spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path))){
+                                
+                                if(spot_number_copy1 + j <= 96){
+                                    
+                                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j}`].length == 2){
+                                        
+                                        is_blockade1 = true; // indicate that there is a blockade
+                                        break;
+                                    }
+                                }
                             }
 
                             // check if the safe spot is occupied by an enemy pawn
@@ -1491,10 +1531,16 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                         if(spot_number_copy1 + j <= 96){
 
                             // check if the spot contains two pawns (blockade)
-                            if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j + added_offset}`].length == 2){
-                                
-                                is_blockade1 = true; // indicate that there is a blockade
-                                break;
+                            if((dice_1 != 20) || (dice_1 == 20 && !(spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path))){
+
+                                if(spot_number_copy1 + j + added_offset <= 96){
+
+                                    if(who_isin_spot[`who_isin_spot${spot_number_copy1 + j + added_offset}`].length == 2){
+                                        
+                                        is_blockade1 = true; // indicate that there is a blockade
+                                        break;
+                                    }
+                                }
                             }
 
                             // check if the safe spot is occupied by an enemy pawn
@@ -1532,10 +1578,16 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                         if(spot_number_copy2 + j <= 96){
 
                             // check if the spot contains two pawns (blockade)
-                            if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2){
+                            if((dice_2 != 20) || (dice_2 == 20 && !(spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path))){
 
-                                is_blockade2 = true; // indicate that there is a blockade
-                                break;
+                                if(spot_number_copy2 + j <= 96){
+
+                                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j}`].length == 2){
+                                        
+                                        is_blockade2 = true; // indicate that there is a blockade
+                                        break;
+                                    }
+                                }
                             }
 
                             // check if the safe spot is occupied by an enemy pawn
@@ -1561,10 +1613,16 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                         
                         if(spot_number_copy2 + j <= 96){
 
-                            if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j + added_offset}`].length == 2){
-                                
-                                is_blockade2 = true; // indicate that there is a blockade
-                                break;
+                            if((dice_2 != 20) || (dice_2 == 20 && !(spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path))){
+
+                                if(spot_number_copy2 + j + added_offset <= 96){
+
+                                    if(who_isin_spot[`who_isin_spot${spot_number_copy2 + j + added_offset}`].length == 2){
+                                        
+                                        is_blockade2 = true; // indicate that there is a blockade
+                                        break;
+                                    }
+                                }
                             }
 
                             if(who_isin_spot[`who_isin_spot${spot_number_copy2 + dice_2}`].length != 0 &&
@@ -1592,31 +1650,49 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                 // if dice_1 is already played, and dice_2 isn't, and dice_2 + spot_number will not exceed 76, and there is no blockade
                 if(dice_1 == 0 && dice_2 != 0 && ((spot_number + dice_2 <= winning_spot) || dice_2 == 20) && is_blockade2 != true){
 
-                    shows[`circle${i}`].style.visibility = "visible";
-                    shows[`circle${i}`].textContent = `${dice_2}`;
-                    shows[`circle${i}`].addEventListener('click', function(){
-                        
-                        is_dice_2_clicked = true;
-                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                        console.log("ns1")
-                        roller_switcher(color, original_dice_1, original_dice_2, dice_2);
-                        number_sail_destroyer();
-                    });
+                    if(dice_2 != 20 || (dice_2 == 20 && !((spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path) || (spot_number >= first_colored_path)))){
+
+                        shows[`circle${i}`].style.visibility = "visible";
+                        shows[`circle${i}`].textContent = `${dice_2}`;
+                        shows[`circle${i}`].addEventListener('click', function(){
+                            
+                            is_dice_2_clicked = true;
+                            movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_2);
+                            number_sail_destroyer();
+                        });
+
+                    }else{
+
+                        if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
+
+                            incompetents.push(colored_containers[who_is_outof_home_nicknames[i - 1]]);
+                        }
+                    }
                     
                 // if dice_2 is already played, and dice_1 isn't, and dice_1 + spot_number will not exceed 76, and there is no blockade
                 }else if(dice_2 == 0 && dice_1 != 0 && ((spot_number + dice_1 <= winning_spot) || dice_1 == 20) && is_blockade1 != true){
 
-                    shows[`circle${i}`].style.visibility = "visible";
-                    shows[`circle${i}`].textContent = `${dice_1}`;
-                    shows[`circle${i}`].addEventListener('click', function(){
+                    if(dice_1 != 20 || (dice_1 == 20 && !((spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path) || (spot_number >= first_colored_path)))){
+                    
+                        shows[`circle${i}`].style.visibility = "visible";
+                        shows[`circle${i}`].textContent = `${dice_1}`;
+                        shows[`circle${i}`].addEventListener('click', function(){
+    
+                            is_dice_1_clicked = true;
+                            movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
+                            roller_switcher(color, original_dice_1, original_dice_2, dice_1);
+                            number_sail_destroyer();
+                            
+                        });
 
-                        is_dice_1_clicked = true;
-                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                        console.log("ns2")
-                        roller_switcher(color, original_dice_1, original_dice_2, dice_1);
-                        number_sail_destroyer();
-                        
-                    });
+                    }else{
+
+                        if(!(incompetents.includes(colored_containers[who_is_outof_home_nicknames[i - 1]]))){
+
+                            incompetents.push(colored_containers[who_is_outof_home_nicknames[i - 1]]);
+                        }
+                    }
                 
                 // if none of the dices are played
                 }else if(dice_1 != 0 && dice_2 !== 0){
@@ -1638,7 +1714,6 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_1_clicked = true;
                             movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            console.log("ns3")
                             roller_switcher(color, original_dice_1, original_dice_2, dice_1);
                             number_sail_destroyer();
         
@@ -1662,7 +1737,6 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_2_clicked = true;
                             movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            console.log("ns4")
                             roller_switcher(color, original_dice_1, original_dice_2, dice_2);
                             number_sail_destroyer();
         
@@ -1684,10 +1758,60 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     }
 
                     // if both of the dices + spot_number will not exceed the winning_spot, and there is no blockade, or one of the dices is equel to 20
-                    if(((spot_number + dice_1 <= winning_spot) && (spot_number + dice_2 <= winning_spot) && is_blockade1 != true && is_blockade2 != true) || dice_1 == 20 || dice_2 == 20){
+                    if(((spot_number + dice_1 <= winning_spot) && (spot_number + dice_2 <= winning_spot) && is_blockade1 != true && is_blockade2 != true) || ((dice_1 == 20 || dice_2 == 20) && is_blockade1 != true && is_blockade2 != true)){
+                        
+                        if(dice_1 != 20 && dice_2 != 20){
+                            
+                            left_half();
+                            right_half();
 
-                        left_half();
-                        right_half();
+                        }else{
+                            
+                            if(dice_1 == 20){
+                                
+                                if(!((spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path) || (spot_number >= first_colored_path))){
+                                    
+                                    left_half();
+                                    right_half();
+
+                                }else{
+                                    
+                                    full_circle();
+
+                                    shows[`full_circle${i}`].textContent = `${dice_2}`;
+                                    shows[`full_circle${i}`].addEventListener('click', function(){
+                    
+                                        is_dice_2_clicked = true;
+                                        movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
+                                        roller_switcher(color, original_dice_1, original_dice_2, dice_2);
+                                        number_sail_destroyer();
+                    
+                                    });
+                                }
+
+                            }else if(dice_2 == 20){
+                                
+                                if(!((spot_number >= bonus_first_unsafe_spot && spot_number <= last_white_path) || (spot_number >= first_colored_path))){
+                                    
+                                    left_half();
+                                    right_half();
+
+                                }else{
+                                    
+                                    full_circle();
+
+                                    shows[`full_circle${i}`].textContent = `${dice_1}`;
+                                    shows[`full_circle${i}`].addEventListener('click', function(){
+                    
+                                        is_dice_1_clicked = true;
+                                        movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
+                                        roller_switcher(color, original_dice_1, original_dice_2, dice_1);
+                                        number_sail_destroyer();
+                    
+                                    });
+                                }
+                            }
+                        }
 
                     // if just the dice_1 + spot_number will not exceed the winning_spot, and there is no blockade
                     }else if(spot_number + dice_1 <= winning_spot && is_blockade1 != true){
@@ -1699,7 +1823,6 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_1_clicked = true;
                             movements(dice_1, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            console.log("ns5")
                             roller_switcher(color, original_dice_1, original_dice_2, dice_1);
                             number_sail_destroyer();
         
@@ -1715,7 +1838,6 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
         
                             is_dice_2_clicked = true;
                             movements(dice_2, colored_containers[who_is_outof_home_nicknames[i - 1]], spot_number, dice_1, dice_2, color, colored_containers, who_is_outof_home_nicknames, who_is_home_nicknames, who_is_outof_home);
-                            console.log("ns6")
                             roller_switcher(color, original_dice_1, original_dice_2, dice_2);
                             number_sail_destroyer();
         
@@ -1753,7 +1875,6 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
 
                     number_sail_destroyer();
 
-                    console.log("ns7")
                     roller_switcher(color, original_dice_1, original_dice_2, 0);
                     round_selector();
                 }
@@ -1850,10 +1971,12 @@ function go_back_home(color, colored_containers, who_is_outof_home_nicknames, wh
                     if((enter_spot <= j) && (j <= 68) && (enter_spot != 1)){
                         
                         index = j - 68;
+
+                    }else{
+
+                        index = j;
                     }
 
-                    index = j;
-                    
                     spot_numbers.push(index);
                     original_spot_numbers.push(j);
                 }
