@@ -4,10 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="parchisi.css">
-    <link rel="icon" href="ParCheesyIcon.png"> 
+    <link rel="icon" href="img/ParCheesyIcon.png"> 
     <title>ParCheesy</title>
 </head>
 <body>
+    
+    <!-- logo -->
+     
+    <div class="logo-header">
+        <img src="img/ParCheesyIcon.png" alt="ParCheesy Logo" class="logo-img">
+        <span class="logo-text">ParCheesy</span>
+    </div>
+
+    <div class="top-buttons">
+
+        <button title="Game Rules" class="rules-button button" onclick="openRules()">
+            <img class="icon-img" src="img/rules.png" alt="Game Rules">
+        </button>
+
+    </div>
+
+    <div id="rules-modal" class="rules-modal">
+
+        <div class="rules-content">
+
+            <span class="close-button" onclick="closeRules()">&times;</span>
+            <h2>Parcheesy Rules</h2>
+
+            <ul>
+                <li>Each player has 4 pawns.</li>
+                <li>Roll a 5 (or sum of 5) to enter the board.</li>
+                <li>Pawns move clockwise around the board.</li>
+                <li>Landing on another pawn sends it back home.</li>
+                <li>Safe spots (⭐) protect pawns from being captured.</li>
+                <li>First player to finish all 4 pawns wins!</li>
+            </ul>
+
+        </div>
+        
+    </div>
+
     <div id="Main-Container" class="Main-Container">
 
         <div id="blue-box">
@@ -46,7 +82,7 @@
 
         <!-- top -->
         <div id="d47" class="first second-column grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d69" class="second second-column blues"></div>
         <div id="d70" class="third second-column blues"></div>
@@ -70,7 +106,7 @@
         <div id="d44" class="wides third third-column">44</div>
         <div id="d43" class="wides fourth third-column">43</div>
         <div id="d42" class="wides fifth third-column grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d41" class="wides sixth third-column">41</div>
         <div id="d40" class="wides seventh third-column">40</div>
@@ -89,7 +125,7 @@
         <div id="d6" class="wides tenth first-column">6</div>
         <div id="d7" class="wides eleventh first-column">7</div>
         <div id="d8" class="wides twelfth first-column grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d9" class="wides thirteenth first-column">9</div>
         <div id="d10" class="wides fourteenth first-column">10</div>
@@ -104,7 +140,7 @@
         <div id="d84" class="fourteenth second-column greens"></div>
         <div id="d83" class="fifteenth second-column greens"></div>
         <div id="d13" class="sixteenth second-column grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <!-- left -->
         <div id="d63" class="longes seventeenth first-row">63</div>
@@ -112,14 +148,14 @@
         <div id="d61" class="longes ninteenth first-row">61</div>
         <div id="d60" class="longes twentieth first-row">60</div>
         <div id="d59" class="longes twenty_first first-row grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d58" class="longes twenty_second first-row">58</div>
         <div id="d57" class="longes twenty_third first-row">57</div>
         <div id="d56" class="borderless-longes twenty_fourth first-row">56</div>
 
         <div id="d64" class="seventeenth second-row grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d90" class="eighteenth second-row yellows"></div>
         <div id="d91" class="ninteenth second-row yellows"></div>
@@ -155,14 +191,14 @@
         <div id="d77" class="thirtieth second-row reds"></div>
         <div id="d76" class="thirty_first second-row reds"></div>
         <div id="d30" class="thirty_second second-row grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
 
         <div id="d22" class="borderless-longes twenty_fifth third-row">22</div>
         <div id="d23" class="longes twenty_sixth third-row">23</div>
         <div id="d24" class="longes twenty_seventh third-row">24</div>
         <div id="d25" class="longes twenty_eighth third-row grays">
-            <img class="star" src="star.png">
+            <img class="star" src="img/star.png">
         </div>
         <div id="d26" class="longes twenty_ninth third-row">26</div>
         <div id="d27" class="longes thirtieth third-row">27</div>
@@ -178,111 +214,147 @@
 
         <!--blue pawns-->
         <div id="blue_one_container" class="pawn-container">
-            <img src="blue.png" class="pawn">
+            <img src="img/blue.png" class="pawn">
         </div>
         
         <div id="blue_two_container" class="pawn-container">
-            <img src="blue.png" class="pawn">
+            <img src="img/blue.png" class="pawn">
         </div>
 
         <div id="blue_three_container" class="pawn-container">
-            <img src="blue.png" class="pawn">
+            <img src="img/blue.png" class="pawn">
         </div>
 
         <div id="blue_four_container" class="pawn-container">
-            <img src="blue.png" class="pawn">
+            <img src="img/blue.png" class="pawn">
         </div>
 
         <!--red pawns-->
         <div id="red_one_container" class="pawn-container">
-            <img src="red.png" class="pawn">
+            <img src="img/red.png" class="pawn">
         </div>
         
         <div id="red_two_container" class="pawn-container">
-            <img src="red.png" class="pawn">
+            <img src="img/red.png" class="pawn">
         </div>
 
         <div id="red_three_container" class="pawn-container">
-            <img src="red.png" class="pawn">
+            <img src="img/red.png" class="pawn">
         </div>
 
         <div id="red_four_container" class="pawn-container">
-            <img src="red.png" class="pawn">
+            <img src="img/red.png" class="pawn">
         </div>
         
         <!--yellow pawns-->
         <div id="yellow_one_container" class="pawn-container">
-            <img src="yellow.png" class="pawn">
+            <img src="img/yellow.png" class="pawn">
         </div>
         
         <div id="yellow_two_container" class="pawn-container">
-            <img src="yellow.png" class="pawn">
+            <img src="img/yellow.png" class="pawn">
         </div>
 
         <div id="yellow_three_container" class="pawn-container">
-            <img src="yellow.png" class="pawn">
+            <img src="img/yellow.png" class="pawn">
         </div>
 
         <div id="yellow_four_container" class="pawn-container">
-            <img src="yellow.png" class="pawn">
+            <img src="img/yellow.png" class="pawn">
         </div>
                
         <!--green pawns-->
         <div id="green_one_container" class="pawn-container">
-            <img src="green.png" class="pawn">
+            <img src="img/green.png" class="pawn">
         </div>
         
         <div id="green_two_container" class="pawn-container">
-            <img src="green.png" class="pawn">
+            <img src="img/green.png" class="pawn">
         </div>
 
         <div id="green_three_container" class="pawn-container">
-            <img src="green.png" class="pawn">
+            <img src="img/green.png" class="pawn">
         </div>
 
         <div id="green_four_container" class="pawn-container">
-            <img src="green.png" class="pawn">
+            <img src="img/green.png" class="pawn">
         </div>
-    </div>
-    
-    <!--blue roller-->
-    <div id="blue-roll" class="roller-container">
-        <div id="blue-roller-one" class="roller-one">
-            <img id="blue-roller-one-image" class="roller-image" src="dice_crown.png">
+
+        <!--blue roller-->
+
+        <div id="blue-player-label" class="player-label blue-label">1<sup>st</sup>&nbsp;Player:&nbsp;<span id="blue-player-score">0</span></div>
+
+        <div id="blue-roll" class="roller-container">
+            <div id="blue-roller-one" class="roller-one">
+                <img id="blue-roller-one-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+            <div id="blue-roller-two" class="roller-two">
+                <img id="blue-roller-two-image" class="roller-image" src="img/dice_crown.png">
+            </div>
         </div>
-        <div id="blue-roller-two" class="roller-two">
-            <img id="blue-roller-two-image" class="roller-image" src="dice_crown.png">
+
+        <div class="player-avatar blue-avatar">
+            <img src="img/blue_avatar.png" class="avatar" alt="blue Player" />
+        </div>
+
+        <!--red roller-->
+
+        <div id="red-player-label" class="player-label red-label">2<sup>nd</sup>&nbsp;Player:&nbsp;<span id="red-player-score">0</span></div>
+
+        <div id="red-roll" class="roller-container">
+            <div id="red-roller-one" class="roller-one">
+                <img id="red-roller-one-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+            <div id="red-roller-two" class="roller-two">
+                <img id="red-roller-two-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+        </div>
+
+        <div class="player-avatar red-avatar">
+            <img src="img/red_avatar.png" class="avatar" alt="red Player" />
+        </div>
+
+        <!--yellow roller-->
+
+        <div id="yellow-player-label" class="player-label yellow-label">4<sup>th</sup>&nbsp;Player:&nbsp;<span id="yellow-player-score">0</span></div>
+
+        <div id="yellow-roll" class="roller-container">
+            <div id="yellow-roller-one" class="roller-one">
+                <img id="yellow-roller-one-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+            <div id="yellow-roller-two" class="roller-two">
+                <img id="yellow-roller-two-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+        </div>
+
+        <div class="player-avatar yellow-avatar">
+            <img src="img/yellow_avatar.png" class="avatar" alt="yellow Player" />
+        </div>
+
+        <!--green roller-->
+
+        <div id="green-player-label" class="player-label green-label">3<sup>rd</sup>&nbsp;Player:&nbsp;<span id="green-player-score">0</span></div>
+
+        <div id="green-roll" class="roller-container">
+            <div id="green-roller-one" class="roller-one">
+                <img id="green-roller-one-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+            <div id="green-roller-two" class="roller-two">
+                <img id="green-roller-two-image" class="roller-image" src="img/dice_crown.png">
+            </div>
+        </div>
+
+        <div class="player-avatar green-avatar">
+            <img src="img/green_avatar.png" class="avatar" alt="green Player" />
         </div>
     </div>
 
-    <!--red roller-->
-    <div id="red-roll" class="roller-container">
-        <div id="red-roller-one" class="roller-one">
-            <img id="red-roller-one-image" class="roller-image" src="dice_crown.png">
-        </div>
-        <div id="red-roller-two" class="roller-two">
-            <img id="red-roller-two-image" class="roller-image" src="dice_crown.png">
-        </div>
-    </div>
-
-    <!--yellow roller-->
-    <div id="yellow-roll" class="roller-container">
-        <div id="yellow-roller-one" class="roller-one">
-            <img id="yellow-roller-one-image" class="roller-image" src="dice_crown.png">
-        </div>
-        <div id="yellow-roller-two" class="roller-two">
-            <img id="yellow-roller-two-image" class="roller-image" src="dice_crown.png">
-        </div>
-    </div>
-
-    <!--green roller-->
-    <div id="green-roll" class="roller-container">
-        <div id="green-roller-one" class="roller-one">
-            <img id="green-roller-one-image" class="roller-image" src="dice_crown.png">
-        </div>
-        <div id="green-roller-two" class="roller-two">
-            <img id="green-roller-two-image" class="roller-image" src="dice_crown.png">
-        </div>
+    <div class="info-footer">
+        <p>
+            <em>Parcheesy Beta version<br>
+            only local gaming<br>
+            only 4 players</em>
+        </p>
     </div>
 
     <script src="parchisi.js"></script>

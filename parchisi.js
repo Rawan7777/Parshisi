@@ -291,9 +291,47 @@ green_roll.style.opacity = 0.5;
 
 //---------------------------------the round selector function---to cycle through the rounds----------------------------------
 
+let is_blue_finished = false;
+let is_red_finished = false;
+let is_green_finished = false;
+let is_yellow_finished = false;
 let round = 1; // to indicate the round (starts with blue)
 
 function round_selector(){
+
+    if(round == 1 && is_blue_finished == true){
+
+        yellow_roll.style.pointerEvents =  "none"; 
+        yellow_roll.style.opacity = 0.5;
+        round++;
+    }
+
+    if(round == 2 && is_red_finished == true){
+
+        blue_roll.style.pointerEvents =  "none"; 
+        blue_roll.style.opacity = 0.5;
+        round++;
+    }
+
+    if(round == 3 && is_green_finished == true){
+
+        red_roll.style.pointerEvents =  "none"; 
+        red_roll.style.opacity = 0.5;
+        round++;
+    }
+
+    if(round == 4 && is_yellow_finished == true){
+
+        green_roll.style.pointerEvents =  "none"; 
+        green_roll.style.opacity = 0.5;
+        round++;
+    }
+
+    // start over from 1 when the round finishes
+    if(round == 5){
+        console.log("rrrr")
+        round = 1;
+    }
 
     if(round == 1){
 
@@ -376,27 +414,19 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
     // let dice_2;
 
     function dicy(){
-        if(count == 0){
-            dice_1 = 5;
-            dice_2 = 5;
-            count++;
-        }else if(count == 1  || count == 6 || count == 7){
+        if(count == 6  || count == 12 || count == 13 || count == 7){
             dice_1 = 6;
             dice_2 = 6;
             count++
-        }else if(count == 8 || count == 12){
+        }else if(count == 8){
             dice_1 = 4;
             dice_2 = 6;
             count++
-        }else if(count == 22 || count == 9){
-            dice_1 = 3;
-            dice_2 = 6;
+        }else if(count == 14 || count == 18){
+            dice_1 = 1;
+            dice_2 = 3;
             count++
-        }else if(count == 2 || count == 11){
-            dice_1 = 4;
-            dice_2 = 6;
-            count++
-        }else if(count == 3 || count == 77 ){
+        }else if(count == 2){
             dice_1 = 6;
             dice_2 = 5;
             count++
@@ -422,22 +452,22 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
     switch(dice_1){
         case 1:
-            roller_1_image.src = "dice_one.png";
+            roller_1_image.src = "img/dice_one.png";
             break;
         case 2:
-            roller_1_image.src = "dice_two.png";
+            roller_1_image.src = "img/dice_two.png";
             break;
         case 3:
-            roller_1_image.src = "dice_three.png";
+            roller_1_image.src = "img/dice_three.png";
             break;
         case 4:
-            roller_1_image.src = "dice_four.png";
+            roller_1_image.src = "img/dice_four.png";
             break;
         case 5:
-            roller_1_image.src = "dice_five.png";
+            roller_1_image.src = "img/dice_five.png";
             break;
         case 6:
-            roller_1_image.src = "dice_six.png";
+            roller_1_image.src = "img/dice_six.png";
             break;
     }
 
@@ -446,22 +476,22 @@ function roll_dice(roller_one_image, roller_two_image, colored_containers, who_i
 
     switch(dice_2){
         case 1:
-            roller_2_image.src = "dice_one.png";
+            roller_2_image.src = "img/dice_one.png";
             break;
         case 2:
-            roller_2_image.src = "dice_two.png";
+            roller_2_image.src = "img/dice_two.png";
             break;
         case 3:
-            roller_2_image.src = "dice_three.png";
+            roller_2_image.src = "img/dice_three.png";
             break;
         case 4:
-            roller_2_image.src = "dice_four.png";
+            roller_2_image.src = "img/dice_four.png";
             break;
         case 5:
-            roller_2_image.src = "dice_five.png";
+            roller_2_image.src = "img/dice_five.png";
             break;
         case 6:
-            roller_2_image.src = "dice_six.png";
+            roller_2_image.src = "img/dice_six.png";
             break;
     }
 
@@ -1064,6 +1094,27 @@ function movements(dice, container, spot_number, dice_1, dice_2, color, colored_
                         if(!(finishers_map[color].includes(container))){
     
                             finishers_map[color].push(container);
+                        }
+
+                        if(finishers_map[color].length == 4){
+
+                            if(color == "blue"){
+    
+                                is_blue_finished = true;
+    
+                            }else if(color == "red"){
+    
+                                is_red_finished = true;
+    
+                            }else if(color == "green"){
+    
+                                is_green_finished = true;
+    
+                            }else if(color == "yellow"){
+    
+                                is_yellow_finished = true;
+    
+                            }
                         }
 
                         finishers_maker(finishers_map[color], container, color);  // enter the pawn to the finish triangle
@@ -1876,7 +1927,11 @@ function number_sail(dice_1, dice_2, colored_containers, who_is_outof_home_nickn
                     number_sail_destroyer();
 
                     roller_switcher(color, original_dice_1, original_dice_2, 0);
-                    round_selector();
+
+                    if(original_dice_1 != original_dice_2){
+
+                        round_selector();
+                    }
                 }
             }, time);
         }
@@ -2134,3 +2189,20 @@ function kill(spot_number){
         who_is_home_nicknames.splice(0, 0, `${color}_${number}`);
     }
 };
+
+function openRules() {
+    document.getElementById("rules-modal").style.display = "block";
+}
+
+function closeRules() {
+    document.getElementById("rules-modal").style.display = "none";
+}
+
+window.onclick = function(event) {
+
+    let modal = document.getElementById("rules-modal");
+    
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
